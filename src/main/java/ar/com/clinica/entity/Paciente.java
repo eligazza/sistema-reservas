@@ -19,12 +19,6 @@ public class Paciente extends Usuario {
     @Column(length = 50)
     private String apellido;
 
-    @Column(length = 50)
-    private String usuario;
-
-    @Column(length = 50)
-    private String contrasenia;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Domicilio domicilio;
 
@@ -34,12 +28,10 @@ public class Paciente extends Usuario {
     private TurnoService turnoService;
 
 
-    public Paciente(int dni, String nombre, String apellido, String usuario, String contrasenia, Domicilio domicilio, LocalDate fechaDeAlta, TurnoService turnoService) {
+    public Paciente(int dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta, TurnoService turnoService) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
         this.domicilio = domicilio;
         this.fechaDeAlta = fechaDeAlta;
         this.turnoService = turnoService;
@@ -76,22 +68,6 @@ public class Paciente extends Usuario {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public Domicilio getDomicilio() {

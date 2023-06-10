@@ -15,21 +15,13 @@ public class Odontologo extends Usuario {
     @Column(length = 50)
     private String apellido;
 
-    @Column(length = 50)
-    private String usuario;
-
-    @Column(length = 50)
-    private String contrasenia;
-
     @Column(length = 15)
     private String matricula;
 
 
-    public Odontologo(String nombre, String apellido, String usuario, String contrasenia, String matricula) {
+    public Odontologo(String nombre, String apellido, String matricula) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
         this.matricula = matricula;
     }
 
@@ -56,22 +48,6 @@ public class Odontologo extends Usuario {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public String getMatricula() {

@@ -18,22 +18,14 @@ public class Administrador extends Usuario {
     @Column(length = 50)
     private String apellido;
 
-    @Column(length = 50)
-    private String usuario;
-
-    @Column(length = 50)
-    private String contrasenia;
-
     private OdontologoService odontologoService;
 
     private PacienteService pacienteService;
 
 
-    public Administrador(String nombre, String apellido, String usuario, String contrasenia, OdontologoService odontologoService, PacienteService pacienteService) {
+    public Administrador(String nombre, String apellido, OdontologoService odontologoService, PacienteService pacienteService) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
         this.odontologoService = odontologoService;
         this.pacienteService = pacienteService;
     }
@@ -60,22 +52,6 @@ public class Administrador extends Usuario {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public OdontologoService getOdontologoService() {
