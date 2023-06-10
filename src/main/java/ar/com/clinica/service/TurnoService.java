@@ -25,7 +25,7 @@ public class TurnoService implements IService<Turno> {
     }
 
     @Override
-    public Turno listarPorId(int id) {
+    public Turno buscarPorId(Long id) {
         return null;
     }
 
@@ -40,7 +40,7 @@ public class TurnoService implements IService<Turno> {
     }
 
     @Override
-    public Turno eliminar(int id) {
+    public Turno eliminar(Long id) {
         return null;
     }
 }

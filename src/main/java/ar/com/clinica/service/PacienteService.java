@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteService implements IService<Paciente> {
@@ -21,17 +22,27 @@ public class PacienteService implements IService<Paciente> {
 
     @Override
     public List<Paciente> listar() {
-        return null;
+        List<Paciente> lista = repository.findAll();
+        if (lista.isEmpty()) {
+            lista = null;
+        }
+        return lista;
     }
 
     @Override
-    public Paciente listarPorId(int id) {
-        return null;
+    public Paciente buscarPorId(Long id) {
+        Paciente paciente = null;
+        if (repository.findById(id).isPresent()) {
+            paciente = repository.findById(id).get();
+        }
+        return paciente;
     }
 
     @Override
-    public Paciente insertar(Paciente paciente) {
-        return null;
+    public Paciente insertar(Paciente p) {
+        if (p.getApellido().isEmpty() || p.getApellido().isEmpty() || p.){
+
+        }
     }
 
     @Override
@@ -40,7 +51,7 @@ public class PacienteService implements IService<Paciente> {
     }
 
     @Override
-    public Paciente eliminar(int id) {
+    public Paciente eliminar(Long id) {
         return null;
     }
 }

@@ -25,11 +25,11 @@ public class OdontologoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> listarPorId(@PathVariable int id) {
-        if (service.listarPorId(id) == null) {
+    public ResponseEntity<Odontologo> listarPorId(@PathVariable Long id) {
+        if (service.buscarPorId(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.listarPorId(id) , HttpStatus.OK);
+        return new ResponseEntity<>(service.buscarPorId(id) , HttpStatus.OK);
     }
 
     @PostMapping
@@ -49,7 +49,7 @@ public class OdontologoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Odontologo> eliminar(@PathVariable int id) {
+    public ResponseEntity<Odontologo> eliminar(@PathVariable Long id) {
         if (service.eliminar(id) == null) {
             return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
         }

@@ -26,7 +26,7 @@ public class OdontologoService implements IService<Odontologo> {
     }
 
     @Override
-    public Odontologo listarPorId(int id) {
+    public Odontologo buscarPorId(Long id) {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class OdontologoService implements IService<Odontologo> {
     }
 
     @Override
-    public Odontologo eliminar(int id) {
+    public Odontologo eliminar(Long id) {
         return null;
     }
 
