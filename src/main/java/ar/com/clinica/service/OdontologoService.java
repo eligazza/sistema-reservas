@@ -12,23 +12,23 @@ public class OdontologoService {
     // TODO CONSTRUCTOR
 
 
-    public List<ar.com.clinica.dtos.response.Odontologo> listar() {
+    public List<Odontologo> listar() {
         return null;
     }
 
-    public ar.com.clinica.dtos.response.Odontologo listarPorId(int id) {
+    public Odontologo listarPorId(int id) {
         return null;
     }
 
-    public ar.com.clinica.dtos.response.Odontologo insertar(Odontologo odontologo) {
+    public Odontologo insertar(Odontologo odontologo) {
         return null;
     }
 
-    public ar.com.clinica.dtos.response.Odontologo modificar(Odontologo odontologo) {
+    public Odontologo modificar(Odontologo odontologo) {
         return null;
     }
 
-    public ar.com.clinica.dtos.response.Odontologo eliminar(int id) {
+    public Odontologo eliminar(int id) {
         return null;
     }
 }

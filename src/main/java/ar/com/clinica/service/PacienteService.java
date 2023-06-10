@@ -1,7 +1,6 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dtos.request.PacienteDtoReq;
-import ar.com.clinica.dtos.response.PacienteDtoRes;
+import ar.com.clinica.entity.Paciente;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,23 +11,23 @@ public class PacienteService {
     // TODO ATRIBUTO DAO
     // TODO CONSTRUCTOR
 
-    public List<PacienteDtoRes> listar() {
+    public List<Paciente> listar() {
         return null;
     }
 
-    public PacienteDtoRes listarPorId(int id) {
+    public Paciente listarPorId(int id) {
         return null;
     }
 
-    public PacienteDtoRes agregar(PacienteDtoReq pacienteDtoReq) {
+    public Paciente agregar(Paciente pacienteDtoReq) {
         return null;
     }
 
-    public PacienteDtoRes modificar(PacienteDtoReq pacienteDtoReq) {
+    public Paciente modificar(Paciente pacienteDtoReq) {
         return null;
     }
 
-    public PacienteDtoRes eliminar(int id) {
+    public Paciente eliminar(int id) {
         return null;
     }
 }
