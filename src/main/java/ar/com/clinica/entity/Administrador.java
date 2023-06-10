@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class Administrador {
+public class Administrador extends Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

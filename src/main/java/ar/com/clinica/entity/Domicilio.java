@@ -21,6 +21,8 @@ public class Domicilio {
     @Column(length = 50)
     private String provincia;
 
+    @OneToMany(mappedBy = "domicilio")
+    private Usuario usuario;
 
     public Domicilio(String calle, int numero, String localidad, String provincia) {
         this.calle = calle;
