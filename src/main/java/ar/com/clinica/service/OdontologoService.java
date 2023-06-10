@@ -1,7 +1,6 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dtos.request.OdontologoDtoReq;
-import ar.com.clinica.dtos.response.OdontologoDtoRes;
+import ar.com.clinica.dtos.request.Odontologo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,23 +12,23 @@ public class OdontologoService {
     // TODO CONSTRUCTOR
 
 
-    public List<OdontologoDtoRes> listar() {
+    public List<ar.com.clinica.dtos.response.Odontologo> listar() {
         return null;
     }
 
-    public OdontologoDtoRes listarPorId(int id) {
+    public ar.com.clinica.dtos.response.Odontologo listarPorId(int id) {
         return null;
     }
 
-    public OdontologoDtoRes insertar(OdontologoDtoReq odontologo) {
+    public ar.com.clinica.dtos.response.Odontologo insertar(Odontologo odontologo) {
         return null;
     }
 
-    public OdontologoDtoRes modificar(OdontologoDtoReq odontologo) {
+    public ar.com.clinica.dtos.response.Odontologo modificar(Odontologo odontologo) {
         return null;
     }
 
-    public OdontologoDtoRes eliminar(int id) {
+    public ar.com.clinica.dtos.response.Odontologo eliminar(int id) {
         return null;
     }
 }

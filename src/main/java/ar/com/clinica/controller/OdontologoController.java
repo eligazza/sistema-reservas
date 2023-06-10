@@ -1,7 +1,6 @@
 package ar.com.clinica.controller;
 
-import ar.com.clinica.dtos.request.OdontologoDtoReq;
-import ar.com.clinica.dtos.response.OdontologoDtoRes;
+import ar.com.clinica.dtos.request.Odontologo;
 import ar.com.clinica.service.OdontologoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ public class OdontologoController {
     private OdontologoService service;
 
     @GetMapping
-    public ResponseEntity<List<OdontologoDtoRes>> listar() {
+    public ResponseEntity<List<Odontologo>> listar() {
         if (service.listar() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -26,7 +25,7 @@ public class OdontologoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OdontologoDtoRes> listarPorId(@PathVariable int id) {
+    public ResponseEntity<Odontologo> listarPorId(@PathVariable int id) {
         if (service.listarPorId(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -34,7 +33,7 @@ public class OdontologoController {
     }
 
     @PostMapping
-    public ResponseEntity<OdontologoDtoRes> agregar(@RequestBody OdontologoDtoReq odontologo) {
+    public ResponseEntity<Odontologo> agregar(@RequestBody Odontologo odontologo) {
         if (service.insertar(odontologo) == null) {
             return new ResponseEntity<>(service.insertar(odontologo), HttpStatus.BAD_REQUEST);
         }
@@ -42,7 +41,7 @@ public class OdontologoController {
     }
 
     @PutMapping
-    public ResponseEntity<OdontologoDtoRes> modificar(@RequestBody OdontologoDtoReq odontologo) {
+    public ResponseEntity<Odontologo> modificar(@RequestBody Odontologo odontologo) {
         if (service.modificar(odontologo) == null) {
             return new ResponseEntity<>(service.modificar(odontologo), HttpStatus.BAD_REQUEST);
         }
@@ -50,7 +49,7 @@ public class OdontologoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<OdontologoDtoRes> eliminar(@PathVariable int id) {
+    public ResponseEntity<Odontologo> eliminar(@PathVariable int id) {
         if (service.eliminar(id) == null) {
             return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
         }

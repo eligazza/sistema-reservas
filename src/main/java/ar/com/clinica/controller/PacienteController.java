@@ -1,7 +1,7 @@
 package ar.com.clinica.controller;
 
-import ar.com.clinica.dtos.request.PacienteDtoReq;
-import ar.com.clinica.dtos.response.PacienteDtoRes;
+
+import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class PacienteController {
     private PacienteService service;
 
     @GetMapping
-    public ResponseEntity<List<PacienteDtoRes>> listar() {
+    public ResponseEntity<List<Paciente>> listar() {
         if (service.listar() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -26,7 +26,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PacienteDtoRes> listarPorId(@PathVariable int id) {
+    public ResponseEntity<Paciente> listarPorId(@PathVariable int id) {
         if (service.listarPorId(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -34,7 +34,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<PacienteDtoRes> insertar(@RequestBody PacienteDtoReq paciente) {
+    public ResponseEntity<Paciente> insertar(@RequestBody Paciente paciente) {
         if (service.agregar(paciente) == null) {
             return new ResponseEntity<>(service.agregar(paciente), HttpStatus.BAD_REQUEST);
         }
@@ -42,7 +42,7 @@ public class PacienteController {
     }
 
     @PutMapping
-    public ResponseEntity<PacienteDtoRes> modificar(@RequestBody PacienteDtoReq paciente) {
+    public ResponseEntity<Paciente> modificar(@RequestBody Paciente paciente) {
         if (service.modificar(paciente) == null) {
             return new ResponseEntity<>(service.modificar(paciente), HttpStatus.BAD_REQUEST);
         }
@@ -50,7 +50,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PacienteDtoRes> eliminar(@PathVariable int id) {
+    public ResponseEntity<Paciente> eliminar(@PathVariable int id) {
         if (service.eliminar(id) == null) {
             return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
         }
