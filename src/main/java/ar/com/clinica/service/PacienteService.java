@@ -19,11 +19,11 @@ public class PacienteService {
         return null;
     }
 
-    public Paciente agregar(Paciente pacienteDtoReq) {
+    public Paciente agregar(Paciente paciente) {
         return null;
     }
 
-    public Paciente modificar(Paciente pacienteDtoReq) {
+    public Paciente modificar(Paciente paciente) {
         return null;
     }
 
