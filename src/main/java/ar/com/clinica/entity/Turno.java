@@ -1,12 +1,23 @@
 package ar.com.clinica.entity;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
 public class Turno {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Odontologo odontologo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Paciente paciente;
+
+    @Column
     private LocalDate fecha;
 
 
