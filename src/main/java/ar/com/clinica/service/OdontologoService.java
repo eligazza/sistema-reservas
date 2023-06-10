@@ -1,6 +1,8 @@
 package ar.com.clinica.service;
 
 import ar.com.clinica.entity.Odontologo;
+import ar.com.clinica.repository.IOdontologoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,8 +11,14 @@ import java.util.List;
 @Service
 public class OdontologoService implements IService<Odontologo> {
 
-    // TODO ATRIBUTO DAO
-    // TODO CONSTRUCTOR
+    private IOdontologoRepository repository;
+
+
+    @Autowired
+    public OdontologoService(IOdontologoRepository repository) {
+        this.repository = repository;
+    }
+
 
     @Override
     public List<Odontologo> listar() {

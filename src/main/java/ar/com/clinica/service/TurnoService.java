@@ -1,7 +1,8 @@
 package ar.com.clinica.service;
 
-
 import ar.com.clinica.entity.Turno;
+import ar.com.clinica.repository.ITurnoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +10,13 @@ import java.util.List;
 @Service
 public class TurnoService implements IService<Turno> {
 
+    private ITurnoRepository repository;
 
-    // TODO ATRIBUTO DAO
-    // TODO CONSTRUCTOR
+
+    @Autowired
+    public TurnoService(ITurnoRepository repository) {
+        this.repository = repository;
+    }
 
 
     @Override
