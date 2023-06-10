@@ -40,9 +40,11 @@ public class PacienteService implements IService<Paciente> {
 
     @Override
     public Paciente insertar(Paciente p) {
-        if (p.getApellido().isEmpty() || p.getApellido().isEmpty() || p.){
-
+        Paciente pGuardado = null;
+        if (p.getApellido().isEmpty() || p.getNombre().isEmpty()) {
+            pGuardado = repository.save(p);
         }
+        return pGuardado;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Paciente extends Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int dni;
+    private Integer dni;
     @Column(length = 50)
     private String nombre;
 
@@ -28,7 +28,7 @@ public class Paciente extends Usuario {
     private TurnoService turnoService;
 
 
-    public Paciente(int dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta, TurnoService turnoService) {
+    public Paciente(Integer dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta, TurnoService turnoService) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -46,11 +46,11 @@ public class Paciente extends Usuario {
         this.id = id;
     }
 
-    public int getDni() {
+    public Integer getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
 
