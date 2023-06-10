@@ -1,6 +1,6 @@
-package ar.com.clinica.models;
+package ar.com.clinica.entity;
 
-import ar.com.clinica.services.TurnoService;
+import ar.com.clinica.service.TurnoService;
 
 import java.time.LocalDate;
 

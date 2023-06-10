@@ -1,4 +1,4 @@
-package ar.com.clinica.models;
+package ar.com.clinica.entity;
 
 public abstract class Usuario {
 

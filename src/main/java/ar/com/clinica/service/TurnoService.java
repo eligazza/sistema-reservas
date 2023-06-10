@@ -1,4 +1,4 @@
-package ar.com.clinica.services;
+package ar.com.clinica.service;
 
 import ar.com.clinica.dtos.request.TurnoDtoReq;
 import ar.com.clinica.dtos.response.TurnoDtoRes;

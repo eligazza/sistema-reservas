@@ -1,8 +1,8 @@
-package ar.com.clinica.controllers;
+package ar.com.clinica.controller;
 
 import ar.com.clinica.dtos.request.PacienteDtoReq;
 import ar.com.clinica.dtos.response.PacienteDtoRes;
-import ar.com.clinica.services.PacienteService;
+import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

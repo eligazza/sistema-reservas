@@ -1,11 +1,20 @@
-package ar.com.clinica.models;
+package ar.com.clinica.entity;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Domicilio {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 50)
     private String calle;
+    @Column
     private int numero;
+    @Column(length = 50)
     private String localidad;
+    @Column(length = 50)
     private String provincia;
 
 
