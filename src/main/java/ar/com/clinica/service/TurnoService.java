@@ -1,7 +1,6 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dtos.request.TurnoDtoReq;
-import ar.com.clinica.dtos.response.TurnoDtoRes;
+import ar.com.clinica.entity.Turno;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +11,11 @@ public class TurnoService {
     // TODO ATRIBUTO DAO
     // TODO CONSTRUCTOR
 
-    public TurnoDtoRes registrarTurno(TurnoDtoReq turno) {
+    public Turno registrarTurno(Turno turno) {
         return null;
     }
 
-    public List<TurnoDtoRes> listar() {
+    public List<Turno> listar() {
         return null;
     }
 
