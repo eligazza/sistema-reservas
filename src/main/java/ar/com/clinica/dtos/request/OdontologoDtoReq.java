@@ -1,4 +1,4 @@
 package ar.com.clinica.dtos.request;
 
-public class Odontologo {
+public class OdontologoDtoReq {
 }

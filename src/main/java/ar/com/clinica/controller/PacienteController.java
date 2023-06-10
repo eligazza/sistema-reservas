@@ -35,10 +35,10 @@ public class PacienteController {
 
     @PostMapping
     public ResponseEntity<Paciente> insertar(@RequestBody Paciente paciente) {
-        if (service.agregar(paciente) == null) {
-            return new ResponseEntity<>(service.agregar(paciente), HttpStatus.BAD_REQUEST);
+        if (service.insertar(paciente) == null) {
+            return new ResponseEntity<>(service.insertar(paciente), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.agregar(paciente), HttpStatus.OK);
+        return new ResponseEntity<>(service.insertar(paciente), HttpStatus.OK);
     }
 
     @PutMapping
