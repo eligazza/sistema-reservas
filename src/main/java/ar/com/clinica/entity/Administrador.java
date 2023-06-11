@@ -1,12 +1,10 @@
 package ar.com.clinica.entity;
 
-import ar.com.clinica.service.OdontologoServiceImp;
-import ar.com.clinica.service.PacienteServiceImp;
 import jakarta.persistence.*;
 
 
 @Entity
-public class Administrador extends Usuario {
+public class Administrador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

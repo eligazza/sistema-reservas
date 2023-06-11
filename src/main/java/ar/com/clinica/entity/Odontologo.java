@@ -3,7 +3,7 @@ package ar.com.clinica.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Odontologo extends Usuario {
+public class Odontologo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

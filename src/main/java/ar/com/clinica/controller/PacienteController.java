@@ -2,7 +2,7 @@ package ar.com.clinica.controller;
 
 
 import ar.com.clinica.entity.Paciente;
-import ar.com.clinica.service.PacienteServiceImp;
+import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +15,15 @@ import java.util.List;
 public class PacienteController {
 
     @Autowired
-    private PacienteServiceImp service;
+    private PacienteService service;
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> listar() {
-        if (service.listar() == null) {
+    public List<Paciente> listar() {
+        /*if (service.listar().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.listar(), HttpStatus.OK);
+        return new ResponseEntity<>(service.listar(), HttpStatus.OK);*/
+        return service.listar();
     }
 
     @GetMapping("/{id}")

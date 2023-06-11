@@ -2,7 +2,6 @@ package ar.com.clinica.service;
 
 import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.repository.IOdontologoRepository;
-import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +9,13 @@ import java.util.List;
 
 
 @Service
-public class OdontologoServiceImp implements IOdontologoService {
+public class OdontologoService implements IService<Odontologo> {
 
     @Autowired
     private IOdontologoRepository repository;
 
     @Autowired
-    public OdontologoServiceImp(IOdontologoRepository repository) {
+    public OdontologoService(IOdontologoRepository repository) {
         this.repository = repository;
     }
 

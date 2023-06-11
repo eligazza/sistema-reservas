@@ -24,9 +24,11 @@ public class Domicilio {
     @Column(length = 50)
     private String provincia;
 
-    @OneToMany(mappedBy = "domicilio")
+    @OneToMany
+    @JoinColumn(name = "ID")
     private List<Paciente> pacientes = new ArrayList<>();
 
+    public Domicilio(){}
     public Domicilio(String calle, int numero, String localidad, String provincia) {
         this.calle = calle;
         this.numero = numero;

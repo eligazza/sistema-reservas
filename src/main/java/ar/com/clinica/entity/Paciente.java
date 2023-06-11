@@ -1,12 +1,11 @@
 package ar.com.clinica.entity;
 
-import ar.com.clinica.service.TurnoServiceImp;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
-public class Paciente extends Usuario {
+public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +18,17 @@ public class Paciente extends Usuario {
     @Column(length = 50)
     private String apellido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn
     private Domicilio domicilio;
 
     @Column
-    private LocalDate fechaDeAlta;
+    private String fechaDeAlta;
 
 
 
     public Paciente() {}
-    public Paciente(Integer dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta) {
+    public Paciente(Integer dni, String nombre, String apellido, Domicilio domicilio, String fechaDeAlta) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -78,11 +78,11 @@ public class Paciente extends Usuario {
         this.domicilio = domicilio;
     }
 
-    public LocalDate getFechaDeAlta() {
+    public String getFechaDeAlta() {
         return fechaDeAlta;
     }
 
-    public void setFechaDeAlta(LocalDate fechaDeAlta) {
+    public void setFechaDeAlta(String fechaDeAlta) {
         this.fechaDeAlta = fechaDeAlta;
     }
 
