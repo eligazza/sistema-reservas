@@ -2,8 +2,6 @@ package ar.com.clinica.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
 public class Paciente {
 
