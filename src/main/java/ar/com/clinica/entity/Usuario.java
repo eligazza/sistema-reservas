@@ -1,7 +1,10 @@
 package ar.com.clinica.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+@Entity
 public abstract class Usuario {
 
     private String usuario;

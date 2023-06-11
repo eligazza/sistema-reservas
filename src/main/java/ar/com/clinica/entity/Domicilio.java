@@ -2,7 +2,10 @@ package ar.com.clinica.entity;
 
 import jakarta.persistence.*;
 
-@Entity
+import java.util.ArrayList;
+import java.util.List;
+
+@Table
 public class Domicilio {
 
     @Id
@@ -22,7 +25,7 @@ public class Domicilio {
     private String provincia;
 
     @OneToMany(mappedBy = "domicilio")
-    private Usuario usuario;
+    private List<Paciente> paciente = new ArrayList<>();
 
     public Domicilio(String calle, int numero, String localidad, String provincia) {
         this.calle = calle;

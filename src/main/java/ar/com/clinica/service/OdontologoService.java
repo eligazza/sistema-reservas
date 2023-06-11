@@ -11,10 +11,9 @@ import java.util.List;
 @Service
 public class OdontologoService implements IService<Odontologo> {
 
+    @Autowired
     private IOdontologoRepository repository;
 
-
-    @Autowired
     public OdontologoService(IOdontologoRepository repository) {
         this.repository = repository;
     }

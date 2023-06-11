@@ -11,14 +11,12 @@ import java.util.Optional;
 @Service
 public class PacienteService implements IService<Paciente> {
 
+    @Autowired
     private IPacienteRepository repository;
 
-
-    @Autowired
     public PacienteService(IPacienteRepository repository) {
         this.repository = repository;
     }
-
 
     @Override
     public List<Paciente> listar() {
@@ -46,6 +44,9 @@ public class PacienteService implements IService<Paciente> {
         }
         return pGuardado;
     }
+
+    // TODO SEGUIR POR ACA
+
 
     @Override
     public Paciente modificar(Paciente paciente) {

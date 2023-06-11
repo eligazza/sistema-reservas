@@ -10,10 +10,9 @@ import java.util.List;
 @Service
 public class TurnoService implements IService<Turno> {
 
+    @Autowired
     private ITurnoRepository repository;
 
-
-    @Autowired
     public TurnoService(ITurnoRepository repository) {
         this.repository = repository;
     }
