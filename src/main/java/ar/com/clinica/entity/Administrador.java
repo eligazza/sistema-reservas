@@ -1,7 +1,7 @@
 package ar.com.clinica.entity;
 
-import ar.com.clinica.service.OdontologoService;
-import ar.com.clinica.service.PacienteService;
+import ar.com.clinica.service.OdontologoServiceImp;
+import ar.com.clinica.service.PacienteServiceImp;
 import jakarta.persistence.*;
 
 
@@ -18,16 +18,10 @@ public class Administrador extends Usuario {
     @Column(length = 50)
     private String apellido;
 
-    private OdontologoService odontologoService;
 
-    private PacienteService pacienteService;
-
-
-    public Administrador(String nombre, String apellido, OdontologoService odontologoService, PacienteService pacienteService) {
+    public Administrador(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.odontologoService = odontologoService;
-        this.pacienteService = pacienteService;
     }
 
     public Long getId() {
@@ -54,19 +48,4 @@ public class Administrador extends Usuario {
         this.apellido = apellido;
     }
 
-    public OdontologoService getOdontologoService() {
-        return odontologoService;
-    }
-
-    public void setOdontologoService(OdontologoService odontologoService) {
-        this.odontologoService = odontologoService;
-    }
-
-    public PacienteService getPacienteService() {
-        return pacienteService;
-    }
-
-    public void setPacienteService(PacienteService pacienteService) {
-        this.pacienteService = pacienteService;
-    }
 }

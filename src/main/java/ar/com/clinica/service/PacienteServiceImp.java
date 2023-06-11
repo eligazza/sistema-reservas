@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class PacienteService implements IService<Paciente> {
+public class PacienteServiceImp implements IPacienteService {
 
     @Autowired
     private IPacienteRepository repository;
 
-    public PacienteService(IPacienteRepository repository) {
+    @Autowired
+    public PacienteServiceImp(IPacienteRepository repository) {
         this.repository = repository;
     }
 

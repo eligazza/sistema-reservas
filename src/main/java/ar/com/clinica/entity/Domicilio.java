@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table
+@Entity
 public class Domicilio {
 
     @Id
@@ -25,7 +25,7 @@ public class Domicilio {
     private String provincia;
 
     @OneToMany(mappedBy = "domicilio")
-    private List<Paciente> paciente = new ArrayList<>();
+    private List<Paciente> pacientes = new ArrayList<>();
 
     public Domicilio(String calle, int numero, String localidad, String provincia) {
         this.calle = calle;

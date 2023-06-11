@@ -1,7 +1,7 @@
 package ar.com.clinica.controller;
 
 import ar.com.clinica.entity.Odontologo;
-import ar.com.clinica.service.OdontologoService;
+import ar.com.clinica.service.OdontologoServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class OdontologoController {
 
     @Autowired
-    private OdontologoService service;
+    private OdontologoServiceImp service;
 
     @GetMapping
     public ResponseEntity<List<Odontologo>> listar() {

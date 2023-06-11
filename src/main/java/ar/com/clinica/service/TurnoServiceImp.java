@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TurnoService implements IService<Turno> {
+public class TurnoServiceImp implements ITurnoService {
 
     @Autowired
     private ITurnoRepository repository;
 
-    public TurnoService(ITurnoRepository repository) {
+    @Autowired
+    public TurnoServiceImp(ITurnoRepository repository) {
         this.repository = repository;
     }
 

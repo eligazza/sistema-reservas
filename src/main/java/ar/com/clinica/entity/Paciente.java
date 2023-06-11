@@ -1,6 +1,6 @@
 package ar.com.clinica.entity;
 
-import ar.com.clinica.service.TurnoService;
+import ar.com.clinica.service.TurnoServiceImp;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -25,16 +25,15 @@ public class Paciente extends Usuario {
     @Column
     private LocalDate fechaDeAlta;
 
-    private TurnoService turnoService;
 
 
-    public Paciente(Integer dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta, TurnoService turnoService) {
+    public Paciente(Integer dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.domicilio = domicilio;
         this.fechaDeAlta = fechaDeAlta;
-        this.turnoService = turnoService;
+
     }
 
 
@@ -86,11 +85,4 @@ public class Paciente extends Usuario {
         this.fechaDeAlta = fechaDeAlta;
     }
 
-    public TurnoService getTurnoService() {
-        return turnoService;
-    }
-
-    public void setTurnoService(TurnoService turnoService) {
-        this.turnoService = turnoService;
-    }
 }
