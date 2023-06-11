@@ -27,6 +27,7 @@ public class Paciente extends Usuario {
 
 
 
+    public Paciente() {}
     public Paciente(Integer dni, String nombre, String apellido, Domicilio domicilio, LocalDate fechaDeAlta) {
         this.dni = dni;
         this.nombre = nombre;

@@ -37,12 +37,8 @@ public class PacienteServiceImp implements IPacienteService {
     }
 
     @Override
-    public Paciente insertar(Paciente p) {
-        Paciente pGuardado = null;
-        if (p.getApellido().isEmpty() || p.getNombre().isEmpty()) {
-            pGuardado = repository.save(p);
-        }
-        return pGuardado;
+    public Paciente insertar(Paciente paciente) {
+        return paciente;
     }
 
     // TODO SEGUIR POR ACA
