@@ -47,7 +47,7 @@ public class PacienteService implements IService<Paciente> {
         return repository.save(pacienteNuevo);
     }
 
-    //OK
+    //TODO NO MODIFICA EL DOMICILIO
     @Override
     public Paciente modificar(Paciente pacienteModificado) {
         Long idBuscado = pacienteModificado.getId();
@@ -60,6 +60,7 @@ public class PacienteService implements IService<Paciente> {
             paciente.setFechaDeAlta(pacienteModificado.getFechaDeAlta());
             paciente.setDomicilio(pacienteModificado.getDomicilio());
         }
+        domicilioRepository.save(paciente.getDomicilio());
         return repository.save(paciente);
     }
 
