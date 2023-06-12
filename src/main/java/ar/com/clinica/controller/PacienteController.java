@@ -19,7 +19,7 @@ public class PacienteController {
 
     @GetMapping
     public List<Paciente> listar() {
-        /*if (service.listar().isEmpty()) {
+        /* if (service.listar().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(service.listar(), HttpStatus.OK);*/

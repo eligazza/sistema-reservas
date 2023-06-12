@@ -1,6 +1,5 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.entity.Domicilio;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.repository.IDomicilioRepository;
 import ar.com.clinica.repository.IPacienteRepository;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PacienteService implements IService<Paciente> {
@@ -19,8 +17,9 @@ public class PacienteService implements IService<Paciente> {
     private IDomicilioRepository domicilioRepository;
 
     @Autowired
-    public PacienteService(IPacienteRepository repository) {
+    public PacienteService(IPacienteRepository repository, IDomicilioRepository domicilioRepository) {
         this.repository = repository;
+        this.domicilioRepository = domicilioRepository;
     }
 
     @Override

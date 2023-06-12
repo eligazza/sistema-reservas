@@ -9,7 +9,9 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private Integer dni;
+
     @Column(length = 50)
     private String nombre;
 
@@ -44,44 +46,12 @@ public class Paciente {
         this.id = id;
     }
 
-    public Integer getDni() {
-        return dni;
-    }
-
-    public void setDni(Integer dni) {
-        this.dni = dni;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public Domicilio getDomicilio() {
         return domicilio;
     }
 
     public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
-    }
-
-    public String getFechaDeAlta() {
-        return fechaDeAlta;
-    }
-
-    public void setFechaDeAlta(String fechaDeAlta) {
-        this.fechaDeAlta = fechaDeAlta;
     }
 
 }
