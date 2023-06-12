@@ -36,4 +36,27 @@ public class Turno {
         this.id = id;
     }
 
+    public Odontologo getOdontologo() {
+        return odontologo;
+    }
+
+    public void setOdontologo(Odontologo odontologo) {
+        this.odontologo = odontologo;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 }

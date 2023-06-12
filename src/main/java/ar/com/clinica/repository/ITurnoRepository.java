@@ -4,5 +4,5 @@ import ar.com.clinica.entity.Turno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface ITurnoRepository extends JpaRepository<Turno, Integer> {
+public interface ITurnoRepository extends JpaRepository<Turno, Long> {
 }
