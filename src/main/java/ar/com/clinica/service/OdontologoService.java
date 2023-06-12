@@ -22,31 +22,45 @@ public class OdontologoService implements IService<Odontologo> {
 
     @Override
     public List<Odontologo> listar() {
-        List<Odontologo> lista = repository.findAll();
-        if (lista.isEmpty()) {
-            lista = null;
-        }
-        return lista;
+        if (repository.findAll().isEmpty()) {
+            return null;
+        } return repository.findAll();
     }
 
     @Override
     public Odontologo buscarPorId(Long id) {
-        return null;
+        Odontologo odontologoBuscado = null;
+        if (repository.findById(id).isPresent()) {
+            odontologoBuscado = repository.findById(id).get();
+        }
+        return odontologoBuscado;
     }
 
     @Override
     public Odontologo insertar(Odontologo odontologo) {
-        return null;
+        return repository.save(odontologo);
     }
 
     @Override
-    public Odontologo modificar(Odontologo odontologo) {
-        return null;
+    public Odontologo modificar(Odontologo odontologoModificado) {
+        Long idBuscado = odontologoModificado.getId();
+        Odontologo odontologo = null;
+        if (repository.findById(idBuscado).isPresent()) {
+            odontologo = repository.findById(idBuscado).get();
+            odontologo.setNombre(odontologoModificado.getNombre());
+            odontologo.setApellido(odontologoModificado.getApellido());
+            odontologo.setMatricula(odontologoModificado.getMatricula());
+        }
+        return repository.save(odontologo);
     }
 
     @Override
     public Odontologo eliminar(Long id) {
-        return null;
+        Odontologo odontologo = repository.findById(id).get();
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        }
+        return odontologo;
     }
 
 

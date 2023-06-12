@@ -18,12 +18,11 @@ public class PacienteController {
     private PacienteService service;
 
     @GetMapping
-    public List<Paciente> listar() {
-        /* if (service.listar().isEmpty()) {
+    public ResponseEntity<List<Paciente>> listar() {
+        if (service.listar() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.listar(), HttpStatus.OK);*/
-        return service.listar();
+        return new ResponseEntity<>(service.listar(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

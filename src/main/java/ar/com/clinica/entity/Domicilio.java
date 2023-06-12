@@ -25,7 +25,7 @@ public class Domicilio {
     private String provincia;
 
     @OneToMany
-    @JoinColumn(name = "ID")
+    @JoinColumn
     private List<Paciente> pacientes = new ArrayList<>();
 
     public Domicilio(){}
@@ -45,4 +45,43 @@ public class Domicilio {
         this.id = id;
     }
 
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public List<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
+    }
 }

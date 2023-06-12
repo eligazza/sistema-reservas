@@ -29,11 +29,11 @@ public class OdontologoController {
         if (service.buscarPorId(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.buscarPorId(id) , HttpStatus.OK);
+        return new ResponseEntity<>(service.buscarPorId(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Odontologo> agregar(@RequestBody Odontologo odontologo) {
+    public ResponseEntity<Odontologo> insertar(@RequestBody Odontologo odontologo) {
         if (service.insertar(odontologo) == null) {
             return new ResponseEntity<>(service.insertar(odontologo), HttpStatus.BAD_REQUEST);
         }
@@ -50,9 +50,6 @@ public class OdontologoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Odontologo> eliminar(@PathVariable Long id) {
-        if (service.eliminar(id) == null) {
-            return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(service.eliminar(id), HttpStatus.OK);
     }
 

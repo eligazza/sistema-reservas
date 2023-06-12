@@ -22,6 +22,7 @@ public class PacienteService implements IService<Paciente> {
         this.domicilioRepository = domicilioRepository;
     }
 
+    //OK
     @Override
     public List<Paciente> listar() {
         if (repository.findAll().isEmpty()) {
@@ -29,31 +30,47 @@ public class PacienteService implements IService<Paciente> {
         } return repository.findAll();
     }
 
+    //OK
     @Override
     public Paciente buscarPorId(Long id) {
+        Paciente pacienteBuscado = null;
         if (repository.findById(id).isPresent()) {
-            return repository.findById(id).get();
+            pacienteBuscado = repository.findById(id).get();
         }
-        return null;
+        return pacienteBuscado;
     }
 
     //OK
     @Override
-    public Paciente insertar(Paciente parametroPaciente) {
-        domicilioRepository.save(parametroPaciente.getDomicilio());
-        return repository.save(parametroPaciente);
+    public Paciente insertar(Paciente pacienteNuevo) {
+        domicilioRepository.save(pacienteNuevo.getDomicilio());
+        return repository.save(pacienteNuevo);
     }
 
-    // TODO SEGUIR POR ACA
-
-
+    //OK
     @Override
-    public Paciente modificar(Paciente paciente) {
-        return null;
+    public Paciente modificar(Paciente pacienteModificado) {
+        Long idBuscado = pacienteModificado.getId();
+        Paciente paciente = null;
+        if (repository.findById(idBuscado).isPresent()) {
+            paciente = repository.findById(idBuscado).get();
+            paciente.setDni(pacienteModificado.getDni());
+            paciente.setApellido(pacienteModificado.getApellido());
+            paciente.setNombre(pacienteModificado.getNombre());
+            paciente.setFechaDeAlta(pacienteModificado.getFechaDeAlta());
+            paciente.setDomicilio(pacienteModificado.getDomicilio());
+        }
+        return repository.save(paciente);
     }
 
+    //OK
     @Override
     public Paciente eliminar(Long id) {
-        return null;
+        Paciente paciente = repository.findById(id).get();
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        }
+        return paciente;
     }
+
 }

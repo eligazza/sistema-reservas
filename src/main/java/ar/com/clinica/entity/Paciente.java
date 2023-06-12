@@ -18,12 +18,13 @@ public class Paciente {
     @Column(length = 50)
     private String apellido;
 
+    @Column
+    private String fechaDeAlta;
+
     @ManyToOne
     @JoinColumn
     private Domicilio domicilio;
 
-    @Column
-    private String fechaDeAlta;
 
 
 
@@ -37,13 +38,36 @@ public class Paciente {
 
     }
 
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getDni() {
+        return dni;
+    }
+
+    public void setDni(Integer dni) {
+        this.dni = dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public Domicilio getDomicilio() {
@@ -54,4 +78,11 @@ public class Paciente {
         this.domicilio = domicilio;
     }
 
+    public String getFechaDeAlta() {
+        return fechaDeAlta;
+    }
+
+    public void setFechaDeAlta(String fechaDeAlta) {
+        this.fechaDeAlta = fechaDeAlta;
+    }
 }
