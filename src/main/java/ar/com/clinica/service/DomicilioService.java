@@ -1,46 +1,51 @@
 package ar.com.clinica.service;
 
+import ar.com.clinica.dto.DomicilioDto;
 import ar.com.clinica.entity.Domicilio;
 import ar.com.clinica.repository.IDomicilioRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class DomicilioService implements IService<Domicilio> {
-
-
-    private IDomicilioRepository repository;
+public class DomicilioService implements IService<Domicilio, DomicilioDto> {
 
     @Autowired
-    public DomicilioService(IDomicilioRepository repository) {
-        this.repository = repository;
+    private IDomicilioRepository repository;
+    ObjectMapper mapper = Mapper.getMapper(false, false);
+
+    @Override
+    public List<DomicilioDto> listar() {
+
+        List<Domicilio> listaEntidades = repository.findAll();
+        return listaEntidades
+                .stream()
+                .map(domicilio -> mapper.convertValue(domicilio, DomicilioDto.class))
+                .collect(Collectors.toList());
+
     }
 
     @Override
-    public List<Domicilio> listar() {
-        if (repository.findAll().isEmpty()) {
-            return null;
-        }
-        return repository.findAll();
-    }
+    public DomicilioDto buscarPorId(Long id) {
 
-    @Override
-    public Domicilio buscarPorId(Long id) {
         if (repository.findById(id).isPresent()) {
-            return repository.findById(id).get();
+            return mapper.convertValue(repository.findById(id).get(), DomicilioDto.class);
         }
         return null;
     }
 
     @Override
-    public Domicilio insertar(Domicilio domicilio) {
-        return repository.save(domicilio);
+    public DomicilioDto insertar(Domicilio domicilio) {
+
+        return mapper.convertValue(repository.save(domicilio), DomicilioDto.class);
     }
 
     @Override
-    public Domicilio modificar(Domicilio domicilioNuevo) {
+    public DomicilioDto modificar(Domicilio domicilioNuevo) {
+
         Long idBuscado = domicilioNuevo.getId();
         Domicilio domicilio = null;
         if (repository.findById(idBuscado).isPresent()) {
@@ -49,16 +54,17 @@ public class DomicilioService implements IService<Domicilio> {
             domicilio.setLocalidad(domicilioNuevo.getLocalidad());
             domicilio.setNumero(domicilioNuevo.getNumero());
         }
-        return repository.save(domicilio);
+        return mapper.convertValue(repository.save(domicilio), DomicilioDto.class);
     }
 
     @Override
-    public Domicilio eliminar(Long id) {
+    public DomicilioDto eliminar(Long id) {
+
         Domicilio domicilioEliminado = null;
         if (repository.findById(id).isPresent()) {
             domicilioEliminado = repository.findById(id).get();
             repository.deleteById(id);
         }
-        return domicilioEliminado;
+        return mapper.convertValue(domicilioEliminado, DomicilioDto.class);
     }
 }

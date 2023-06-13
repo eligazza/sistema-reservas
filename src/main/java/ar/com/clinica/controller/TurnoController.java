@@ -1,5 +1,6 @@
 package ar.com.clinica.controller;
 
+import ar.com.clinica.dto.TurnoDto;
 import ar.com.clinica.entity.Turno;
 import ar.com.clinica.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class TurnoController {
 
 
     @GetMapping
-    public ResponseEntity<List<Turno>> listar() {
+    public ResponseEntity<List<TurnoDto>> listar() {
         if (service.listar() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -26,7 +27,7 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Turno> listarPorId(@PathVariable Long id) {
+    public ResponseEntity<TurnoDto> listarPorId(@PathVariable Long id) {
         if (service.buscarPorId(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -34,7 +35,7 @@ public class TurnoController {
     }
 
     @PostMapping
-    public ResponseEntity<Turno> insertar(@RequestBody Turno turno) {
+    public ResponseEntity<TurnoDto> insertar(@RequestBody Turno turno) {
         if (service.insertar(turno) == null) {
             return new ResponseEntity<>(service.insertar(turno), HttpStatus.BAD_REQUEST);
         }
@@ -42,7 +43,7 @@ public class TurnoController {
     }
 
     @PutMapping
-    public ResponseEntity<Turno> modificar(@RequestBody Turno turno) {
+    public ResponseEntity<TurnoDto> modificar(@RequestBody Turno turno) {
         if (service.modificar(turno) == null) {
             return new ResponseEntity<>(service.modificar(turno), HttpStatus.BAD_REQUEST);
         }
@@ -50,7 +51,7 @@ public class TurnoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Turno> eliminar(@PathVariable Long id) {
+    public ResponseEntity<TurnoDto> eliminar(@PathVariable Long id) {
         if (service.eliminar(id) == null) {
             return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
         }

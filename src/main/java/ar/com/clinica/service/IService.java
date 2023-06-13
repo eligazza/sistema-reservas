@@ -4,16 +4,16 @@ import ar.com.clinica.entity.Odontologo;
 
 import java.util.List;
 
-public interface IService<T> {
+public interface IService<T, E> {
 
-    public List<T> listar();
+    public List<E> listar();
 
-    public T buscarPorId(Long id);
+    public E buscarPorId(Long id);
 
-    public T insertar(T t);
+    public E insertar(T t);
 
-    public T modificar(T t);
+    public E modificar(T t);
 
-    public T eliminar(Long id);
+    public E eliminar(Long id);
 
 }

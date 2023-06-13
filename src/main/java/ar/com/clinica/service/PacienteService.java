@@ -1,54 +1,55 @@
 package ar.com.clinica.service;
 
+import ar.com.clinica.dto.PacienteDto;
 import ar.com.clinica.entity.Paciente;
-import ar.com.clinica.repository.IDomicilioRepository;
 import ar.com.clinica.repository.IPacienteRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class PacienteService implements IService<Paciente> {
-
-
-    private IPacienteRepository repository;
-    private IDomicilioRepository domicilioRepository;
+public class PacienteService implements IService<Paciente, PacienteDto> {
 
     @Autowired
-    public PacienteService(IPacienteRepository repository, IDomicilioRepository domicilioRepository) {
-        this.repository = repository;
-        this.domicilioRepository = domicilioRepository;
+    private IPacienteRepository repository;
+    /*@Autowired
+    private IDomicilioRepository domicilioRepository;*/
+    ObjectMapper mapper = Mapper.getMapper(false, false);
+
+
+    @Override
+    public List<PacienteDto> listar() {
+
+        List<Paciente> listaEntidades = repository.findAll();
+        return listaEntidades
+                .stream()
+                .map(paciente -> mapper.convertValue(paciente, PacienteDto.class))
+                .collect(Collectors.toList());
     }
 
-    //OK
     @Override
-    public List<Paciente> listar() {
-        if (repository.findAll().isEmpty()) {
-            return null;
-        } return repository.findAll();
-    }
+    public PacienteDto buscarPorId(Long id) {
 
-    //OK
-    @Override
-    public Paciente buscarPorId(Long id) {
         Paciente pacienteBuscado = null;
         if (repository.findById(id).isPresent()) {
             pacienteBuscado = repository.findById(id).get();
         }
-        return pacienteBuscado;
+        return mapper.convertValue(pacienteBuscado, PacienteDto.class);
     }
 
-    //OK
     @Override
-    public Paciente insertar(Paciente pacienteNuevo) {
-        domicilioRepository.save(pacienteNuevo.getDomicilio());
-        return repository.save(pacienteNuevo);
+    public PacienteDto insertar(Paciente pacienteNuevo) {
+
+        return mapper.convertValue(repository.save(pacienteNuevo), PacienteDto.class);
     }
 
     //TODO NO MODIFICA EL DOMICILIO
     @Override
-    public Paciente modificar(Paciente pacienteModificado) {
+    public PacienteDto modificar(Paciente pacienteModificado) {
+
         Long idBuscado = pacienteModificado.getId();
         Paciente paciente = null;
         if (repository.findById(idBuscado).isPresent()) {
@@ -59,18 +60,18 @@ public class PacienteService implements IService<Paciente> {
             paciente.setFechaDeAlta(pacienteModificado.getFechaDeAlta());
             paciente.setDomicilio(pacienteModificado.getDomicilio());
         }
-        domicilioRepository.save(paciente.getDomicilio());
-        return repository.save(paciente);
+        return mapper.convertValue(repository.save(paciente), PacienteDto.class);
     }
 
     //OK
     @Override
-    public Paciente eliminar(Long id) {
+    public PacienteDto eliminar(Long id) {
+
         Paciente paciente = repository.findById(id).get();
         if (repository.findById(id).isPresent()) {
             repository.deleteById(id);
         }
-        return paciente;
+        return mapper.convertValue(paciente, PacienteDto.class);
     }
 
 }

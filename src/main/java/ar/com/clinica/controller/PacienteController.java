@@ -1,6 +1,7 @@
 package ar.com.clinica.controller;
 
 
+import ar.com.clinica.dto.PacienteDto;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class PacienteController {
     private PacienteService service;
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> listar() {
+    public ResponseEntity<List<PacienteDto>> listar() {
         if (service.listar() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -26,15 +27,15 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> listarPorId(@PathVariable Long id) {
+    public ResponseEntity<PacienteDto> listarPorId(@PathVariable Long id) {
         if (service.buscarPorId(id) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.buscarPorId(id) , HttpStatus.OK);
+        return new ResponseEntity<>(service.buscarPorId(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> insertar(@RequestBody Paciente paciente) {
+    public ResponseEntity<PacienteDto> insertar(@RequestBody Paciente paciente) {
         if (service.insertar(paciente) == null) {
             return new ResponseEntity<>(service.insertar(paciente), HttpStatus.BAD_REQUEST);
         }
@@ -42,7 +43,7 @@ public class PacienteController {
     }
 
     @PutMapping
-    public ResponseEntity<Paciente> modificar(@RequestBody Paciente paciente) {
+    public ResponseEntity<PacienteDto> modificar(@RequestBody Paciente paciente) {
         if (service.modificar(paciente) == null) {
             return new ResponseEntity<>(service.modificar(paciente), HttpStatus.BAD_REQUEST);
         }
@@ -50,7 +51,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Paciente> eliminar(@PathVariable Long id) {
+    public ResponseEntity<PacienteDto> eliminar(@PathVariable Long id) {
         if (service.eliminar(id) == null) {
             return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
         }
