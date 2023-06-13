@@ -2,31 +2,19 @@ package ar.com.clinica.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Table(name = "domicilios")
 public class Domicilio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 50)
     private String calle;
-
-    @Column
     private int numero;
-
-    @Column(length = 50)
     private String localidad;
-
-    @Column(length = 50)
     private String provincia;
 
-    @OneToMany
-    @JoinColumn
-    private List<Paciente> pacientes = new ArrayList<>();
 
     public Domicilio(){}
     public Domicilio(String calle, int numero, String localidad, String provincia) {
@@ -39,10 +27,6 @@ public class Domicilio {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCalle() {
@@ -77,11 +61,4 @@ public class Domicilio {
         this.provincia = provincia;
     }
 
-    public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-
-    public void setPacientes(List<Paciente> pacientes) {
-        this.pacientes = pacientes;
-    }
 }

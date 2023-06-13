@@ -48,7 +48,6 @@ public class DomicilioService implements IService<Domicilio> {
             domicilio.setCalle(domicilioNuevo.getCalle());
             domicilio.setLocalidad(domicilioNuevo.getLocalidad());
             domicilio.setNumero(domicilioNuevo.getNumero());
-            domicilio.setPacientes(domicilioNuevo.getPacientes());
         }
         return repository.save(domicilio);
     }

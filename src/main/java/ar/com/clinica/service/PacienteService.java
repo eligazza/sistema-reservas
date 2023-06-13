@@ -11,9 +11,8 @@ import java.util.List;
 @Service
 public class PacienteService implements IService<Paciente> {
 
-    @Autowired
+
     private IPacienteRepository repository;
-    @Autowired
     private IDomicilioRepository domicilioRepository;
 
     @Autowired

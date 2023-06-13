@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class TurnoService implements IService<Turno> {
 
-    @Autowired
     private ITurnoRepository repository;
 
     @Autowired

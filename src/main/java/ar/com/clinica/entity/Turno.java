@@ -2,38 +2,34 @@ package ar.com.clinica.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 
 @Entity
+@Table (name = "turnos")
 public class Turno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "odontologo_id", referencedColumnName = "id", nullable = false)
     private Odontologo odontologo;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id", referencedColumnName = "id", nullable = false)
     private Paciente paciente;
 
-    @Column
-    private String fecha;
 
-
-    public Turno(Odontologo odontologo, Paciente paciente, String fecha) {
+    public Turno(String fecha, Odontologo odontologo, Paciente paciente) {
+        this.fecha = fecha;
         this.odontologo = odontologo;
         this.paciente = paciente;
-        this.fecha = fecha;
     }
 
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Odontologo getOdontologo() {

@@ -1,22 +1,24 @@
 package ar.com.clinica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@Table (name = "odontologos")
 public class Odontologo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 50)
     private String nombre;
-
-    @Column(length = 50)
     private String apellido;
-
-    @Column(length = 15)
     private String matricula;
+    @OneToMany(mappedBy = "odontologo")
+    @JsonIgnore // al ser una relacion OneToMany debo hacer esto para no caer en el loop
+    private Set<Turno> turnos = new HashSet<>();
 
 
     public Odontologo(){}
@@ -26,12 +28,9 @@ public class Odontologo {
         this.matricula = matricula;
     }
 
+
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -56,5 +55,13 @@ public class Odontologo {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
     }
 }
