@@ -2,10 +2,9 @@ package ar.com.clinica.controller;
 
 
 import ar.com.clinica.dto.PacienteDto;
-import ar.com.clinica.entity.Paciente;
+import ar.com.clinica.dto.PacienteDtoReq;
 import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +46,12 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insertar(@RequestBody PacienteDto pacienteDto) {
+    public ResponseEntity<?> insertar(@RequestBody PacienteDtoReq pacienteDtoReq) {
+
+        PacienteDto pacienteDto = null;
 
         try {
-             pacienteDto = service.insertar(pacienteDto);
+             pacienteDto = service.insertar(pacienteDtoReq);
         }
         catch (Exception e) {
             return ResponseEntity
@@ -63,16 +64,16 @@ public class PacienteController {
     }
 
     @PutMapping
-    public ResponseEntity<?> modificar(@RequestBody PacienteDto pacienteDto) {
+    public ResponseEntity<?> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) {
 
-        if (service.modificar(pacienteDto) == null) {
+        if (service.modificar(pacienteDtoReq) == null) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("No se pudieron actualizar los datos");
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(service.modificar(pacienteDto));
+                .body(service.modificar(pacienteDtoReq));
     }
 
     @DeleteMapping("/{id}")

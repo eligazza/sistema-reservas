@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class OdontologoDto {
+public class OdontologoDtoReq {
 
     private Long id;
     private String nombre;

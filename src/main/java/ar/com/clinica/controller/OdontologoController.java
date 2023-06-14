@@ -1,7 +1,7 @@
 package ar.com.clinica.controller;
 
 import ar.com.clinica.dto.OdontologoDto;
-import ar.com.clinica.entity.Odontologo;
+import ar.com.clinica.dto.OdontologoDtoReq;
 import ar.com.clinica.service.OdontologoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.List;
 public class OdontologoController {
 
     @Autowired
-    private OdontologoService service;
+    OdontologoService service;
 
     @GetMapping
     public ResponseEntity<List<OdontologoDto>> listar() {
@@ -34,19 +34,19 @@ public class OdontologoController {
     }
 
     @PostMapping
-    public ResponseEntity<OdontologoDto> insertar(@RequestBody OdontologoDto odontologoDto) {
-        if (service.insertar(odontologoDto) == null) {
-            return new ResponseEntity<>(service.insertar(odontologoDto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<OdontologoDto> insertar(@RequestBody OdontologoDtoReq odontologoDtoReq) {
+        if (service.insertar(odontologoDtoReq) == null) {
+            return new ResponseEntity<>(service.insertar(odontologoDtoReq), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.insertar(odontologoDto), HttpStatus.OK);
+        return new ResponseEntity<>(service.insertar(odontologoDtoReq), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<OdontologoDto> modificar(@RequestBody OdontologoDto odontologoDto) {
-        if (service.modificar(odontologoDto) == null) {
-            return new ResponseEntity<>(service.modificar(odontologoDto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<OdontologoDto> modificar(@RequestBody OdontologoDtoReq odontologoDtoReq) {
+        if (service.modificar(odontologoDtoReq) == null) {
+            return new ResponseEntity<>(service.modificar(odontologoDtoReq), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.modificar(odontologoDto), HttpStatus.OK);
+        return new ResponseEntity<>(service.modificar(odontologoDtoReq), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,7 @@
 package ar.com.clinica.service;
 
 import ar.com.clinica.dto.OdontologoDto;
+import ar.com.clinica.dto.OdontologoDtoReq;
 import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.repository.IOdontologoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,11 +13,14 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class OdontologoService implements IService<OdontologoDto> {
+public class OdontologoService implements IService<OdontologoDto, OdontologoDtoReq> {
 
     @Autowired
-    private IOdontologoRepository repository;
-    ObjectMapper mapper = Mapper.getMapper(false, false);
+    IOdontologoRepository repository;
+    @Autowired
+    ObjectMapper mapper;
+    //ObjectMapper mapper = Mapper.getMapper(false, false);
+
 
     @Override
     public List<OdontologoDto> listar() {
@@ -43,17 +47,17 @@ public class OdontologoService implements IService<OdontologoDto> {
     }
 
     @Override
-    public OdontologoDto insertar(OdontologoDto odontologoDto) {
+    public OdontologoDto insertar(OdontologoDtoReq odontologoDtoReq) {
 
-        Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
+        Odontologo odontologo = mapper.convertValue(odontologoDtoReq, Odontologo.class);
         return mapper.convertValue(repository.save(odontologo), OdontologoDto.class);
 
     }
 
     @Override
-    public OdontologoDto modificar(OdontologoDto odontologoDto) {
+    public OdontologoDto modificar(OdontologoDtoReq odontologoDtoReq) {
 
-        Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
+        Odontologo odontologo = mapper.convertValue(odontologoDtoReq, Odontologo.class);
         return mapper.convertValue(repository.save(odontologo), OdontologoDto.class);
 
     }

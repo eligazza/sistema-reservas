@@ -1,18 +1,20 @@
 package ar.com.clinica.service;
 
+import ar.com.clinica.dto.PacienteDto;
+import ar.com.clinica.dto.PacienteDtoReq;
 import ar.com.clinica.entity.Odontologo;
 
 import java.util.List;
 
-public interface IService<T> {
+public interface IService<T, S> {
 
     public List<T> listar();
 
     public T buscarPorId(Long id);
 
-    public T insertar(T t);
+    public T insertar(S s);
 
-    public T modificar(T t);
+    public T modificar(S s);
 
     public T eliminar(Long id);
 

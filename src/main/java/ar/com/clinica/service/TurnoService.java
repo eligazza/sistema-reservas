@@ -13,11 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TurnoService implements IService<TurnoDto> {
+public class TurnoService implements IService<TurnoDto, TurnoDto> {
 
     @Autowired
-    private ITurnoRepository repository;
-    ObjectMapper mapper = Mapper.getMapper(false, false);
+    ITurnoRepository repository;
+    @Autowired
+    ObjectMapper mapper;
+    // ObjectMapper mapper = Mapper.getMapper(false, false);
 
 
     @Override
@@ -45,9 +47,7 @@ public class TurnoService implements IService<TurnoDto> {
     public TurnoDto insertar(TurnoDto turnoDto) {
 
         Turno turno = mapper.convertValue(turnoDto, Turno.class);
-        Odontologo odontologo = turno.getOdontologo();
-        Paciente paciente = turno.getPaciente();
-        if (odontologo == null || paciente == null) { // regla de negocio, debe dar "bad_request"
+        if (turno.getPaciente()==null || turno.getOdontologo()==null) {
             return null;
         }
         return mapper.convertValue(repository.save(turno), TurnoDto.class);

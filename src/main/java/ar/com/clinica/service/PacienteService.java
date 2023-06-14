@@ -1,6 +1,7 @@
 package ar.com.clinica.service;
 
 import ar.com.clinica.dto.PacienteDto;
+import ar.com.clinica.dto.PacienteDtoReq;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.repository.IPacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,24 +11,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService implements IService<PacienteDto> {
+public class PacienteService implements IService<PacienteDto, PacienteDtoReq> {
 
 
     @Autowired
-    private IPacienteRepository repository;
-    ObjectMapper mapper = Mapper.getMapper(false, false);
+    IPacienteRepository repository;
+    @Autowired
+    ObjectMapper mapper;
+
+    //ObjectMapper mapper = Mapper.getMapper(false, false);
 
 
     @Override
     public List<PacienteDto> listar() {
 
         List<Paciente> listaEntidades = repository.findAll();
-        if (listaEntidades.isEmpty()){
-            return null;
-        } return listaEntidades
-                .stream()
-                .map(paciente -> mapper.convertValue(paciente, PacienteDto.class))
-                .collect(Collectors.toList());
+        List<PacienteDto> pacientesDtos = null;
+
+        if (!listaEntidades.isEmpty()) {
+            pacientesDtos = listaEntidades
+                    .stream()
+                    .map(paciente -> mapper.convertValue(paciente, PacienteDto.class))
+                    .collect(Collectors.toList());
+        }
+        return pacientesDtos;
     }
 
     @Override
@@ -41,16 +48,18 @@ public class PacienteService implements IService<PacienteDto> {
     }
 
     @Override
-    public PacienteDto insertar(PacienteDto pacienteDto) {
-        Paciente pacienteEntity = mapper.convertValue(pacienteDto, Paciente.class);
-        return mapper.convertValue(repository.save(pacienteEntity), PacienteDto.class);
+    public PacienteDto insertar(PacienteDtoReq pacienteDtoReq) {
+
+        Paciente paciente = mapper.convertValue(pacienteDtoReq, Paciente.class);
+        Paciente pacienteGuardado = repository.save(paciente);
+        return mapper.convertValue(pacienteGuardado, PacienteDto.class);
 
     }
 
     @Override
-    public PacienteDto modificar(PacienteDto pacienteDto) {
+    public PacienteDto modificar(PacienteDtoReq pacienteDtoReq) {
 
-        Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
+        Paciente paciente = mapper.convertValue(pacienteDtoReq, Paciente.class);
         return mapper.convertValue(repository.save(paciente), PacienteDto.class);
 
     }
