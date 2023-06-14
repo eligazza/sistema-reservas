@@ -34,19 +34,19 @@ public class OdontologoController {
     }
 
     @PostMapping
-    public ResponseEntity<OdontologoDto> insertar(@RequestBody Odontologo odontologo) {
-        if (service.insertar(odontologo) == null) {
-            return new ResponseEntity<>(service.insertar(odontologo), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<OdontologoDto> insertar(@RequestBody OdontologoDto odontologoDto) {
+        if (service.insertar(odontologoDto) == null) {
+            return new ResponseEntity<>(service.insertar(odontologoDto), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.insertar(odontologo), HttpStatus.OK);
+        return new ResponseEntity<>(service.insertar(odontologoDto), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<OdontologoDto> modificar(@RequestBody Odontologo odontologo) {
-        if (service.modificar(odontologo) == null) {
-            return new ResponseEntity<>(service.modificar(odontologo), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<OdontologoDto> modificar(@RequestBody OdontologoDto odontologoDto) {
+        if (service.modificar(odontologoDto) == null) {
+            return new ResponseEntity<>(service.modificar(odontologoDto), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.modificar(odontologo), HttpStatus.OK);
+        return new ResponseEntity<>(service.modificar(odontologoDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

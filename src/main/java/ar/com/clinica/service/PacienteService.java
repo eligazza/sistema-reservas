@@ -1,24 +1,16 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dto.OdontologoDto;
 import ar.com.clinica.dto.PacienteDto;
-import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.repository.IPacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService implements IService<Paciente, PacienteDto> {
+public class PacienteService implements IService<PacienteDto> {
 
 
     @Autowired
@@ -49,33 +41,26 @@ public class PacienteService implements IService<Paciente, PacienteDto> {
     }
 
     @Override
-    public PacienteDto insertar(Paciente paciente) {
-        return mapper.convertValue(repository.save(paciente), PacienteDto.class);
+    public PacienteDto insertar(PacienteDto pacienteDto) {
+        Paciente pacienteEntity = mapper.convertValue(pacienteDto, Paciente.class);
+        return mapper.convertValue(repository.save(pacienteEntity), PacienteDto.class);
 
     }
 
     @Override
-    public PacienteDto modificar(Paciente pacienteModificado) {
+    public PacienteDto modificar(PacienteDto pacienteDto) {
 
-        Long idBuscado = pacienteModificado.getId();
-        Paciente paciente = null;
-
-        if (repository.findById(idBuscado).isPresent()) {
-            paciente = repository.findById(idBuscado).get();
-            paciente.setDni(pacienteModificado.getDni());
-            paciente.setApellido(pacienteModificado.getApellido());
-            paciente.setNombre(pacienteModificado.getNombre());
-            paciente.setFechaDeAlta(pacienteModificado.getFechaDeAlta());
-            paciente.setDomicilio(pacienteModificado.getDomicilio());
-        }
+        Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
         return mapper.convertValue(repository.save(paciente), PacienteDto.class);
+
     }
 
     @Override
     public PacienteDto eliminar(Long id) {
 
-        Paciente paciente = repository.findById(id).get();
+        Paciente paciente = null;
         if (repository.findById(id).isPresent()) {
+            paciente = repository.findById(id).get();
             repository.deleteById(id);
         }
         return mapper.convertValue(paciente, PacienteDto.class);

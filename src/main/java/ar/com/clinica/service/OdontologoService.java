@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class OdontologoService implements IService<Odontologo, OdontologoDto> {
+public class OdontologoService implements IService<OdontologoDto> {
 
     @Autowired
     private IOdontologoRepository repository;
@@ -32,33 +32,30 @@ public class OdontologoService implements IService<Odontologo, OdontologoDto> {
     @Override
     public OdontologoDto buscarPorId(Long id) {
 
-        Odontologo odontologoBuscado = null;
-        if (repository.findById(id).isPresent()) {
-            odontologoBuscado = repository.findById(id).get();
-        }
-
-        return mapper.convertValue(odontologoBuscado, OdontologoDto.class);
-    }
-
-    @Override
-    public OdontologoDto insertar(Odontologo odontologo) {
-
-        Odontologo odontologoGuardado = repository.save(odontologo);
-        return mapper.convertValue(odontologoGuardado, OdontologoDto.class);
-    }
-
-    @Override
-    public OdontologoDto modificar(Odontologo odontologoModificado) {
-
-        Long idBuscado = odontologoModificado.getId();
         Odontologo odontologo = null;
-        if (repository.findById(idBuscado).isPresent()) {
-            odontologo = repository.findById(idBuscado).get();
-            odontologo.setNombre(odontologoModificado.getNombre());
-            odontologo.setApellido(odontologoModificado.getApellido());
-            odontologo.setMatricula(odontologoModificado.getMatricula());
+
+        if (repository.findById(id).isPresent()) {
+            odontologo = repository.findById(id).get();
         }
+
+        return mapper.convertValue(odontologo, OdontologoDto.class);
+
+    }
+
+    @Override
+    public OdontologoDto insertar(OdontologoDto odontologoDto) {
+
+        Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
         return mapper.convertValue(repository.save(odontologo), OdontologoDto.class);
+
+    }
+
+    @Override
+    public OdontologoDto modificar(OdontologoDto odontologoDto) {
+
+        Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
+        return mapper.convertValue(repository.save(odontologo), OdontologoDto.class);
+
     }
 
     @Override

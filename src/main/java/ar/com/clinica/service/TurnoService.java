@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TurnoService implements IService<Turno, TurnoDto> {
+public class TurnoService implements IService<TurnoDto> {
 
     @Autowired
     private ITurnoRepository repository;
@@ -42,8 +42,9 @@ public class TurnoService implements IService<Turno, TurnoDto> {
     }
 
     @Override
-    public TurnoDto insertar(Turno turno) {
+    public TurnoDto insertar(TurnoDto turnoDto) {
 
+        Turno turno = mapper.convertValue(turnoDto, Turno.class);
         Odontologo odontologo = turno.getOdontologo();
         Paciente paciente = turno.getPaciente();
         if (odontologo == null || paciente == null) { // regla de negocio, debe dar "bad_request"
@@ -54,15 +55,8 @@ public class TurnoService implements IService<Turno, TurnoDto> {
 
 
     @Override
-    public TurnoDto modificar(Turno turnoModificado) {
-
-        Long idBuscado = turnoModificado.getId();
-        Turno turno = null;
-        if (repository.findById(idBuscado).isPresent()) {
-            turno = repository.findById(idBuscado).get();
-            turno.setFecha(turnoModificado.getFecha());
-            turno.setOdontologo(turnoModificado.getOdontologo());
-        }
+    public TurnoDto modificar(TurnoDto turnoDto) {
+        Turno turno = mapper.convertValue(turnoDto, Turno.class);
         return mapper.convertValue(repository.save(turno), TurnoDto.class);
     }
 

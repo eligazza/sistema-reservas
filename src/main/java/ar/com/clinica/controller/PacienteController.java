@@ -47,11 +47,10 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insertar(@RequestBody Paciente paciente) {
+    public ResponseEntity<?> insertar(@RequestBody PacienteDto pacienteDto) {
 
-        PacienteDto pacienteInsertado = null;
         try {
-             pacienteInsertado = service.insertar(paciente);
+             pacienteDto = service.insertar(pacienteDto);
         }
         catch (Exception e) {
             return ResponseEntity
@@ -60,20 +59,20 @@ public class PacienteController {
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(pacienteInsertado);
+                .body(pacienteDto);
     }
 
     @PutMapping
-    public ResponseEntity<?> modificar(@RequestBody Paciente paciente) {
+    public ResponseEntity<?> modificar(@RequestBody PacienteDto pacienteDto) {
 
-        if (service.modificar(paciente) == null) {
+        if (service.modificar(pacienteDto) == null) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("No se pudieron actualizar los datos");
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(service.modificar(paciente));
+                .body(service.modificar(pacienteDto));
     }
 
     @DeleteMapping("/{id}")

@@ -35,19 +35,19 @@ public class TurnoController {
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDto> insertar(@RequestBody Turno turno) {
-        if (service.insertar(turno) == null) {
-            return new ResponseEntity<>(service.insertar(turno), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<TurnoDto> insertar(@RequestBody TurnoDto turnoDto) {
+        if (service.insertar(turnoDto) == null) {
+            return new ResponseEntity<>(service.insertar(turnoDto), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.insertar(turno), HttpStatus.OK);
+        return new ResponseEntity<>(service.insertar(turnoDto), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDto> modificar(@RequestBody Turno turno) {
-        if (service.modificar(turno) == null) {
-            return new ResponseEntity<>(service.modificar(turno), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<TurnoDto> modificar(@RequestBody TurnoDto turnoDto) {
+        if (service.modificar(turnoDto) == null) {
+            return new ResponseEntity<>(service.modificar(turnoDto), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(service.modificar(turno), HttpStatus.OK);
+        return new ResponseEntity<>(service.modificar(turnoDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

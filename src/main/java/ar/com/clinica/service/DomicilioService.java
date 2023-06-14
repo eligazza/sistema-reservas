@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DomicilioService implements IService<Domicilio, DomicilioDto> {
+public class DomicilioService implements IService<DomicilioDto> {
 
     @Autowired
     private IDomicilioRepository repository;
@@ -38,33 +38,29 @@ public class DomicilioService implements IService<Domicilio, DomicilioDto> {
     }
 
     @Override
-    public DomicilioDto insertar(Domicilio domicilio) {
+    public DomicilioDto insertar(DomicilioDto domicilioDto) {
 
+        Domicilio domicilio = mapper.convertValue(domicilioDto, Domicilio.class);
         return mapper.convertValue(repository.save(domicilio), DomicilioDto.class);
+
     }
 
     @Override
-    public DomicilioDto modificar(Domicilio domicilioNuevo) {
+    public DomicilioDto modificar(DomicilioDto domicilioDto) {
 
-        Long idBuscado = domicilioNuevo.getId();
-        Domicilio domicilio = null;
-        if (repository.findById(idBuscado).isPresent()) {
-            domicilio = repository.findById(idBuscado).get();
-            domicilio.setCalle(domicilioNuevo.getCalle());
-            domicilio.setLocalidad(domicilioNuevo.getLocalidad());
-            domicilio.setNumero(domicilioNuevo.getNumero());
-        }
+        Domicilio domicilio = mapper.convertValue(domicilioDto, Domicilio.class);
         return mapper.convertValue(repository.save(domicilio), DomicilioDto.class);
+
     }
 
     @Override
     public DomicilioDto eliminar(Long id) {
 
-        Domicilio domicilioEliminado = null;
+        Domicilio domicilio = null;
         if (repository.findById(id).isPresent()) {
-            domicilioEliminado = repository.findById(id).get();
+            domicilio = repository.findById(id).get();
             repository.deleteById(id);
         }
-        return mapper.convertValue(domicilioEliminado, DomicilioDto.class);
+        return mapper.convertValue(domicilio, DomicilioDto.class);
     }
 }
