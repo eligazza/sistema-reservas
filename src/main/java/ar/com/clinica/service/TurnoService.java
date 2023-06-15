@@ -33,10 +33,9 @@ public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
     @Override
     public TurnoDtoRes buscarPorId(Long id) {
 
-        Turno turnoEntity = null;
         TurnoDtoRes turnoRespuesta = null;
         if (repository.findById(id).isPresent()) {
-            turnoEntity = repository.findById(id).get();
+            Turno turnoEntity = repository.findById(id).get();
             turnoRespuesta = mapper.convertValue(turnoEntity, TurnoDtoRes.class);
         }
         return turnoRespuesta;
