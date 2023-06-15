@@ -1,22 +1,20 @@
 package ar.com.clinica.controller;
 
-
-import ar.com.clinica.dto.PacienteDto;
-import ar.com.clinica.dto.PacienteDtoReq;
+import ar.com.clinica.dto.res.PacienteDtoRes;
+import ar.com.clinica.dto.req.PacienteDtoReq;
 import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
 
     @Autowired
-    private PacienteService service;
+    PacienteService service;
 
 
     @GetMapping
@@ -45,13 +43,20 @@ public class PacienteController {
                 .body(service.buscarPorId(id));
     }
 
+    /*
+    @GetMapping(params = "apellido")
+    public ResponseEntity<?> listarPorApellido(@RequestParam("apellido") String apellido) {
+        return service.buscarPorApellido(apellido)
+    }
+     */
+
     @PostMapping
     public ResponseEntity<?> insertar(@RequestBody PacienteDtoReq pacienteDtoReq) {
 
-        PacienteDto pacienteDto = null;
+        PacienteDtoRes pacienteDtoRes = null;
 
         try {
-             pacienteDto = service.insertar(pacienteDtoReq);
+             pacienteDtoRes = service.insertar(pacienteDtoReq);
         }
         catch (Exception e) {
             return ResponseEntity
@@ -60,7 +65,7 @@ public class PacienteController {
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(pacienteDto);
+                .body(pacienteDtoRes);
     }
 
     @PutMapping

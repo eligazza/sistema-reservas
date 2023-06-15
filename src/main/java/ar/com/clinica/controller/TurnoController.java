@@ -1,7 +1,7 @@
 package ar.com.clinica.controller;
 
-import ar.com.clinica.dto.TurnoDto;
-import ar.com.clinica.entity.Turno;
+import ar.com.clinica.dto.res.PacienteDtoRes;
+import ar.com.clinica.dto.res.TurnoDtoRes;
 import ar.com.clinica.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,43 +19,68 @@ public class TurnoController {
 
 
     @GetMapping
-    public ResponseEntity<List<TurnoDto>> listar() {
+    public ResponseEntity<?> listar() {
+
         if (service.listar() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No existen turnos para listar");
         }
-        return new ResponseEntity<>(service.listar(), HttpStatus.OK);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDto> listarPorId(@PathVariable Long id) {
+    public ResponseEntity<?> listarPorId(@PathVariable Long id) {
+
         if (service.buscarPorId(id) == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No encontramos dicho turno, por favor revisa el ID");
         }
-        return new ResponseEntity<>(service.buscarPorId(id) , HttpStatus.OK);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.buscarPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDto> insertar(@RequestBody TurnoDto turnoDto) {
-        if (service.insertar(turnoDto) == null) {
-            return new ResponseEntity<>(service.insertar(turnoDto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> insertar(@RequestBody TurnoDtoRes turnoDtoRes) {
+
+        TurnoDtoRes turnoGuardado = null;
+        try {
+            turnoGuardado = service.insertar(turnoDtoRes);
         }
-        return new ResponseEntity<>(service.insertar(turnoDto), HttpStatus.OK);
+        catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(turnoGuardado);
+
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDto> modificar(@RequestBody TurnoDto turnoDto) {
-        if (service.modificar(turnoDto) == null) {
-            return new ResponseEntity<>(service.modificar(turnoDto), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> modificar(@RequestBody TurnoDtoRes turnoDtoRes) {
+
+        if (service.modificar(turnoDtoRes) == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("No se pudieron modificar el turno");
         }
-        return new ResponseEntity<>(service.modificar(turnoDto), HttpStatus.OK);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.modificar(turnoDtoRes));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<TurnoDto> eliminar(@PathVariable Long id) {
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
         if (service.eliminar(id) == null) {
-            return new ResponseEntity<>(service.eliminar(id), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el turno, corrobore el ID");
         }
-        return new ResponseEntity<>(service.eliminar(id), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(service.eliminar(id));
     }
 
 }

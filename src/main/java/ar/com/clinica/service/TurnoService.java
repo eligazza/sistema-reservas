@@ -1,19 +1,16 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dto.TurnoDto;
-import ar.com.clinica.entity.Odontologo;
-import ar.com.clinica.entity.Paciente;
+import ar.com.clinica.dto.res.TurnoDtoRes;
 import ar.com.clinica.entity.Turno;
 import ar.com.clinica.repository.ITurnoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TurnoService implements IService<TurnoDto, TurnoDto> {
+public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
 
     @Autowired
     ITurnoRepository repository;
@@ -23,51 +20,51 @@ public class TurnoService implements IService<TurnoDto, TurnoDto> {
 
 
     @Override
-    public List<TurnoDto> listar() {
+    public List<TurnoDtoRes> listar() {
 
         List<Turno> listaEntidades = repository.findAll();
 
         return listaEntidades
                 .stream()
-                .map(paciente -> mapper.convertValue(paciente, TurnoDto.class))
+                .map(paciente -> mapper.convertValue(paciente, TurnoDtoRes.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public TurnoDto buscarPorId(Long id) {
+    public TurnoDtoRes buscarPorId(Long id) {
 
-        Turno turnoBuscado = null;
+        Turno turnoEntity = null;
+        TurnoDtoRes turnoRespuesta = null;
         if (repository.findById(id).isPresent()) {
-            turnoBuscado = repository.findById(id).get();
+            turnoEntity = repository.findById(id).get();
+            turnoRespuesta = mapper.convertValue(turnoEntity, TurnoDtoRes.class);
         }
-        return mapper.convertValue(turnoBuscado, TurnoDto.class);
+        return turnoRespuesta;
     }
 
     @Override
-    public TurnoDto insertar(TurnoDto turnoDto) {
+    public TurnoDtoRes insertar(TurnoDtoRes turnoDtoRes) {
 
-        Turno turno = mapper.convertValue(turnoDto, Turno.class);
-        if (turno.getPaciente()==null || turno.getOdontologo()==null) {
-            return null;
-        }
-        return mapper.convertValue(repository.save(turno), TurnoDto.class);
-    }
+        Turno turno = mapper.convertValue(turnoDtoRes, Turno.class);
+        Turno turnoGuardado = repository.save(turno);
+        return mapper.convertValue(turnoGuardado, TurnoDtoRes.class);
 
-
-    @Override
-    public TurnoDto modificar(TurnoDto turnoDto) {
-        Turno turno = mapper.convertValue(turnoDto, Turno.class);
-        return mapper.convertValue(repository.save(turno), TurnoDto.class);
     }
 
     @Override
-    public TurnoDto eliminar(Long id) {
+    public TurnoDtoRes modificar(TurnoDtoRes turnoDtoRes) {
+        Turno turno = mapper.convertValue(turnoDtoRes, Turno.class);
+        return mapper.convertValue(repository.save(turno), TurnoDtoRes.class);
+    }
+
+    @Override
+    public TurnoDtoRes eliminar(Long id) {
 
         Turno turno = repository.findById(id).get();
         if (repository.findById(id).isPresent()) {
             repository.deleteById(id);
         }
-        return mapper.convertValue(turno, TurnoDto.class);
+        return mapper.convertValue(turno, TurnoDtoRes.class);
     }
 
 }

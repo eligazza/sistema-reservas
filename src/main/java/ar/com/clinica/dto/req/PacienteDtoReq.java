@@ -1,6 +1,6 @@
-package ar.com.clinica.dto;
+package ar.com.clinica.dto.req;
 
-import ar.com.clinica.entity.Domicilio;
+import ar.com.clinica.dto.res.DomicilioDtoRes;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +13,6 @@ public class PacienteDtoReq {
     private String nombre;
     private String apellido;
     private String fechaDeAlta;
-    private Domicilio domicilio;
+    private DomicilioDtoRes domicilio;
 
 }

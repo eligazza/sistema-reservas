@@ -1,7 +1,7 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dto.OdontologoDto;
-import ar.com.clinica.dto.OdontologoDtoReq;
+import ar.com.clinica.dto.res.OdontologoDtoRes;
+import ar.com.clinica.dto.req.OdontologoDtoReq;
 import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.repository.IOdontologoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class OdontologoService implements IService<OdontologoDto, OdontologoDtoReq> {
+public class OdontologoService implements IService<OdontologoDtoRes, OdontologoDtoReq> {
 
     @Autowired
     IOdontologoRepository repository;
@@ -23,18 +23,22 @@ public class OdontologoService implements IService<OdontologoDto, OdontologoDtoR
 
 
     @Override
-    public List<OdontologoDto> listar() {
+    public List<OdontologoDtoRes> listar() {
 
         List<Odontologo> listaEntidades = repository.findAll();
-        return listaEntidades
-                .stream()
-                .map(odontologo -> mapper.convertValue(odontologo, OdontologoDto.class))
-                .collect(Collectors.toList());
+        List<OdontologoDtoRes> odontologosDtos = null;
 
+        if (!listaEntidades.isEmpty()) {
+            odontologosDtos = listaEntidades
+                    .stream()
+                    .map(odontologo -> mapper.convertValue(odontologo, OdontologoDtoRes.class))
+                    .collect(Collectors.toList());
+        }
+        return odontologosDtos;
     }
 
     @Override
-    public OdontologoDto buscarPorId(Long id) {
+    public OdontologoDtoRes buscarPorId(Long id) {
 
         Odontologo odontologo = null;
 
@@ -42,34 +46,36 @@ public class OdontologoService implements IService<OdontologoDto, OdontologoDtoR
             odontologo = repository.findById(id).get();
         }
 
-        return mapper.convertValue(odontologo, OdontologoDto.class);
+        return mapper.convertValue(odontologo, OdontologoDtoRes.class);
 
     }
 
     @Override
-    public OdontologoDto insertar(OdontologoDtoReq odontologoDtoReq) {
+    public OdontologoDtoRes insertar(OdontologoDtoReq odontologoDtoReq) {
 
         Odontologo odontologo = mapper.convertValue(odontologoDtoReq, Odontologo.class);
-        return mapper.convertValue(repository.save(odontologo), OdontologoDto.class);
+        Odontologo odontologoGuardado = repository.save(odontologo);
+        return mapper.convertValue(odontologoGuardado, OdontologoDtoRes.class);
 
     }
 
     @Override
-    public OdontologoDto modificar(OdontologoDtoReq odontologoDtoReq) {
+    public OdontologoDtoRes modificar(OdontologoDtoReq odontologoDtoReq) {
 
         Odontologo odontologo = mapper.convertValue(odontologoDtoReq, Odontologo.class);
-        return mapper.convertValue(repository.save(odontologo), OdontologoDto.class);
+        return mapper.convertValue(repository.save(odontologo), OdontologoDtoRes.class);
 
     }
 
     @Override
-    public OdontologoDto eliminar(Long id) {
+    public OdontologoDtoRes eliminar(Long id) {
 
-        Odontologo odontologo = repository.findById(id).get();
+        Odontologo odontologo = null;
         if (repository.findById(id).isPresent()) {
+            odontologo = repository.findById(id).get();
             repository.deleteById(id);
         }
-        return mapper.convertValue(odontologo, OdontologoDto.class);
+        return mapper.convertValue(odontologo, OdontologoDtoRes.class);
     }
 
 }

@@ -1,4 +1,4 @@
-package ar.com.clinica.dto;
+package ar.com.clinica.dto.res;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PacienteDto {
+public class PacienteDtoRes {
 
     private Long id;
     private Integer dni;

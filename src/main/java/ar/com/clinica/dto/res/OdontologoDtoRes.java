@@ -1,10 +1,10 @@
-package ar.com.clinica.dto;
+package ar.com.clinica.dto.res;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class OdontologoDtoReq {
+public class OdontologoDtoRes {
 
     private Long id;
     private String nombre;

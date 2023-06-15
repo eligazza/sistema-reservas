@@ -21,6 +21,7 @@ public class Turno {
     private Paciente paciente;
 
 
+    public Turno(){}
     public Turno(String fecha, Odontologo odontologo, Paciente paciente) {
         this.fecha = fecha;
         this.odontologo = odontologo;

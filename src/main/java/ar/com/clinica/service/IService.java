@@ -1,9 +1,5 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dto.PacienteDto;
-import ar.com.clinica.dto.PacienteDtoReq;
-import ar.com.clinica.entity.Odontologo;
-
 import java.util.List;
 
 public interface IService<T, S> {
