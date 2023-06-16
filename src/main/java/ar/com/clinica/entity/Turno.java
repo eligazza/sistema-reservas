@@ -1,8 +1,10 @@
 package ar.com.clinica.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter @Setter
 @Entity
 @Table (name = "turnos")
 public class Turno {
@@ -26,34 +28,5 @@ public class Turno {
         this.fecha = fecha;
         this.odontologo = odontologo;
         this.paciente = paciente;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public Odontologo getOdontologo() {
-        return odontologo;
-    }
-
-    public void setOdontologo(Odontologo odontologo) {
-        this.odontologo = odontologo;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
     }
 }

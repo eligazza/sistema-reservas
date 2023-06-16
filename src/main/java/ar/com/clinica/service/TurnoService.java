@@ -4,12 +4,15 @@ import ar.com.clinica.dto.res.OdontologoDtoRes;
 import ar.com.clinica.dto.res.PacienteDtoRes;
 import ar.com.clinica.dto.res.TurnoDtoRes;
 import ar.com.clinica.entity.Turno;
+import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.ITurnoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
@@ -21,57 +24,63 @@ public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
 
 
     @Override
-    public List<TurnoDtoRes> listar() {
+    public List<TurnoDtoRes> listar() throws ExcepcionNoHayContenido {
 
-        List<TurnoDtoRes> turnosDto = null;
-
-        List<Turno> turnos = repository.findAll();
-
-        for (Turno turno: turnos) {
-            TurnoDtoRes turnoDto = mapper.convertValue(turno, TurnoDtoRes.class);
-                        turnoDto.setOdontologo(mapper.convertValue(turno.getOdontologo(), OdontologoDtoRes.class));
-                        turnoDto.setPaciente(mapper.convertValue(turno.getPaciente(), PacienteDtoRes.class));
-
-                        turnosDto.add(turnoDto);
+        if (repository.findAll().size() == 0) {
+            throw new ExcepcionNoHayContenido("No existen turnos registrados");
+        } else {
+            return repository.findAll()
+                    .stream()
+                    .map(turno -> mapper.convertValue(turno, TurnoDtoRes.class))
+                    .collect(Collectors.toList());
         }
-
-        return turnosDto;
     }
 
     @Override
-    public TurnoDtoRes buscarPorId(Long id) {
+    public TurnoDtoRes buscarPorId(Long id) throws ExcepcionRecursoNoEncontrado {
 
-        TurnoDtoRes turnoRespuesta = null;
-        if (repository.findById(id).isPresent()) {
-            Turno turnoEntity = repository.findById(id).get();
-            turnoRespuesta = mapper.convertValue(turnoEntity, TurnoDtoRes.class);
+        if (repository.findById(id).isEmpty()) {
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
+        } else {
+            return mapper.convertValue(repository.findById(id).get(), TurnoDtoRes.class);
         }
-        return turnoRespuesta;
     }
 
     @Override
-    public TurnoDtoRes insertar(TurnoDtoRes turnoDtoRes) {
+    public TurnoDtoRes insertar(TurnoDtoRes turnoDtoRes) throws ExcepcionParametroFaltante {
 
-        Turno turno = mapper.convertValue(turnoDtoRes, Turno.class);
-        Turno turnoGuardado = repository.save(turno);
-        return mapper.convertValue(turnoGuardado, TurnoDtoRes.class);
-
+        if (turnoDtoRes.getOdontologo() == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un odontólogo");
+        } else {
+            Turno turnoGuardado = repository.save(mapper.convertValue(turnoDtoRes, Turno.class));
+            return mapper.convertValue(turnoGuardado, TurnoDtoRes.class);
+        }
     }
 
     @Override
-    public TurnoDtoRes modificar(TurnoDtoRes turnoDtoRes) {
-        Turno turno = mapper.convertValue(turnoDtoRes, Turno.class);
-        return mapper.convertValue(repository.save(turno), TurnoDtoRes.class);
+    public TurnoDtoRes modificar(TurnoDtoRes turnoDtoRes) throws ExcepcionRecursoNoEncontrado {
+
+        Long id = turnoDtoRes.getId();
+
+        if (repository.findById(id).isEmpty()) {
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
+        } else {
+            Turno turnoModificado = repository.save(mapper.convertValue(turnoDtoRes, Turno.class));
+            return mapper.convertValue(turnoModificado, TurnoDtoRes.class);
+        }
     }
 
     @Override
-    public TurnoDtoRes eliminar(Long id) {
+    public TurnoDtoRes eliminar(Long id) throws ExcepcionRecursoNoEncontrado {
 
-        Turno turno = repository.findById(id).get();
-        if (repository.findById(id).isPresent()) {
+        if (repository.findById(id).isEmpty()) {
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
+        } else {
+            Turno turnoEliminado = repository.findById(id).get();
+            TurnoDtoRes turnoEliminadoDto = mapper.convertValue(turnoEliminado, TurnoDtoRes.class);
             repository.deleteById(id);
+            return turnoEliminadoDto;
         }
-        return mapper.convertValue(turno, TurnoDtoRes.class);
     }
 
 }

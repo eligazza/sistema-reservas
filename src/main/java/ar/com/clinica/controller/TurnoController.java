@@ -1,12 +1,14 @@
 package ar.com.clinica.controller;
 
 import ar.com.clinica.dto.res.TurnoDtoRes;
+import ar.com.clinica.exceptions.*;
 import ar.com.clinica.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/turnos")
@@ -17,59 +19,28 @@ public class TurnoController {
 
 
     @GetMapping
-    public ResponseEntity<?> listar() {
+    public ResponseEntity<List<TurnoDtoRes>> listar() throws ExcepcionNoHayContenido {
         return ResponseEntity.status(HttpStatus.OK).body(service.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarPorId(@PathVariable Long id) {
-
-        if (service.buscarPorId(id) == null) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body("No encontramos dicho turno, por favor revisa el ID");
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.buscarPorId(id));
+    public ResponseEntity<TurnoDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> insertar(@RequestBody TurnoDtoRes turnoDtoRes) {
-
-        TurnoDtoRes turnoGuardado = null;
-        try {
-            turnoGuardado = service.insertar(turnoDtoRes);
-        }
-        catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(turnoGuardado);
-
+    public ResponseEntity<TurnoDtoRes> insertar(@RequestBody TurnoDtoRes turnoDtoRes) throws ExcepcionParametroFaltante {
+        TurnoDtoRes turnoNuevo = service.insertar(turnoDtoRes);
+        return ResponseEntity.status(HttpStatus.OK).body(turnoNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<?> modificar(@RequestBody TurnoDtoRes turnoDtoRes) {
-
-        if (service.modificar(turnoDtoRes) == null) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body("No se pudieron modificar el turno");
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.modificar(turnoDtoRes));
+    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoRes turnoDtoRes) throws ExcepcionRecursoNoEncontrado {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificar(turnoDtoRes));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id) {
-        if (service.eliminar(id) == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el turno, corrobore el ID");
-        }
+    public ResponseEntity<TurnoDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminar(id));
     }
 
