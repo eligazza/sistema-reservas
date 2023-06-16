@@ -3,8 +3,8 @@ package ar.com.clinica.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "odontologos")
@@ -18,7 +18,7 @@ public class Odontologo {
     private String matricula;
     @OneToMany(mappedBy = "odontologo")
     @JsonIgnore // al ser una relacion OneToMany debo hacer esto para no caer en el loop
-    private Set<Turno> turnos = new HashSet<>();
+    private List<Turno> turnos = new ArrayList<>();
 
 
     public Odontologo(){}
@@ -57,11 +57,11 @@ public class Odontologo {
         this.matricula = matricula;
     }
 
-    public Set<Turno> getTurnos() {
+    public List<Turno> getTurnos() {
         return turnos;
     }
 
-    public void setTurnos(Set<Turno> turnos) {
+    public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
     }
 }

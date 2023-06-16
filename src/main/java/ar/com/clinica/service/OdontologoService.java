@@ -3,6 +3,9 @@ package ar.com.clinica.service;
 import ar.com.clinica.dto.res.OdontologoDtoRes;
 import ar.com.clinica.dto.req.OdontologoDtoReq;
 import ar.com.clinica.entity.Odontologo;
+import ar.com.clinica.exceptions.ExcepcionNoHayContenido;
+import ar.com.clinica.exceptions.ExcepcionParametroFaltante;
+import ar.com.clinica.exceptions.ExcepcionRecursoNoEncontrado;
 import ar.com.clinica.repository.IOdontologoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,59 +25,65 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
 
 
     @Override
-    public List<OdontologoDtoRes> listar() {
+    public List<OdontologoDtoRes> listar() throws ExcepcionNoHayContenido {
 
-        List<Odontologo> listaEntidades = repository.findAll();
-        List<OdontologoDtoRes> odontologosDtos = null;
-
-        if (!listaEntidades.isEmpty()) {
-            odontologosDtos = listaEntidades
+        if (repository.findAll().size() == 0) {
+            throw new ExcepcionNoHayContenido("No existen odontólogos registrados");
+        } else {
+            return repository.findAll()
                     .stream()
                     .map(odontologo -> mapper.convertValue(odontologo, OdontologoDtoRes.class))
                     .collect(Collectors.toList());
         }
-        return odontologosDtos;
     }
 
     @Override
-    public OdontologoDtoRes buscarPorId(Long id) {
+    public OdontologoDtoRes buscarPorId(Long id) throws ExcepcionRecursoNoEncontrado {
 
-        Odontologo odontologo = null;
+        if (repository.findById(id).isEmpty()) {
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con el ID: " + id);
+        } else {
+            return mapper.convertValue(repository.findById(id).get(), OdontologoDtoRes.class);
+        }
+    }
 
-        if (repository.findById(id).isPresent()) {
-            odontologo = repository.findById(id).get();
+    @Override
+    public OdontologoDtoRes insertar(OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante {
+
+        if (odontologoDtoReq.getApellido().isEmpty() || odontologoDtoReq.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Apellido y nombre obligatorios");
+        } else {
+            Odontologo odontologoGuardado = repository.save(mapper.convertValue(odontologoDtoReq, Odontologo.class));
+            return mapper.convertValue(odontologoGuardado, OdontologoDtoRes.class);
         }
 
-        return mapper.convertValue(odontologo, OdontologoDtoRes.class);
-
     }
 
     @Override
-    public OdontologoDtoRes insertar(OdontologoDtoReq odontologoDtoReq) {
+    public OdontologoDtoRes modificar(OdontologoDtoReq odontologoDtoReq) throws ExcepcionRecursoNoEncontrado {
 
-        Odontologo odontologo = mapper.convertValue(odontologoDtoReq, Odontologo.class);
-        Odontologo odontologoGuardado = repository.save(odontologo);
-        return mapper.convertValue(odontologoGuardado, OdontologoDtoRes.class);
+        Long id = odontologoDtoReq.getId();
 
+        if (repository.findById(id).isEmpty()){
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con ID: " + id);
+        } else {
+            Odontologo odontologoModificado = repository.save(mapper.convertValue(odontologoDtoReq, Odontologo.class));
+            return mapper.convertValue(odontologoModificado, OdontologoDtoRes.class);
+        }
     }
 
     @Override
-    public OdontologoDtoRes modificar(OdontologoDtoReq odontologoDtoReq) {
+    public OdontologoDtoRes eliminar(Long id) throws ExcepcionRecursoNoEncontrado {
 
-        Odontologo odontologo = mapper.convertValue(odontologoDtoReq, Odontologo.class);
-        return mapper.convertValue(repository.save(odontologo), OdontologoDtoRes.class);
-
-    }
-
-    @Override
-    public OdontologoDtoRes eliminar(Long id) {
-
-        Odontologo odontologo = null;
-        if (repository.findById(id).isPresent()) {
-            odontologo = repository.findById(id).get();
+        if (repository.findById(id).isEmpty()) {
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con el ID: " + id);
+        } else {
+            Odontologo odontologoEliminado = repository.findById(id).get();
+            OdontologoDtoRes odontologoEliminadoDto = mapper.convertValue(
+                    odontologoEliminado, OdontologoDtoRes.class);
             repository.deleteById(id);
+            return odontologoEliminadoDto;
         }
-        return mapper.convertValue(odontologo, OdontologoDtoRes.class);
     }
 
 }
