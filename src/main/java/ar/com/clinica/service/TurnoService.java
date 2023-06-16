@@ -18,7 +18,6 @@ public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
     ITurnoRepository repository;
     @Autowired
     ObjectMapper mapper;
-    // ObjectMapper mapper = Mapper.getMapper(false, false);
 
 
     @Override

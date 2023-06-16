@@ -19,7 +19,6 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
     IOdontologoRepository repository;
     @Autowired
     ObjectMapper mapper;
-    //ObjectMapper mapper = Mapper.getMapper(false, false);
 
 
     @Override

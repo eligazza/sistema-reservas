@@ -2,11 +2,16 @@ package ar.com.clinica.controller;
 
 import ar.com.clinica.dto.res.PacienteDtoRes;
 import ar.com.clinica.dto.req.PacienteDtoReq;
+import ar.com.clinica.exceptions.ExcepcionNoHayContenido;
+import ar.com.clinica.exceptions.ExcepcionRecursoNoEncontrado;
+import ar.com.clinica.exceptions.ExcepcionParametroFaltante;
 import ar.com.clinica.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -18,29 +23,14 @@ public class PacienteController {
 
 
     @GetMapping
-    public ResponseEntity<?> listar() {
-
-        if (service.listar() == null) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body("No existen pacientes para listar");
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.listar());
+    public ResponseEntity<List<PacienteDtoRes>> listar() throws ExcepcionNoHayContenido {
+        List<PacienteDtoRes> lista = service.listar();
+        return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarPorId(@PathVariable Long id) {
-
-        if (service.buscarPorId(id) == null) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body("No encontramos dicho paciente, por favor revisa el ID");
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.buscarPorId(id));
+    public ResponseEntity<PacienteDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
     }
 
     /*
@@ -51,41 +41,18 @@ public class PacienteController {
      */
 
     @PostMapping
-    public ResponseEntity<?> insertar(@RequestBody PacienteDtoReq pacienteDtoReq) {
-
-        PacienteDtoRes pacienteDtoRes = null;
-
-        try {
-             pacienteDtoRes = service.insertar(pacienteDtoReq);
-        }
-        catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(pacienteDtoRes);
+    public ResponseEntity<PacienteDtoRes> insertar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
+        PacienteDtoRes pacienteNuevo = service.insertar(pacienteDtoReq);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pacienteNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<?> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) {
-
-        if (service.modificar(pacienteDtoReq) == null) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body("No se pudieron actualizar los datos");
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.modificar(pacienteDtoReq));
+    public ResponseEntity<PacienteDtoRes> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificar(pacienteDtoReq));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id) {
-        if (service.eliminar(id) == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el paciente, corrobore el ID");
-        }
+    public ResponseEntity<PacienteDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminar(id));
     }
 
