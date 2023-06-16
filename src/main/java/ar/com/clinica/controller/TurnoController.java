@@ -1,6 +1,5 @@
 package ar.com.clinica.controller;
 
-import ar.com.clinica.dto.res.PacienteDtoRes;
 import ar.com.clinica.dto.res.TurnoDtoRes;
 import ar.com.clinica.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/turnos")
@@ -20,15 +18,7 @@ public class TurnoController {
 
     @GetMapping
     public ResponseEntity<?> listar() {
-
-        if (service.listar() == null) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body("No existen turnos para listar");
-        }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.listar());
+        return ResponseEntity.status(HttpStatus.OK).body(service.listar());
     }
 
     @GetMapping("/{id}")

@@ -1,5 +1,7 @@
 package ar.com.clinica.service;
 
+import ar.com.clinica.dto.res.OdontologoDtoRes;
+import ar.com.clinica.dto.res.PacienteDtoRes;
 import ar.com.clinica.dto.res.TurnoDtoRes;
 import ar.com.clinica.entity.Turno;
 import ar.com.clinica.repository.ITurnoRepository;
@@ -22,12 +24,19 @@ public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
     @Override
     public List<TurnoDtoRes> listar() {
 
-        List<Turno> listaEntidades = repository.findAll();
+        List<TurnoDtoRes> turnosDto = null;
 
-        return listaEntidades
-                .stream()
-                .map(paciente -> mapper.convertValue(paciente, TurnoDtoRes.class))
-                .collect(Collectors.toList());
+        List<Turno> turnos = repository.findAll();
+
+        for (Turno turno: turnos) {
+            TurnoDtoRes turnoDto = mapper.convertValue(turno, TurnoDtoRes.class);
+                        turnoDto.setOdontologo(mapper.convertValue(turno.getOdontologo(), OdontologoDtoRes.class));
+                        turnoDto.setPaciente(mapper.convertValue(turno.getPaciente(), PacienteDtoRes.class));
+
+                        turnosDto.add(turnoDto);
+        }
+
+        return turnosDto;
     }
 
     @Override
