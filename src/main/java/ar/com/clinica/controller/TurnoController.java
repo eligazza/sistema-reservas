@@ -21,28 +21,28 @@ public class TurnoController {
 
     @GetMapping
     public ResponseEntity<List<TurnoDtoRes>> listar() throws ExcepcionNoHayContenido {
-        return ResponseEntity.status(HttpStatus.OK).body(service.listar());
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarTurnos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TurnoDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarTurnoPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDtoRes> insertar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionParametroFaltante {
-        TurnoDtoRes turnoNuevo = service.insertar(turnoDtoReq);
+    public ResponseEntity<TurnoDtoRes> guardar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionParametroFaltante {
+        TurnoDtoRes turnoNuevo = service.guardarTurno(turnoDtoReq);
         return ResponseEntity.status(HttpStatus.OK).body(turnoNuevo);
     }
 
     @PutMapping
     public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificar(turnoDtoReq));
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoReq));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<TurnoDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.eliminar(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.eliminarTurno(id));
     }
 
 }

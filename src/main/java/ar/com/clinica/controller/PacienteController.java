@@ -37,7 +37,7 @@ public class PacienteController {
      */
 
     @PostMapping
-    public ResponseEntity<PacienteDtoRes> insertar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
+    public ResponseEntity<PacienteDtoRes> guardar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
         PacienteDtoRes pacienteNuevo = service.guardarPaciente(pacienteDtoReq);
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteNuevo);
     }

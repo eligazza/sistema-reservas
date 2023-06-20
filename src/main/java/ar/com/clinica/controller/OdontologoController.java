@@ -29,7 +29,7 @@ public class OdontologoController {
     }
 
     @PostMapping
-    public ResponseEntity<OdontologoDtoRes> insertar(@RequestBody OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante {
+    public ResponseEntity<OdontologoDtoRes> guardar(@RequestBody OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante {
         OdontologoDtoRes odontologoNuevo = service.guardarOdontologo(odontologoDtoReq);
         return ResponseEntity.status(HttpStatus.CREATED).body(odontologoNuevo);
     }
