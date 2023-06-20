@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService implements IService<PacienteDtoRes, PacienteDtoReq> {
+public class PacienteService implements IPacienteService {
 
     @Autowired
     IPacienteRepository repository;
@@ -22,7 +22,7 @@ public class PacienteService implements IService<PacienteDtoRes, PacienteDtoReq>
 
 
     @Override
-    public List<PacienteDtoRes> listar() throws ExcepcionNoHayContenido {
+    public List<PacienteDtoRes> listarPacientes() throws ExcepcionNoHayContenido {
 
         if (repository.findAll().size() == 0) {
             throw new ExcepcionNoHayContenido("No existen pacientes registrados");
@@ -35,7 +35,7 @@ public class PacienteService implements IService<PacienteDtoRes, PacienteDtoReq>
     }
 
     @Override
-    public PacienteDtoRes buscarPorId(Long id) throws ExcepcionRecursoNoEncontrado {
+    public PacienteDtoRes buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
@@ -45,7 +45,7 @@ public class PacienteService implements IService<PacienteDtoRes, PacienteDtoReq>
     }
 
     @Override
-    public PacienteDtoRes insertar(PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
+    public PacienteDtoRes guardarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
 
         if (pacienteDtoReq.getApellido().isEmpty() || pacienteDtoReq.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Apellido y nombre obligatorios");
@@ -56,7 +56,7 @@ public class PacienteService implements IService<PacienteDtoRes, PacienteDtoReq>
     }
 
     @Override
-    public PacienteDtoRes modificar(PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public PacienteDtoRes modificarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado {
 
         Long id = pacienteDtoReq.getId();
 
@@ -69,7 +69,7 @@ public class PacienteService implements IService<PacienteDtoRes, PacienteDtoReq>
     }
 
     @Override
-    public PacienteDtoRes eliminar(Long id) throws ExcepcionRecursoNoEncontrado {
+    public PacienteDtoRes eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);

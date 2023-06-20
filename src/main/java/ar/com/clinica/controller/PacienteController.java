@@ -20,13 +20,13 @@ public class PacienteController {
 
     @GetMapping
     public ResponseEntity<List<PacienteDtoRes>> listar() throws ExcepcionNoHayContenido {
-        List<PacienteDtoRes> lista = service.listar();
+        List<PacienteDtoRes> lista = service.listarPacientes();
         return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PacienteDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscarPacientePorId(id));
     }
 
     /*
@@ -38,18 +38,18 @@ public class PacienteController {
 
     @PostMapping
     public ResponseEntity<PacienteDtoRes> insertar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
-        PacienteDtoRes pacienteNuevo = service.insertar(pacienteDtoReq);
+        PacienteDtoRes pacienteNuevo = service.guardarPaciente(pacienteDtoReq);
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteNuevo);
     }
 
     @PutMapping
     public ResponseEntity<PacienteDtoRes> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificar(pacienteDtoReq));
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificarPaciente(pacienteDtoReq));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<PacienteDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.eliminar(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.eliminarPaciente(id));
     }
 
 }
