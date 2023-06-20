@@ -1,10 +1,16 @@
 package ar.com.clinica.service;
 
+import ar.com.clinica.dto.req.TurnoDtoReq;
 import ar.com.clinica.dto.res.OdontologoDtoRes;
 import ar.com.clinica.dto.res.PacienteDtoRes;
+
 import ar.com.clinica.dto.res.TurnoDtoRes;
+import ar.com.clinica.entity.Odontologo;
+import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.entity.Turno;
 import ar.com.clinica.exceptions.*;
+import ar.com.clinica.repository.IOdontologoRepository;
+import ar.com.clinica.repository.IPacienteRepository;
 import ar.com.clinica.repository.ITurnoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +21,14 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
+public class TurnoService implements IService<TurnoDtoRes, TurnoDtoReq> {
 
     @Autowired
     ITurnoRepository repository;
+    @Autowired
+    PacienteService pacienteService;
+    @Autowired
+    OdontologoService odontologoService;
     @Autowired
     ObjectMapper mapper;
 
@@ -47,25 +57,21 @@ public class TurnoService implements IService<TurnoDtoRes, TurnoDtoRes> {
     }
 
     @Override
-    public TurnoDtoRes insertar(TurnoDtoRes turnoDtoRes) throws ExcepcionParametroFaltante {
-
-        if (turnoDtoRes.getOdontologo() == null) {
-            throw new ExcepcionParametroFaltante("Debe elegir un odontólogo");
-        } else {
-            Turno turnoGuardado = repository.save(mapper.convertValue(turnoDtoRes, Turno.class));
-            return mapper.convertValue(turnoGuardado, TurnoDtoRes.class);
-        }
+    public TurnoDtoRes insertar(TurnoDtoReq turnoDtoReq) throws ExcepcionParametroFaltante {
+        Turno turno = repository.save(mapper.convertValue(turnoDtoReq, Turno.class));
+        return mapper.convertValue(turno, TurnoDtoRes.class);
     }
 
-    @Override
-    public TurnoDtoRes modificar(TurnoDtoRes turnoDtoRes) throws ExcepcionRecursoNoEncontrado {
 
-        Long id = turnoDtoRes.getId();
+    @Override
+    public TurnoDtoRes modificar(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+
+        Long id = turnoDtoReq.getId();
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
         } else {
-            Turno turnoModificado = repository.save(mapper.convertValue(turnoDtoRes, Turno.class));
+            Turno turnoModificado = repository.save(mapper.convertValue(turnoDtoReq, Turno.class));
             return mapper.convertValue(turnoModificado, TurnoDtoRes.class);
         }
     }

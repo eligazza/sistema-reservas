@@ -21,9 +21,9 @@ public class Paciente {
     @JoinColumn (name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
-    @OneToMany (mappedBy = "paciente")
-    @JsonIgnore // colocar esto para no caer en un loop cuando se pida este set en el json
-    private Set<Turno> turnos = new HashSet<>();
+    //@OneToMany (mappedBy = "paciente")
+    //@JsonIgnore // colocar esto para no caer en un loop cuando se pida este set en el json
+    //private Set<Turno> turnos = new HashSet<>();
 
 
     public Paciente() {}
@@ -80,13 +80,13 @@ public class Paciente {
         this.domicilio = domicilio;
     }
 
-    public Set<Turno> getTurnos() {
+    /*public Set<Turno> getTurnos() {
         return turnos;
     }
 
     public void setTurnos(Set<Turno> turnos) {
         this.turnos = turnos;
-    }
+    }*/
 }
 
 

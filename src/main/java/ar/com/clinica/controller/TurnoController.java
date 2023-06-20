@@ -1,5 +1,6 @@
 package ar.com.clinica.controller;
 
+import ar.com.clinica.dto.req.TurnoDtoReq;
 import ar.com.clinica.dto.res.TurnoDtoRes;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.service.TurnoService;
@@ -29,14 +30,14 @@ public class TurnoController {
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDtoRes> insertar(@RequestBody TurnoDtoRes turnoDtoRes) throws ExcepcionParametroFaltante {
-        TurnoDtoRes turnoNuevo = service.insertar(turnoDtoRes);
+    public ResponseEntity<TurnoDtoRes> insertar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionParametroFaltante {
+        TurnoDtoRes turnoNuevo = service.insertar(turnoDtoReq);
         return ResponseEntity.status(HttpStatus.OK).body(turnoNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoRes turnoDtoRes) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificar(turnoDtoRes));
+    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificar(turnoDtoReq));
     }
 
     @DeleteMapping("/{id}")

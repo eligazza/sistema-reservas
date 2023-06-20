@@ -18,8 +18,7 @@ public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate fecha;
-    private LocalDate hora;
+    private String fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "odontologo_id", referencedColumnName = "id", nullable = false)

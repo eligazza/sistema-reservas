@@ -16,9 +16,9 @@ public class Odontologo {
     private String nombre;
     private String apellido;
     private String matricula;
-    @OneToMany(mappedBy = "odontologo")
-    @JsonIgnore // al ser una relacion OneToMany debo hacer esto para no caer en el loop
-    private List<Turno> turnos = new ArrayList<>();
+    //@OneToMany(mappedBy = "odontologo")
+    //@JsonIgnore // al ser una relacion OneToMany debo hacer esto para no caer en el loop
+    //private List<Turno> turnos = new ArrayList<>();
 
 
     public Odontologo(){}
@@ -57,11 +57,11 @@ public class Odontologo {
         this.matricula = matricula;
     }
 
-    public List<Turno> getTurnos() {
+    /*public List<Turno> getTurnos() {
         return turnos;
     }
 
     public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
-    }
+    }*/
 }
