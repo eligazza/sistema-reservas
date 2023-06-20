@@ -37,8 +37,8 @@ public class TurnoController {
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody Turno turno) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turno));
+    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoReq));
     }
 
     @DeleteMapping("/{id}")

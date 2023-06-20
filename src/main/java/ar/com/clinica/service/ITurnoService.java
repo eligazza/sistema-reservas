@@ -16,7 +16,7 @@ public interface ITurnoService {
 
     public TurnoDtoRes guardarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado;
 
-    public TurnoDtoRes modificarTurno(Turno turno);
+    public TurnoDtoRes modificarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado;
 
     public TurnoDtoRes eliminarTurno(Long id) throws ExcepcionRecursoNoEncontrado;
 

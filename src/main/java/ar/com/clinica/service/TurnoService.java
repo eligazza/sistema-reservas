@@ -11,6 +11,7 @@ import ar.com.clinica.entity.Turno;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.ITurnoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,8 +50,24 @@ public class TurnoService implements ITurnoService {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
-        } else {
-            return mapper.convertValue(repository.findById(id).get(), TurnoDtoRes.class);
+        }
+        else {
+
+            mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            Turno turnoEncontrado = repository.findById(id).get();
+
+            Long id_odontologo = turnoEncontrado.getOdontologo().getId();
+            OdontologoDtoRes odontologo_dto = odontologoService.buscarOdontologoPorId(id_odontologo);
+            turnoEncontrado.setOdontologo(mapper.convertValue(odontologo_dto, Odontologo.class));
+
+            Long id_paciente = turnoEncontrado.getPaciente().getId();
+            PacienteDtoRes paciente_dto = pacienteService.buscarPacientePorId(id_paciente);
+            turnoEncontrado.setPaciente(mapper.convertValue(paciente_dto, Paciente.class));
+
+            TurnoDtoRes turnoDto = mapper.convertValue(turnoEncontrado, TurnoDtoRes.class);
+
+            return turnoDto;
         }
     }
 
@@ -73,8 +90,25 @@ public class TurnoService implements ITurnoService {
 
 
     @Override
-    public TurnoDtoRes modificarTurno(Turno turno) {
-        return mapper.convertValue(repository.save(turno), TurnoDtoRes.class);
+    public TurnoDtoRes modificarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+
+        Long id_Turno = turnoDtoReq.getId();
+        if (repository.findById(id_Turno).isEmpty()) {
+            throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id_Turno);
+        }
+        else {
+            Turno turnoModificado = repository.save(mapper.convertValue(turnoDtoReq, Turno.class));
+
+            Long id_odontologo = turnoDtoReq.getOdontologo().getId();
+            OdontologoDtoRes odontologoNuevo = odontologoService.buscarOdontologoPorId(id_odontologo);
+            turnoModificado.setOdontologo(mapper.convertValue(odontologoNuevo, Odontologo.class));
+
+            Long id_paciente = turnoDtoReq.getPaciente().getId();
+            PacienteDtoRes pacienteNuevo = pacienteService.buscarPacientePorId(id_paciente);
+            turnoModificado.setPaciente(mapper.convertValue(pacienteNuevo, Paciente.class));
+
+            return mapper.convertValue(turnoModificado, TurnoDtoRes.class);
+        }
     }
 
     @Override
