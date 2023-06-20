@@ -2,6 +2,7 @@ package ar.com.clinica.controller;
 
 import ar.com.clinica.dto.req.TurnoDtoReq;
 import ar.com.clinica.dto.res.TurnoDtoRes;
+import ar.com.clinica.entity.Turno;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,14 @@ public class TurnoController {
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDtoRes> guardar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionParametroFaltante {
+    public ResponseEntity<TurnoDtoRes> guardar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
         TurnoDtoRes turnoNuevo = service.guardarTurno(turnoDtoReq);
-        return ResponseEntity.status(HttpStatus.OK).body(turnoNuevo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(turnoNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoReq));
+    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody Turno turno) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turno));
     }
 
     @DeleteMapping("/{id}")
