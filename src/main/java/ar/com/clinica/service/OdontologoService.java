@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class OdontologoService implements IService<OdontologoDtoRes, OdontologoDtoReq> {
+public class OdontologoService implements IOdontologoService {
 
     @Autowired
     IOdontologoRepository repository;
@@ -25,7 +25,7 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
 
 
     @Override
-    public List<OdontologoDtoRes> listar() throws ExcepcionNoHayContenido {
+    public List<OdontologoDtoRes> listarOdontologos() throws ExcepcionNoHayContenido {
 
         if (repository.findAll().size() == 0) {
             throw new ExcepcionNoHayContenido("No existen odontólogos registrados");
@@ -38,7 +38,7 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
     }
 
     @Override
-    public OdontologoDtoRes buscarPorId(Long id) throws ExcepcionRecursoNoEncontrado {
+    public OdontologoDtoRes buscarOdontologoPorId(Long id) throws ExcepcionRecursoNoEncontrado {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con el ID: " + id);
@@ -48,7 +48,7 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
     }
 
     @Override
-    public OdontologoDtoRes insertar(OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante {
+    public OdontologoDtoRes guardarOdontologo(OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante {
 
         if (odontologoDtoReq.getApellido().isEmpty() || odontologoDtoReq.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Apellido y nombre obligatorios");
@@ -60,7 +60,7 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
     }
 
     @Override
-    public OdontologoDtoRes modificar(OdontologoDtoReq odontologoDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public OdontologoDtoRes modificarOdontologo(OdontologoDtoReq odontologoDtoReq) throws ExcepcionRecursoNoEncontrado {
 
         Long id = odontologoDtoReq.getId();
 
@@ -73,7 +73,7 @@ public class OdontologoService implements IService<OdontologoDtoRes, OdontologoD
     }
 
     @Override
-    public OdontologoDtoRes eliminar(Long id) throws ExcepcionRecursoNoEncontrado {
+    public OdontologoDtoRes eliminarOdontologo(Long id) throws ExcepcionRecursoNoEncontrado {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con el ID: " + id);
