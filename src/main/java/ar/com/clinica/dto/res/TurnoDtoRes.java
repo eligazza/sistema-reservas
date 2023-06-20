@@ -1,7 +1,5 @@
 package ar.com.clinica.dto.res;
 
-import ar.com.clinica.entity.Odontologo;
-import ar.com.clinica.entity.Paciente;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +12,8 @@ import java.time.LocalTime;
 public class TurnoDtoRes {
 
     private Long id;
-    private String fecha;
-    private String hora;
+    private LocalDate fecha;
+    private LocalTime hora;
     private OdontologoDtoRes odontologo;
     private PacienteDtoRes paciente;
 
