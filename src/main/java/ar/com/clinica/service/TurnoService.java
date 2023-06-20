@@ -57,14 +57,16 @@ public class TurnoService implements ITurnoService {
     @Override
     public TurnoDtoRes guardarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
 
-        Long id_odontologo = turnoDtoReq.getOdontologo().getId();
-        Long id_paciente = turnoDtoReq.getPaciente().getId();
-
         Turno turnoEntity = mapper.convertValue(turnoDtoReq, Turno.class);
         Turno turnoGuardado = repository.save(turnoEntity);
 
-        turnoGuardado.setOdontologo(mapper.convertValue(odontologoService.buscarOdontologoPorId(id_odontologo), Odontologo.class));
-        turnoGuardado.setPaciente(mapper.convertValue(pacienteService.buscarPacientePorId(id_paciente), Paciente.class));
+        Long id_odontologo = turnoDtoReq.getOdontologo().getId();
+        OdontologoDtoRes odontologoElegido = odontologoService.buscarOdontologoPorId(id_odontologo);
+        turnoGuardado.setOdontologo(mapper.convertValue(odontologoElegido, Odontologo.class));
+
+        Long id_paciente = turnoDtoReq.getPaciente().getId();
+        PacienteDtoRes pacienteElegido = pacienteService.buscarPacientePorId(id_paciente);
+        turnoGuardado.setPaciente(mapper.convertValue(pacienteElegido, Paciente.class));
 
         return mapper.convertValue(turnoGuardado, TurnoDtoRes.class);
     }
