@@ -22,7 +22,6 @@ window.addEventListener('load', function() {
                 provincia: document.querySelector('#domicilio-provincia').value
             } 
         };
-        console.log(carga);
 
         // preparo el payload
         let url = '/pacientes';
@@ -44,7 +43,6 @@ window.addEventListener('load', function() {
         })
         
         .then(data => {
-            console.log(data);
             // alerta en caso de éxito
             let successAlert = '<div class="alert alert-success alert-dismissible">' +
                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
