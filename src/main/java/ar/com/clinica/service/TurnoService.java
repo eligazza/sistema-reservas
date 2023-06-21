@@ -76,18 +76,20 @@ public class TurnoService implements ITurnoService {
 
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-        Turno turnoEntity = mapper.convertValue(turnoDtoReq, Turno.class);
-        Turno turnoGuardado = repository.save(turnoEntity);
+        Turno nuevoTurno = new Turno();
 
-        Long id_odontologo = turnoDtoReq.getOdontologo().getId();
-        OdontologoDtoRes odontologoElegido = odontologoService.buscarOdontologoPorId(id_odontologo);
-        turnoGuardado.setOdontologo(mapper.convertValue(odontologoElegido, Odontologo.class));
+        OdontologoDtoRes odontologoDto = odontologoService.buscarOdontologoPorId(turnoDtoReq.getIdOdontologo());
+        Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
+        nuevoTurno.setOdontologo(odontologo);
 
-        Long id_paciente = turnoDtoReq.getPaciente().getId();
-        PacienteDtoRes pacienteElegido = pacienteService.buscarPacientePorId(id_paciente);
-        turnoGuardado.setPaciente(mapper.convertValue(pacienteElegido, Paciente.class));
+        PacienteDtoRes pacienteDto = pacienteService.buscarPacientePorId(turnoDtoReq.getIdPaciente());
+        Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
+        nuevoTurno.setPaciente(paciente);
 
-        return mapper.convertValue(turnoGuardado, TurnoDtoRes.class);
+        nuevoTurno.setHora(turnoDtoReq.getHora());
+        nuevoTurno.setFecha(turnoDtoReq.getFecha());
+
+        return mapper.convertValue(repository.save(nuevoTurno), TurnoDtoRes.class);
     }
 
 
@@ -95,21 +97,25 @@ public class TurnoService implements ITurnoService {
     public TurnoDtoRes modificarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
 
         Long id_Turno = turnoDtoReq.getId();
+
         if (repository.findById(id_Turno).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id_Turno);
         }
         else {
-            Turno turnoModificado = repository.save(mapper.convertValue(turnoDtoReq, Turno.class));
 
-            Long id_odontologo = turnoDtoReq.getOdontologo().getId();
-            OdontologoDtoRes odontologoNuevo = odontologoService.buscarOdontologoPorId(id_odontologo);
-            turnoModificado.setOdontologo(mapper.convertValue(odontologoNuevo, Odontologo.class));
+            Turno turnoModificado = repository.findById(id_Turno).get();
 
-            Long id_paciente = turnoDtoReq.getPaciente().getId();
-            PacienteDtoRes pacienteNuevo = pacienteService.buscarPacientePorId(id_paciente);
-            turnoModificado.setPaciente(mapper.convertValue(pacienteNuevo, Paciente.class));
+            OdontologoDtoRes nuevoOdontologo = odontologoService.buscarOdontologoPorId(turnoDtoReq.getIdOdontologo());
+            turnoModificado.setOdontologo(mapper.convertValue(nuevoOdontologo, Odontologo.class));
 
-            return mapper.convertValue(turnoModificado, TurnoDtoRes.class);
+            PacienteDtoRes nuevoPaciente = pacienteService.buscarPacientePorId(turnoDtoReq.getIdPaciente());
+            turnoModificado.setPaciente(mapper.convertValue(nuevoPaciente, Paciente.class));
+
+            turnoModificado.setFecha(turnoDtoReq.getFecha());
+            turnoModificado.setHora(turnoDtoReq.getHora());
+
+            Turno turnoActualizado = repository.save(turnoModificado);
+            return mapper.convertValue(turnoActualizado, TurnoDtoRes.class);
         }
     }
 

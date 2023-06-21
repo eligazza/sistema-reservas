@@ -17,7 +17,7 @@ public class TurnoDtoReq {
     private Long id;
     private String fecha;
     private String hora;
-    private OdontologoDtoRes odontologo;
-    private PacienteDtoRes paciente;
+    private Long idOdontologo;
+    private Long idPaciente;
 
 }
