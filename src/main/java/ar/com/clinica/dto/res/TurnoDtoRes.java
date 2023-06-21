@@ -12,8 +12,8 @@ import java.time.LocalTime;
 public class TurnoDtoRes {
 
     private Long id;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private String fecha;
+    private String hora;
     private OdontologoDtoRes odontologo;
     private PacienteDtoRes paciente;
 

@@ -74,6 +74,8 @@ public class TurnoService implements ITurnoService {
     @Override
     public TurnoDtoRes guardarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
 
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
         Turno turnoEntity = mapper.convertValue(turnoDtoReq, Turno.class);
         Turno turnoGuardado = repository.save(turnoEntity);
 
