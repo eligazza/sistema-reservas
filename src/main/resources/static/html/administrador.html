@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <title>Administrador</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/post_administrador_odontologo.js"></script>
+    <script type="text/javascript" src="/js/post_administrador_paciente.js"></script>
+</head>
+
+<body>
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="./pacienteList.html">Listar Pacientes</a>
+                </li>
+            </ul>
+            <div class="col-sm-18" style="background-color:#efefef; padding:10px; border-radius:3px">
+            
+                <h3>Agregar Paciente</h3>
+                
+                <form id="add_new_paciente">
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="dni">DNI:</label>
+                        <input type="text" class="form-control" id="dni"
+                               placeholder="Ingrese el DNI"
+                               name="dni" required></input>
+                    </div>
+    
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre"
+                               placeholder="Ingrese el nombre"
+                               name="nombre" required></input>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellito"
+                               placeholder="Ingrese el apellido"
+                               name="categoria" required></input>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="fecha-de-alta">Fecha de alta:</label>
+                        <input type="text" class="form-control" id="fecha-de-alta"
+                               placeholder="Ingrese la fecha de alta de paciente"
+                               name="fecha-de-alta" required></input>
+                    </div>
+    
+                    <button type="submit" class="btn btn-danger" id="btn-add-new-paciente"> Guardar </button>
+                
+                </form>
+                <div id="response" style="display:none; margin-top:10px">
+                
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="./odontologoList.html">Listar Odontologos</a>
+                </li>
+            </ul>
+            <div class="col-sm-18" style="background-color:#efefef; padding:10px; border-radius:3px">
+                    
+                <h3>Agregar Odontologo</h3>
+                
+                <form id="add_new_odontologo">
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre"
+                               placeholder="Ingrese el nombre"
+                               name="nombre" required></input>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellito"
+                               placeholder="Ingrese el apellido"
+                               name="categoria" required></input>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="matricula">Matricula:</label>
+                        <input type="text" class="form-control" id="matricula"
+                               placeholder="Ingrese la matricula"
+                               name="matricula" required></input>
+                    </div>
+    
+                    <button type="submit" class="btn btn-danger" id="btn-add-new-odontologo"> Guardar </button>
+                
+                </form>
+                <div id="response" style="display:none; margin-top:10px">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+</body>
+</html>
