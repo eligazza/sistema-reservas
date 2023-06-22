@@ -2,9 +2,8 @@ package ar.com.clinica.controller;
 
 import ar.com.clinica.dto.req.TurnoDtoReq;
 import ar.com.clinica.dto.res.TurnoDtoRes;
-import ar.com.clinica.entity.Turno;
 import ar.com.clinica.exceptions.*;
-import ar.com.clinica.service.TurnoService;
+import ar.com.clinica.service.TurnoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ import java.util.List;
 public class TurnoController {
 
     @Autowired
-    private TurnoService service;
+    private TurnoServiceImpl service;
 
 
     @GetMapping

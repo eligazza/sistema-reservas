@@ -20,14 +20,14 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class TurnoService implements ITurnoService {
+public class TurnoServiceImpl implements ITurnoService {
 
     @Autowired
     ITurnoRepository repository;
     @Autowired
-    PacienteService pacienteService;
+    PacienteServiceImpl pacienteService;
     @Autowired
-    OdontologoService odontologoService;
+    OdontologoServiceImpl odontologoService;
     @Autowired
     ObjectMapper mapper;
 

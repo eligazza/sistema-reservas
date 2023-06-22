@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PacienteService implements IPacienteService {
+public class PacienteServiceImpl implements IPacienteService {
 
     @Autowired
     IPacienteRepository repository;

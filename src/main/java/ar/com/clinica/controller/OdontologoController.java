@@ -3,11 +3,12 @@ package ar.com.clinica.controller;
 import ar.com.clinica.dto.res.OdontologoDtoRes;
 import ar.com.clinica.dto.req.OdontologoDtoReq;
 import ar.com.clinica.exceptions.*;
-import ar.com.clinica.service.OdontologoService;
+import ar.com.clinica.service.OdontologoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ import java.util.List;
 public class OdontologoController {
 
     @Autowired
-    OdontologoService service;
+    OdontologoServiceImpl service;
 
     @GetMapping
     public ResponseEntity<?> listar() throws ExcepcionNoHayContenido {

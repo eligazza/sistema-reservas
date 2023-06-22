@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class OdontologoService implements IOdontologoService {
+public class OdontologoServiceImpl implements IOdontologoService {
 
     @Autowired
     IOdontologoRepository repository;
