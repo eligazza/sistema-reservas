@@ -35,7 +35,7 @@ public class PacienteController {
     public ResponseEntity<?> listarPorApellido(@RequestParam("apellido") String apellido) {
         return service.buscarPorApellido(apellido)
     }
-     */
+    */
 
     @PostMapping
     public ResponseEntity<PacienteDtoRes> guardar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
