@@ -86,7 +86,6 @@ public class TurnoServiceImpl implements ITurnoService {
         Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
         nuevoTurno.setPaciente(paciente);
 
-        nuevoTurno.setHora(turnoDtoReq.getHora());
         nuevoTurno.setFecha(turnoDtoReq.getFecha());
 
         return mapper.convertValue(repository.save(nuevoTurno), TurnoDtoRes.class);
@@ -112,7 +111,6 @@ public class TurnoServiceImpl implements ITurnoService {
             turnoModificado.setPaciente(mapper.convertValue(nuevoPaciente, Paciente.class));
 
             turnoModificado.setFecha(turnoDtoReq.getFecha());
-            turnoModificado.setHora(turnoDtoReq.getHora());
 
             Turno turnoActualizado = repository.save(turnoModificado);
             return mapper.convertValue(turnoActualizado, TurnoDtoRes.class);

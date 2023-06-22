@@ -1,8 +1,12 @@
 package ar.com.clinica.dto.req;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -10,8 +14,8 @@ import lombok.Setter;
 public class TurnoDtoReq {
 
     private Long id;
-    private String fecha;
-    private String hora;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date fecha;
     private Long idOdontologo;
     private Long idPaciente;
 
