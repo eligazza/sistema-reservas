@@ -37,12 +37,20 @@ window.addEventListener('load', function () {
         }
  
         fetch(url,payload)
+        
         .then(response => response.json())
+        
         .then(data => {
-            alert("Paciente modificado con éxito")
-            // Una vez mandado el update, oculto el div que contiene el formulario de update
-            div_formulario.style.display = "none";
+
+            if (data.error) {alert(data.error)}
+            else {
+                alert("Paciente modificado con éxito")
+                // Una vez mandado el update, oculto el div que contiene el formulario de update
+                div_formulario.style.display = "none";
+            }
+        
         })
+        
         .catch(error => alert(error))
 
     })
@@ -65,21 +73,27 @@ function findBy(id) {
     }
 
     fetch(urlFind,payload)
+    
     .then(response => response.json())
+    
     .then(data => {
-        // Hago aparecer el formulario para el update. Este formulario tiene el id #update_paciente_form
-        document.querySelector('#div_paciente_updating').style.display = "block";
-        // Le "precargo" todos los boxes con la información que viene del getById()
-        document.querySelector('#paciente-id').value = data.id;
-        document.querySelector('#dni').value = data.dni;
-        document.querySelector('#nombre-paciente').value = data.nombre;
-        document.querySelector('#apellido-paciente').value = data.apellido;
-        document.querySelector('#fecha-de-alta').value = data.fechaDeAlta;
-        document.querySelector('#domicilio-id').value = data.domicilio.id;
-        document.querySelector('#domicilio-calle').value = data.domicilio.calle;
-        document.querySelector('#domicilio-numero').value = data.domicilio.numero;
-        document.querySelector('#domicilio-localidad').value = data.domicilio.localidad;
-        document.querySelector('#domicilio-provincia').value = data.domicilio.provincia;
+    
+        if (data.error) {alert(data.error)}
+        else {
+            // Hago aparecer el formulario para el update. Este formulario tiene el id #update_paciente_form
+            document.querySelector('#div_paciente_updating').style.display = "block";
+            // Le "precargo" todos los boxes con la información que viene del getById()
+            document.querySelector('#paciente-id').value = data.id;
+            document.querySelector('#dni').value = data.dni;
+            document.querySelector('#nombre-paciente').value = data.nombre;
+            document.querySelector('#apellido-paciente').value = data.apellido;
+            document.querySelector('#fecha-de-alta').value = data.fechaDeAlta;
+            document.querySelector('#domicilio-id').value = data.domicilio.id;
+            document.querySelector('#domicilio-calle').value = data.domicilio.calle;
+            document.querySelector('#domicilio-numero').value = data.domicilio.numero;
+            document.querySelector('#domicilio-localidad').value = data.domicilio.localidad;
+            document.querySelector('#domicilio-provincia').value = data.domicilio.provincia;
+        }
     })
     .catch(error => alert(error))
 }

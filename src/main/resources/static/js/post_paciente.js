@@ -35,9 +35,7 @@ window.addEventListener('load', function() {
         // hago el fetch
         fetch(url, payload)
 
-        .then(response => {
-            response.json()
-        })
+        .then(response => response.json())
         
         .then(data => {
             // alerta en caso de éxito
@@ -46,8 +44,15 @@ window.addEventListener('load', function() {
                 '<strong></strong> Paciente agregado </div>';
             document.querySelector('#response-paciente').innerHTML = successAlert;
             document.querySelector('#response-paciente').style.display = 'block';*/
+            
+            if (data.error) {
+                alert(data.error);
+            }
+            else {
             alert("Paciente creado con éxito");
             resetUploadForm();
+            }
+            
         })
         
         .catch(error => { 
