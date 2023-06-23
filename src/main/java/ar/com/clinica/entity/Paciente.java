@@ -1,7 +1,10 @@
 package ar.com.clinica.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.sql.Date;
 
 @Entity
 @Data
@@ -14,7 +17,8 @@ public class Paciente {
     private Integer dni;
     private String nombre;
     private String apellido;
-    private String fechaDeAlta;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date fechaDeAlta;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")

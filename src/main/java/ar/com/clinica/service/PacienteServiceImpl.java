@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,10 +49,14 @@ public class PacienteServiceImpl implements IPacienteService {
     @Override
     public PacienteDtoRes guardarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
 
+        Date hoy = Date.valueOf(LocalDate.now());
+
         if (pacienteDtoReq.getApellido().isEmpty() || pacienteDtoReq.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Apellido y nombre obligatorios");
         } else {
-            Paciente pacienteGuardado = repository.save(mapper.convertValue(pacienteDtoReq, Paciente.class));
+            Paciente paciente = mapper.convertValue(pacienteDtoReq, Paciente.class);
+            paciente.setFechaDeAlta(hoy);
+            Paciente pacienteGuardado = repository.save(paciente);
             return mapper.convertValue(pacienteGuardado, PacienteDtoRes.class);
         }
     }

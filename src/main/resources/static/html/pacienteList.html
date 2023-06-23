@@ -52,47 +52,67 @@
             <form id="update_paciente_form">
            
                 <div class="form-group">
-                   <label >Id:</label>
-                   <input type="text" class="form-control" id="paciente_id" readonly>
-               </div>
-           
-               <div class="form-group">
-                   <label >DNI:</label>
-                   <input type="text" class="form-control" 
-                          placeholder="DNI" id="dni">
-               </div>
-           
-               <div class="form-group">
-                   <label >Nombre:</label>
-                   <input type="text" class="form-control" 
-                          placeholder="Nombre" id="nombre">
-               </div>
-           
-               <div class="form-group">
-                <label >Apellido:</label>
-                <input type="text" class="form-control" 
-                       placeholder="apellido" id="apellido">
-               </div>
-               
-               <div class="form-group">
-                    <label >Domicilio:</label>
+                    <label class="control-label" for="id">ID:</label>
+                    <input type="number" class="form-control" id="paciente-id"
+                           placeholder="id"
+                           name="id" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="dni">DNI:</label>
+                    <input type="number" class="form-control" id="dni"
+                           placeholder="Ingrese el DNI"
+                           name="dni" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="nombre-paciente">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre-paciente"
+                           placeholder="Ingrese el nombre"
+                           name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label" for="apellido-paciente">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido-paciente"
+                           placeholder="Ingrese el apellido"
+                           name="categoria" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="fecha-de-alta">Fecha de alta:</label>
+                    <input type="datetime" class="form-control" id="fecha-de-alta"
+                           placeholder="Ingrese una nueva fecha"
+                           name="categoria" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="domicilio-id">Domicilio:</label>
+                    <input type="number" class="form-control" id="domicilio-id"
+                           placeholder="Id"
+                           name="id" readonly>
                     <input type="text" class="form-control" id="domicilio-calle"
-                        placeholder="Calle" name="calle">
-                    <input type="text" class="form-control" id="domicilio-numero"
-                        placeholder="Número" name="numero">
+                           placeholder="Calle"
+                           name="calle" required>
+                    <input type="number" class="form-control" id="domicilio-numero"
+                           placeholder="Número"
+                           name="numero" required>
                     <input type="text" class="form-control" id="domicilio-localidad"
-                        placeholder="Localidad" name="localidad">
+                           placeholder="Localidad"
+                           name="localidad" required>
                     <input type="text" class="form-control" id="domicilio-provincia"
-                        placeholder="Provincia" name="provincia">
+                           placeholder="Provincia"
+                           name="provincia" required>
                 </div>
 
 
                 <button type="submit" class="btn btn-primary">Modificar</button>
+                <button type="button" class="btn btn-light">Cancelar</button>
            
             </form>
            
             <div id="response" style="display:none; margin:10px">
-           </div>
+            </div>
        </div>
    </div>
    <hr>
