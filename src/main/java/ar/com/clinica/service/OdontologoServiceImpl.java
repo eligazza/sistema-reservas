@@ -5,6 +5,7 @@ import ar.com.clinica.dto.req.OdontologoDtoReq;
 import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.exceptions.ExcepcionNoHayContenido;
 import ar.com.clinica.exceptions.ExcepcionParametroFaltante;
+import ar.com.clinica.exceptions.ExcepcionParametroInvalido;
 import ar.com.clinica.exceptions.ExcepcionRecursoNoEncontrado;
 import ar.com.clinica.repository.IOdontologoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,10 +49,16 @@ public class OdontologoServiceImpl implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDtoRes guardarOdontologo(OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante {
+    public OdontologoDtoRes guardarOdontologo(OdontologoDtoReq odontologoDtoReq) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
-        if (odontologoDtoReq.getApellido().isEmpty() || odontologoDtoReq.getNombre().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Apellido y nombre obligatorios");
+        if (odontologoDtoReq.getApellido().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
+        } else if (odontologoDtoReq.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
+        } else if (odontologoDtoReq.getMatricula() == null) {
+            throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
+        } else if (odontologoDtoReq.getMatricula() < 1) {
+            throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
         } else {
             Odontologo odontologoGuardado = repository.save(mapper.convertValue(odontologoDtoReq, Odontologo.class));
             return mapper.convertValue(odontologoGuardado, OdontologoDtoRes.class);
@@ -60,12 +67,21 @@ public class OdontologoServiceImpl implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDtoRes modificarOdontologo(OdontologoDtoReq odontologoDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public OdontologoDtoRes modificarOdontologo(OdontologoDtoReq odontologoDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         Long id = odontologoDtoReq.getId();
 
+        // todo: Checkear que la matricula sea solo números.
         if (repository.findById(id).isEmpty()){
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con ID: " + id);
+        } else if (odontologoDtoReq.getApellido().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
+        } else if (odontologoDtoReq.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
+        } else if (odontologoDtoReq.getMatricula() == null) {
+            throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
+        } else if (odontologoDtoReq.getMatricula() <= 0) {
+            throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
         } else {
             Odontologo odontologoModificado = repository.save(mapper.convertValue(odontologoDtoReq, Odontologo.class));
             return mapper.convertValue(odontologoModificado, OdontologoDtoRes.class);
