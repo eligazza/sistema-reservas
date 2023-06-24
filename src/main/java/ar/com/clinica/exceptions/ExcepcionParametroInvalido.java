@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ExcepcionParametroFaltante extends Exception {
-    public ExcepcionParametroFaltante(String message) {
+public class ExcepcionParametroInvalido extends Exception {
+    public ExcepcionParametroInvalido(String message) {
         super(message);
     }
 }

@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<RespuestaError> manejarNoHayContenido(ExcepcionNoHayContenido ex) {
         ex.printStackTrace();
         LOG.error(ex.getMessage());
-        RespuestaError respuestaError = new RespuestaError(1001, ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(1001, "No hay contenido", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuestaError);
     }
 
@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<RespuestaError> manejarRecursoNoEncontrado(ExcepcionRecursoNoEncontrado ex) {
         ex.printStackTrace();
         LOG.error(ex.getMessage());
-        RespuestaError respuestaError = new RespuestaError(1002, ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(1002, "Recurso no encontrado" , ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuestaError);
     }
 
@@ -34,8 +34,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<RespuestaError> manejarParametroFaltante(ExcepcionParametroFaltante ex) {
         ex.printStackTrace();
         LOG.error(ex.getMessage());
-        RespuestaError respuestaError = new RespuestaError(1003, ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(2001, "Parámetro faltante", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuestaError);
     }
 
+    @ExceptionHandler({ExcepcionParametroInvalido.class})
+    public ResponseEntity<RespuestaError> manejarParametroInvalido(ExcepcionParametroInvalido ex) {
+        ex.printStackTrace();
+        LOG.error(ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(2002, "Parámetro inválido" , ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuestaError);
+    }
 }
