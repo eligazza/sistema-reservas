@@ -29,35 +29,37 @@ window.addEventListener('load', function() {
         // hago el fetch
         fetch(url, payload)
 
-        .then(response => {
-            console.log(response);
-            response.json()
-        })
-        
+        .then(response => response.json())
+
         .then(data => {
-            // alerta en caso de éxito
-            let successAlert = '<div class="alert alert-success alert-dismissible">' +
+             // alerta en caso de éxito
+            /*let successAlert = '<div class="alert alert-success alert-dismissible">' +
                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                 '<strong></strong> Odontologo agregado </div>';
             document.querySelector('#response-odontologo').innerHTML = successAlert;
-            document.querySelector('#response-odontologo').style.display = 'block';
-            resetUploadForm();
+            document.querySelector('#response-odontologo').style.display = 'block';*/
+            if (data.error) {alert(data.error)}
+            else {
+                alert('Odontologo registrado con éxito');
+                resetOdontologoForm();
+            }
         })
         
         .catch(error => { 
             // alerta en caso de error
-            let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
+            /*let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
                 '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                 '<strong>' + error + '</strong> </div>';
             document.querySelector('#response-odontologo').innerHTML = errorAlert;
-            document.querySelector('#response-odontologo').style.display = "block";
+            document.querySelector('#response-odontologo').style.display = "block";*/
+            alert(error);
         })
 
     })     
 
 });
 
-function resetUploadForm(){
+function resetOdontologoForm(){
     document.querySelector('#nombre-odontologo').value = "";
     document.querySelector('#apellido-odontologo').value = "";
     document.querySelector('#matricula').value = "";

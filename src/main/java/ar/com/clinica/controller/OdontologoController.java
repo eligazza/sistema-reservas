@@ -19,13 +19,13 @@ public class OdontologoController {
     OdontologoServiceImpl service;
 
     @GetMapping
-    public ResponseEntity<?> listar() throws ExcepcionNoHayContenido {
+    public ResponseEntity<List<OdontologoDtoRes>> listar() throws ExcepcionNoHayContenido {
         List<OdontologoDtoRes> lista = service.listarOdontologos();
         return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<OdontologoDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarOdontologoPorId(id));
     }
 
