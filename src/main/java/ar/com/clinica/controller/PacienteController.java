@@ -44,7 +44,7 @@ public class PacienteController {
     }
 
     @PutMapping
-    public ResponseEntity<PacienteDtoRes> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<PacienteDtoRes> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.modificarPaciente(pacienteDtoReq));
     }
 

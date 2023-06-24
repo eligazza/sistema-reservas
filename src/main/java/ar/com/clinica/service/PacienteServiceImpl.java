@@ -51,8 +51,12 @@ public class PacienteServiceImpl implements IPacienteService {
 
         Date hoy = Date.valueOf(LocalDate.now());
 
-        if (pacienteDtoReq.getApellido().isEmpty() || pacienteDtoReq.getNombre().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Apellido y nombre obligatorios");
+        if (pacienteDtoReq.getApellido().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
+        } else if (pacienteDtoReq.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
+        } else if (pacienteDtoReq.getDni() == null) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
         } else {
             Paciente paciente = mapper.convertValue(pacienteDtoReq, Paciente.class);
             paciente.setFechaDeAlta(hoy);
@@ -62,12 +66,18 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     @Override
-    public PacienteDtoRes modificarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public PacienteDtoRes modificarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
         Long id = pacienteDtoReq.getId();
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
+        } else if (pacienteDtoReq.getApellido().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
+        } else if (pacienteDtoReq.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
+        } else if (pacienteDtoReq.getDni() == null) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
         } else {
             Paciente pacienteModificado = repository.save(mapper.convertValue(pacienteDtoReq, Paciente.class));
             return mapper.convertValue(pacienteModificado, PacienteDtoRes.class);
