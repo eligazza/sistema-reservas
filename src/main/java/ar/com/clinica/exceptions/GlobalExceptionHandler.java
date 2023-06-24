@@ -15,24 +15,27 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler({ExcepcionNoHayContenido.class})
-    public ResponseEntity<String> manejarNoHayContenido(ExcepcionNoHayContenido ex) {
+    public ResponseEntity<RespuestaError> manejarNoHayContenido(ExcepcionNoHayContenido ex) {
         ex.printStackTrace();
         LOG.error(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(1001, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuestaError);
     }
 
     @ExceptionHandler({ExcepcionRecursoNoEncontrado.class})
-    public ResponseEntity<String> manejarRecursoNoEncontrado(ExcepcionRecursoNoEncontrado ex) {
+    public ResponseEntity<RespuestaError> manejarRecursoNoEncontrado(ExcepcionRecursoNoEncontrado ex) {
         ex.printStackTrace();
         LOG.error(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(1002, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuestaError);
     }
 
     @ExceptionHandler({ExcepcionParametroFaltante.class})
-    public ResponseEntity<String> manejarParametroFaltante(ExcepcionParametroFaltante ex) {
+    public ResponseEntity<RespuestaError> manejarParametroFaltante(ExcepcionParametroFaltante ex) {
         ex.printStackTrace();
         LOG.error(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(1003, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuestaError);
     }
 
 }
