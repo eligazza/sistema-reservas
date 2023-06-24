@@ -46,7 +46,8 @@ window.addEventListener('load', function () {
             else {
                 alert("Paciente modificado con éxito")
                 // Una vez mandado el update, oculto el div que contiene el formulario de update
-                div_formulario.style.display = "none";
+                //div_formulario.style.display = "none";
+                location.reload();
             }
         
         })
@@ -55,7 +56,8 @@ window.addEventListener('load', function () {
 
     })
 
-    document.querySelector('button.btn.btn-light').addEventListener('click', function(event) {
+    const botonCancelar = document.querySelector('#btn-cancelar');
+    botonCancelar.addEventListener('click', function(event) {
 
         event.preventDefault();
         div_formulario.style.display = "none";

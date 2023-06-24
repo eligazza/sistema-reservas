@@ -45,12 +45,10 @@ window.addEventListener('load', function() {
             document.querySelector('#response-paciente').innerHTML = successAlert;
             document.querySelector('#response-paciente').style.display = 'block';*/
             
-            if (data.error) {
-                alert(data.error);
-            }
+            if (data.error) {alert(data.error)}
             else {
-            alert("Paciente creado con éxito");
-            resetUploadForm();
+                alert("Paciente registrado con éxito");
+                resetPacienteForm();
             }
             
         })
@@ -70,7 +68,7 @@ window.addEventListener('load', function() {
 });
 
 
-function resetUploadForm(){
+function resetPacienteForm(){
     document.querySelector('#dni').value = "";
     document.querySelector('#nombre-paciente').value = "";
     document.querySelector('#apellido-paciente').value = "";

@@ -16,18 +16,20 @@
 
 <body>
 <div class="container">
-   <ul class="nav nav-pills">
+    <a class="my-2  btn btn-primary" href="./administrador.html">Agregar nuevo</a>
+    <a class="my-2  btn btn-outline-dark" href="./pacienteList.html">Listar todos</a>
+    <!-- <ul class="nav nav-pills">
        <li class="nav-item">
            <a class="nav-link" href="./administrador.html">Agregar nuevo</a>
        </li>
        <li class="nav-item">
-           <a class="nav-link" href="./pacienteList.html">Todos</a>
+           <a class="nav-link" href="./pacienteList.html">Listar todos</a>
        </li>
-   </ul>
+   </ul> -->
 
-   <div id="div_paciente_table">
+    <div id="div_paciente_table">
 
-       <h1>Pacientes</h1>
+       <h2>Pacientes</h2>
        <div class="row col-md-6 table-responsive">
            <table id="pacienteTable" class="table table-striped">
                <thead>
@@ -43,8 +45,8 @@
            </table>
        </div>
 
-   </div>
-   <div class="row">
+    </div>
+    <div class="row">
        <div class="col-sm-6" style="display: none;
             background-color:#efefef; padding:10px; border-radius:3px"
             id="div_paciente_updating">
@@ -107,7 +109,7 @@
 
 
                 <button type="submit" class="btn btn-primary">Modificar</button>
-                <button type="button" class="btn btn-light">Cancelar</button>
+                <button type="button" class="btn btn-light" id="btn-cancelar">Cancelar</button>
            
             </form>
            

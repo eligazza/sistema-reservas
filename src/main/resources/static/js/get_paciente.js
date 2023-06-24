@@ -1,4 +1,4 @@
-//El evento load se ejecuta al cargar la página que muestra la lista de películas 
+//El evento load se ejecuta al cargar la página que muestra la lista de pacientes 
 window.addEventListener('load', function () {
 
     (function() {
@@ -59,7 +59,7 @@ window.addEventListener('load', function () {
 
     (function(){
         let pathname = window.location.pathname;
-        if (pathname == "/peliculaList.html") {
+        if (pathname == "/pacienteList.html") {
             document.querySelector(".nav .nav-item a:last").addClass("active");
         }
     })
