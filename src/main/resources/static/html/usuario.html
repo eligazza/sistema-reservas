@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <title>Administrador</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/post_odontologo.js"></script>
+    <script type="text/javascript" src="../js/post_paciente.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="text-right">
+            <a class="my-1 btn btn-outline-danger" href="../index.html">Salir</a>
+        </header>
+        <h4 class="text-center">Clinica "Los Arcos"</h4>
+        <h1 class="text-center">USUARIO</h1>
+        <div class="col-sm-18" style="background-color:#efefef; padding:10px; border-radius:3px">
+                    
+            <h4>Agendar Turno</h4>
+            
+            <form id="add_new_turno">
+                
+                <div class="form-group">
+                    <label class="control-label" for="id-odontologo">Odontologo:</label>
+                    <input type="number" class="form-control" id="id_odontologo"
+                           placeholder="Ingrese el id del odontologo"
+                           name="odontologo-id" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label" for="id-paciente">Paciente:</label>
+                    <input type="number" class="form-control" id="id_paciente"
+                           placeholder="Ingrese el id del paciente"
+                           name="paciente-id" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="fecha">Fecha:</label>
+                    <input type="datetime-local" class="form-control" id="fecha"
+                           placeholder="Ingrese la fecha"
+                           name="fecha" required>
+                </div>
+                
+                <button type="submit" class="btn btn-dark" id="btn-add-new-turno"> Agendar </button>
+            
+            </form>
+            <div id="response-turno" style="display:none; margin-top:10px">
+            
+            </div>
+        </div>
+    </div>
+</body>
+</html>
