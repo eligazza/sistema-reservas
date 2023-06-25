@@ -1,9 +1,9 @@
 package ar.com.clinica.controller;
 
-import ar.com.clinica.dto.res.PacienteDtoRes;
-import ar.com.clinica.dto.req.PacienteDtoReq;
+import ar.com.clinica.dto.response.PacienteDtoResponse;
+import ar.com.clinica.dto.request.PacienteDtoRequest;
 import ar.com.clinica.exceptions.*;
-import ar.com.clinica.service.PacienteServiceImpl;
+import ar.com.clinica.service.implementations.PacienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +20,13 @@ public class PacienteController {
 
 
     @GetMapping
-    public ResponseEntity<List<PacienteDtoRes>> listar() throws ExcepcionNoHayContenido {
-        List<PacienteDtoRes> lista = service.listarPacientes();
+    public ResponseEntity<List<PacienteDtoResponse>> listar() throws ExcepcionNoHayContenido {
+        List<PacienteDtoResponse> lista = service.listarPacientes();
         return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PacienteDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<PacienteDtoResponse> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarPacientePorId(id));
     }
 
@@ -38,18 +38,18 @@ public class PacienteController {
     */
 
     @PostMapping
-    public ResponseEntity<PacienteDtoRes> guardar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
-        PacienteDtoRes pacienteNuevo = service.guardarPaciente(pacienteDtoReq);
+    public ResponseEntity<PacienteDtoResponse> guardar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante {
+        PacienteDtoResponse pacienteNuevo = service.guardarPaciente(pacienteDtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<PacienteDtoRes> modificar(@RequestBody PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificarPaciente(pacienteDtoReq));
+    public ResponseEntity<PacienteDtoResponse> modificar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificarPaciente(pacienteDtoRequest));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PacienteDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<PacienteDtoResponse> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminarPaciente(id));
     }
 

@@ -1,10 +1,11 @@
-package ar.com.clinica.service;
+package ar.com.clinica.service.implementations;
 
-import ar.com.clinica.dto.res.PacienteDtoRes;
-import ar.com.clinica.dto.req.PacienteDtoReq;
+import ar.com.clinica.dto.response.PacienteDtoResponse;
+import ar.com.clinica.dto.request.PacienteDtoRequest;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.IPacienteRepository;
+import ar.com.clinica.service.interfaces.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,20 +25,20 @@ public class PacienteServiceImpl implements IPacienteService {
 
 
     @Override
-    public List<PacienteDtoRes> listarPacientes() throws ExcepcionNoHayContenido {
+    public List<PacienteDtoResponse> listarPacientes() throws ExcepcionNoHayContenido {
 
         if (repository.findAll().size() == 0) {
             throw new ExcepcionNoHayContenido("No existen pacientes registrados");
         } else {
             return repository.findAll()
                     .stream()
-                    .map(paciente -> mapper.convertValue(paciente, PacienteDtoRes.class))
+                    .map(paciente -> mapper.convertValue(paciente, PacienteDtoResponse.class))
                     .collect(Collectors.toList());
         }
     }
 
     @Override
-    public PacienteDtoRes buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public PacienteDtoResponse buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un paciente");
@@ -45,51 +46,51 @@ public class PacienteServiceImpl implements IPacienteService {
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
-            return mapper.convertValue(repository.findById(id).get(), PacienteDtoRes.class);
+            return mapper.convertValue(repository.findById(id).get(), PacienteDtoResponse.class);
         }
     }
 
     @Override
-    public PacienteDtoRes guardarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionParametroFaltante {
+    public PacienteDtoResponse guardarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante {
 
         Date hoy = Date.valueOf(LocalDate.now());
 
-        if (pacienteDtoReq.getApellido().isEmpty()) {
+        if (pacienteDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (pacienteDtoReq.getNombre().isEmpty()) {
+        } else if (pacienteDtoRequest.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (pacienteDtoReq.getDni() == null) {
+        } else if (pacienteDtoRequest.getDni() == null) {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
         } else {
-            Paciente paciente = mapper.convertValue(pacienteDtoReq, Paciente.class);
+            Paciente paciente = mapper.convertValue(pacienteDtoRequest, Paciente.class);
             paciente.setFechaDeAlta(hoy);
             Paciente pacienteGuardado = repository.save(paciente);
-            return mapper.convertValue(pacienteGuardado, PacienteDtoRes.class);
+            return mapper.convertValue(pacienteGuardado, PacienteDtoResponse.class);
         }
     }
 
     @Override
-    public PacienteDtoRes modificarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public PacienteDtoResponse modificarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
-        Long id = pacienteDtoReq.getId();
+        Long id = pacienteDtoRequest.getId();
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un paciente");
         } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
-        } else if (pacienteDtoReq.getApellido().isEmpty()) {
+        } else if (pacienteDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (pacienteDtoReq.getNombre().isEmpty()) {
+        } else if (pacienteDtoRequest.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (pacienteDtoReq.getDni() == null) {
+        } else if (pacienteDtoRequest.getDni() == null) {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
         } else {
-            Paciente pacienteModificado = repository.save(mapper.convertValue(pacienteDtoReq, Paciente.class));
-            return mapper.convertValue(pacienteModificado, PacienteDtoRes.class);
+            Paciente pacienteModificado = repository.save(mapper.convertValue(pacienteDtoRequest, Paciente.class));
+            return mapper.convertValue(pacienteModificado, PacienteDtoResponse.class);
         }
     }
 
     @Override
-    public PacienteDtoRes eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public PacienteDtoResponse eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un paciente");
@@ -97,7 +98,7 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
             Paciente pacienteEliminado = repository.findById(id).get();
-            PacienteDtoRes pacienteEliminadoDto = mapper.convertValue(pacienteEliminado, PacienteDtoRes.class);
+            PacienteDtoResponse pacienteEliminadoDto = mapper.convertValue(pacienteEliminado, PacienteDtoResponse.class);
             repository.deleteById(id);
             return pacienteEliminadoDto;
         }

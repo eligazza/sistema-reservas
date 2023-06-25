@@ -1,14 +1,13 @@
-package ar.com.clinica.dto.req;
+package ar.com.clinica.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OdontologoDtoReq {
+public class OdontologoDtoRequest {
 
     private Long id;
     private String nombre;

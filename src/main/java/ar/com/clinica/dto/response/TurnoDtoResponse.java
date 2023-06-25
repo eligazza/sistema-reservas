@@ -1,4 +1,4 @@
-package ar.com.clinica.dto.res;
+package ar.com.clinica.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7,17 +7,16 @@ import lombok.Setter;
 
 import java.sql.Date;
 
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PacienteDtoRes {
+public class TurnoDtoResponse {
 
     private Long id;
-    private Integer dni;
-    private String nombre;
-    private String apellido;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private Date fechaDeAlta;
-    private DomicilioDtoRes domicilio;
+    private Date fecha;
+    private OdontologoDtoResponse odontologo;
+    private PacienteDtoResponse paciente;
 
 }

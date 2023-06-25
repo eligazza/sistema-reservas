@@ -1,9 +1,9 @@
 package ar.com.clinica.controller;
 
-import ar.com.clinica.dto.req.TurnoDtoReq;
-import ar.com.clinica.dto.res.TurnoDtoRes;
+import ar.com.clinica.dto.request.TurnoDtoRequest;
+import ar.com.clinica.dto.response.TurnoDtoResponse;
 import ar.com.clinica.exceptions.*;
-import ar.com.clinica.service.TurnoServiceImpl;
+import ar.com.clinica.service.implementations.TurnoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,28 +20,28 @@ public class TurnoController {
 
 
     @GetMapping
-    public ResponseEntity<List<TurnoDtoRes>> listar() throws ExcepcionNoHayContenido {
+    public ResponseEntity<List<TurnoDtoResponse>> listar() throws ExcepcionNoHayContenido {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarTurnos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<TurnoDtoResponse> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTurnoPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDtoRes> guardar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante {
-        TurnoDtoRes turnoNuevo = service.guardarTurno(turnoDtoReq);
+    public ResponseEntity<TurnoDtoResponse> guardar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante {
+        TurnoDtoResponse turnoNuevo = service.guardarTurno(turnoDtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(turnoNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDtoRes> modificar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
-        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoReq));
+    public ResponseEntity<TurnoDtoResponse> modificar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+        return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoRequest));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<TurnoDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<TurnoDtoResponse> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminarTurno(id));
     }
 

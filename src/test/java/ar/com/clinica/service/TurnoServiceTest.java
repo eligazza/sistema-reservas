@@ -1,21 +1,5 @@
 package ar.com.clinica.service;
 
-import ar.com.clinica.dto.res.OdontologoDtoRes;
-import ar.com.clinica.dto.res.PacienteDtoRes;
-import ar.com.clinica.dto.res.TurnoDtoRes;
-import ar.com.clinica.entity.Domicilio;
-import ar.com.clinica.entity.Odontologo;
-import ar.com.clinica.entity.Paciente;
-import ar.com.clinica.entity.Turno;
-import ar.com.clinica.repository.ITurnoRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class TurnoServiceTest {
 
    /* TurnoService service;
