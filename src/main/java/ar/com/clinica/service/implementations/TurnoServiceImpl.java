@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,7 +101,6 @@ public class TurnoServiceImpl implements ITurnoService {
         }
     }
 
-
     @Override
     public TurnoDtoResponse modificarTurno(TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
@@ -139,4 +139,31 @@ public class TurnoServiceImpl implements ITurnoService {
         }
     }
 
+    public List<TurnoDtoResponse> listarTurnosPorPacienteId(Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
+
+        if (id == null) {
+            throw new ExcepcionParametroInvalido("Debes elegir un paciente");
+        } else if (repository.listarPorPacienteId(id) == null) {
+            throw new ExcepcionNoHayContenido("No hay turnos agendados");
+        } else {
+            return repository.listarPorPacienteId(id)
+                    .stream()
+                    .map(turno -> mapper.convertValue(turno, TurnoDtoResponse.class))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public List<TurnoDtoResponse> listarTurnosPorOdontologoId(Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
+
+        if (id == null) {
+            throw new ExcepcionParametroInvalido("Debes elegir un odontologo");
+        } else if (repository.listarPorOdontologoId(id) == null) {
+            throw new ExcepcionNoHayContenido("No hay turnos agendados");
+        } else {
+            return repository.listarPorOdontologoId(id)
+                    .stream()
+                    .map(turno -> mapper.convertValue(turno, TurnoDtoResponse.class))
+                    .collect(Collectors.toList());
+        }
+    }
 }

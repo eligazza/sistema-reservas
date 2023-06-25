@@ -29,6 +29,16 @@ public class TurnoController {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTurnoPorId(id));
     }
 
+    @GetMapping(params = "paciente-id")
+    public ResponseEntity<List<TurnoDtoResponse>> listarPorPacienteId(@RequestParam("paciente-id") Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarTurnosPorPacienteId(id));
+    }
+
+    @GetMapping(params = "odontologo-id")
+    public ResponseEntity<List<TurnoDtoResponse>> listarPorOdontologoId(@RequestParam("odontologo-id") Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarTurnosPorOdontologoId(id));
+    }
+
     @PostMapping
     public ResponseEntity<TurnoDtoResponse> guardar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante {
         TurnoDtoResponse turnoNuevo = service.guardarTurno(turnoDtoRequest);
