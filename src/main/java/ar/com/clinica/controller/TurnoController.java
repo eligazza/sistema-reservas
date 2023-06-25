@@ -25,12 +25,12 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<TurnoDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTurnoPorId(id));
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDtoRes> guardar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<TurnoDtoRes> guardar(@RequestBody TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante {
         TurnoDtoRes turnoNuevo = service.guardarTurno(turnoDtoReq);
         return ResponseEntity.status(HttpStatus.CREATED).body(turnoNuevo);
     }

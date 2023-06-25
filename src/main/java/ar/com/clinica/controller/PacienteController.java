@@ -26,7 +26,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PacienteDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<PacienteDtoRes> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarPacientePorId(id));
     }
 
@@ -49,7 +49,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PacienteDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado {
+    public ResponseEntity<PacienteDtoRes> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminarPaciente(id));
     }
 

@@ -37,8 +37,11 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     @Override
-    public PacienteDtoRes buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado {
+    public PacienteDtoRes buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
+        if (id == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
+        }
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
@@ -69,8 +72,9 @@ public class PacienteServiceImpl implements IPacienteService {
     public PacienteDtoRes modificarPaciente(PacienteDtoReq pacienteDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
         Long id = pacienteDtoReq.getId();
-
-        if (repository.findById(id).isEmpty()) {
+        if (id == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
+        } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else if (pacienteDtoReq.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
@@ -85,9 +89,11 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     @Override
-    public PacienteDtoRes eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado {
+    public PacienteDtoRes eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
-        if (repository.findById(id).isEmpty()) {
+        if (id == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
+        } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
             Paciente pacienteEliminado = repository.findById(id).get();

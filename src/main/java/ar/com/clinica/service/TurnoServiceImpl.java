@@ -15,6 +15,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +48,7 @@ public class TurnoServiceImpl implements ITurnoService {
     }
 
     @Override
-    public TurnoDtoRes buscarTurnoPorId(Long id) throws ExcepcionRecursoNoEncontrado {
+    public TurnoDtoRes buscarTurnoPorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
@@ -72,28 +74,34 @@ public class TurnoServiceImpl implements ITurnoService {
     }
 
     @Override
-    public TurnoDtoRes guardarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public TurnoDtoRes guardarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante {
 
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-        Turno nuevoTurno = new Turno();
-
+        // Puede devolver ExceptionRecursoNoEncontrado
         OdontologoDtoRes odontologoDto = odontologoService.buscarOdontologoPorId(turnoDtoReq.getIdOdontologo());
         Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
-        nuevoTurno.setOdontologo(odontologo);
 
+        // Puede devolver ExceptionRecursoNoEncontrado
         PacienteDtoRes pacienteDto = pacienteService.buscarPacientePorId(turnoDtoReq.getIdPaciente());
         Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
-        nuevoTurno.setPaciente(paciente);
 
-        nuevoTurno.setFecha(turnoDtoReq.getFecha());
-
-        return mapper.convertValue(repository.save(nuevoTurno), TurnoDtoRes.class);
+        if(turnoDtoReq.getFecha().before(Date.valueOf(LocalDate.now()))) {
+            throw new ExcepcionParametroInvalido("Lamentamos no poder viajar al pasado. Por favor, elige otra fecha");
+        } else if (turnoDtoReq.getFecha().before(Date.valueOf(LocalDate.now().plusDays(1)))) {
+            throw new ExcepcionParametroInvalido("No podemos reservar un turno para hoy, lo sentimos. Intenta a partir de mañana");
+        } else {
+            Turno nuevoTurno = new Turno();
+            nuevoTurno.setOdontologo(odontologo);
+            nuevoTurno.setPaciente(paciente);
+            nuevoTurno.setFecha(turnoDtoReq.getFecha());
+            return mapper.convertValue(repository.save(nuevoTurno), TurnoDtoRes.class);
+        }
     }
 
 
     @Override
-    public TurnoDtoRes modificarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado {
+    public TurnoDtoRes modificarTurno(TurnoDtoReq turnoDtoReq) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
 
         Long id_Turno = turnoDtoReq.getId();
 

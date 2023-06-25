@@ -10,12 +10,12 @@ public interface IPacienteService {
 
     public List<PacienteDtoRes> listarPacientes() throws ExcepcionNoHayContenido;
 
-    public PacienteDtoRes buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado;
+    public PacienteDtoRes buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
 
     public PacienteDtoRes guardarPaciente(PacienteDtoReq s) throws ExcepcionParametroFaltante;
 
     public PacienteDtoRes modificarPaciente(PacienteDtoReq s) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
 
-    public PacienteDtoRes eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado;
+    public PacienteDtoRes eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
 
 }
