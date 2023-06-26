@@ -45,7 +45,7 @@ window.addEventListener('load', function() {
             document.querySelector('#response-paciente').innerHTML = successAlert;
             document.querySelector('#response-paciente').style.display = 'block';*/
             
-            if (data.error) {alert(data.error)}
+            if (data.mensaje) {alert(data.mensaje)}
             else {
                 alert("Paciente registrado con éxito");
                 resetPacienteForm();

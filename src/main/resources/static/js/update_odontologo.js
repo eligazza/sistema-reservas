@@ -34,7 +34,7 @@ window.addEventListener('load', function () {
         
         .then(data => {
             
-            if (data.error) {alert(data.error)}
+            if (data.mensaje) {alert(data.mensaje)}
             else {
                 alert("odontologo modificado con éxito")
                 // Una vez mandado el update, oculto el div que contiene el formulario de update
@@ -73,16 +73,14 @@ function findBy(id) {
     
     .then(data => {
     
-        if (data.error) {alert(data.error)}
-        else {
-            // Hago aparecer el formulario para el update. Este formulario tiene el id #update_odontologo_form
-            document.querySelector('#div_odontologo_updating').style.display = "block";
-            // Le "precargo" todos los boxes con la información que viene del getById()
-            document.querySelector('#odontologo-id').value = data.id;
-            document.querySelector('#nombre-odontologo').value = data.nombre;
-            document.querySelector('#apellido-odontologo').value = data.apellido;
-            document.querySelector('#matricula').value = data.matricula;
-        }
+        // Hago aparecer el formulario para el update. Este formulario tiene el id #update_odontologo_form
+        document.querySelector('#div_odontologo_updating').style.display = "block";
+        // Le "precargo" todos los boxes con la información que viene del getById()
+        document.querySelector('#odontologo-id').value = data.id;
+        document.querySelector('#nombre-odontologo').value = data.nombre;
+        document.querySelector('#apellido-odontologo').value = data.apellido;
+        document.querySelector('#matricula').value = data.matricula;
+        
     })
 
     .catch(error => alert(error))

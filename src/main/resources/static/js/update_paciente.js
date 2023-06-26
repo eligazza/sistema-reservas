@@ -2,7 +2,7 @@ window.addEventListener('load', function () {
 
     // Capturo el formulario de update que obtengo con la función de más abajo y al div que lo contiene
     const form_update = document.querySelector('#update_paciente_form');
-    const div_formulario = this.document.querySelector('#div_paciente_updating');
+    const div_formulario = document.querySelector('#div_paciente_updating');
  
     form_update.addEventListener('submit', function (event) {
 
@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
         
         .then(data => {
 
-            if (data.error) {alert(data.error)}
+            if (data.mensaje) {alert(data.mensaje)}
             else {
                 alert("Paciente modificado con éxito")
                 // Una vez mandado el update, oculto el div que contiene el formulario de update
@@ -80,7 +80,7 @@ function findBy(id) {
     
     .then(data => {
     
-        if (data.error) {alert(data.error)}
+        if (data.mensaje) {alert(data.mensaje)}
         else {
             // Hago aparecer el formulario para el update. Este formulario tiene el id #update_paciente_form
             document.querySelector('#div_paciente_updating').style.display = "block";

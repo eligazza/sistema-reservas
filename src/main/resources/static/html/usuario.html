@@ -11,32 +11,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/post_turnos.js"></script>
+    <script type="text/javascript" src="../js/get_dropdown_odontologos.js"></script>
 </head>
 <body>
     <div class="container">
         <header class="text-right">
+            <label class="control-label" for="id_paciente">Paciente:</label>
+            <input class="col-1" type="number" id="id_paciente" 
+            placeholder="ID" name="paciente-id" required>
             <a class="my-1 btn btn-outline-danger" href="../index.html">Salir</a>
         </header>
+
         <h4 class="text-center">Clinica "Los Arcos"</h4>
         <h1 class="text-center">USUARIO</h1>
-        <div class="col-sm-18" style="background-color:#efefef; padding:10px; border-radius:3px">
-                    
-            <h4>Agendar Turno</h4>
+        
+        <div class="col-6 mx-auto" style="background-color:#efefef; padding:10px; border-radius:3px">            
             
-            <form id="add_new_turno">
+            <form id="add_new_turno" class="mx-2">    
                 
-                <div class="form-group">
-                    <label class="control-label" for="id-paciente">Paciente:</label>
-                    <input type="number" class="form-control" id="id_paciente"
-                           placeholder="Ingrese el id del paciente"
-                           name="paciente-id" required>
-                </div>
+                <h3>Agendar nuevo turno</h3>
 
                 <div class="form-group">
-                    <label class="control-label" for="id-odontologo">Odontologo:</label>
-                    <input type="number" class="form-control" id="id_odontologo"
-                           placeholder="Ingrese el id del odontologo"
-                           name="odontologo-id" required>
+                    <label class="control-label" for="dropdown_odontologos">Odontologo:</label>
+                    <select type="select" class="custom-select" id="dropdown_odontologos">
+                        <option value="">Seleccione el odontólogo</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -49,10 +48,11 @@
                 <button type="submit" class="btn btn-dark" id="btn-add-new-turno"> Agendar </button>
             
             </form>
-            <div id="response-turno" style="display:none; margin-top:10px">
             
-            </div>
         </div>
+
+        <a class="col-6 mx-auto my-2 btn btn-block btn-primary" href="./TurnosList.html">Ver mis turnos</a>
+    
     </div>
 </body>
 </html>
