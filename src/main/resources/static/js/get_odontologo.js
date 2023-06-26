@@ -15,7 +15,7 @@ window.addEventListener('load', function () {
 
         .then(data => {
 
-            if (data.error) {alert(data.error)}
+            if (data.mensaje) {alert(data.mensaje)}
             
             else {
                 

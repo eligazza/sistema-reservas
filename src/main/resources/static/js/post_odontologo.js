@@ -38,7 +38,7 @@ window.addEventListener('load', function() {
                 '<strong></strong> Odontologo agregado </div>';
             document.querySelector('#response-odontologo').innerHTML = successAlert;
             document.querySelector('#response-odontologo').style.display = 'block';*/
-            if (data.error) {alert(data.error)}
+            if (data.mensaje) {alert(data.mensaje)}
             else {
                 alert('Odontologo registrado con éxito');
                 resetOdontologoForm();

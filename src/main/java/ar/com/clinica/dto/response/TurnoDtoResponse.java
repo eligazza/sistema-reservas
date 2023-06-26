@@ -14,7 +14,7 @@ import java.sql.Date;
 public class TurnoDtoResponse {
 
     private Long id;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date fecha;
     private OdontologoDtoResponse odontologo;
     private PacienteDtoResponse paciente;

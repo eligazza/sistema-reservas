@@ -92,6 +92,8 @@ public class TurnoServiceImpl implements ITurnoService {
             throw new ExcepcionParametroInvalido("Lamentamos no poder viajar al pasado. Por favor, elige otra fecha");
         } else if (turnoDtoRequest.getFecha().before(Date.valueOf(LocalDate.now().plusDays(1)))) {
             throw new ExcepcionParametroInvalido("No podemos reservar un turno para hoy, lo sentimos. Intenta a partir de mañana");
+        /*} else if (repository.checkDisponibilidad()) {
+            throw new ExceptionDuplicado("El odontólogo elegido ya tiene un turno reservado para esta fecha");*/
         } else {
             Turno nuevoTurno = new Turno();
             nuevoTurno.setOdontologo(odontologo);
