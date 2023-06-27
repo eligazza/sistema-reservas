@@ -12,7 +12,7 @@ public interface IOdontologoService {
 
     public OdontologoDtoResponse buscarOdontologoPorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
 
-    public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest s) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido;
+    public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest s) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExceptionDuplicado;
 
     public OdontologoDtoResponse modificarOdontologo(OdontologoDtoRequest s) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
