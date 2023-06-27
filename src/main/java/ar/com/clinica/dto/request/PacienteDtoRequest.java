@@ -17,7 +17,7 @@ public class PacienteDtoRequest {
     private Integer dni;
     private String nombre;
     private String apellido;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date fechaDeAlta;
     private DomicilioDtoResponse domicilio;
 
