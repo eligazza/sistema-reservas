@@ -45,7 +45,7 @@ window.addEventListener('load', function () {
         
     })
 
-    const botonCancelar = document.querySelector('#btn-cancelar');
+    let botonCancelar = document.querySelector('#btn_cancelar');
     botonCancelar.addEventListener('click', function(event) {
         
         event.preventDefault();
@@ -76,8 +76,9 @@ function findBy(id) {
             // Hago aparecer el formulario para el update.
             document.querySelector('#div_turno_updating').style.display = "block";
             // Le "precargo" todos los boxes con la información que viene del getById()
-            document.querySelector('#turno-id').value = data.id;
-            document.querySelector('#dropdown_odontologos').value = data.odontologo;
+            document.querySelector('#turno_id').value = data.id;
+            document.querySelector('#dropdown_odontologos2').value = data.odontologo.id;
+            document.querySelector('#dropdown_odontologos2').text = data.odontologo.apellido;
             document.querySelector('#fecha').value = data.fecha;
 
         }
