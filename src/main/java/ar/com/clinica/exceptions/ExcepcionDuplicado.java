@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ExceptionDuplicado extends Exception {
-    public ExceptionDuplicado(String message) {
+public class ExcepcionDuplicado extends Exception {
+    public ExcepcionDuplicado(String message) {
         super(message);
     }
 }

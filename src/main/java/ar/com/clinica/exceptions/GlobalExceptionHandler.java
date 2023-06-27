@@ -30,6 +30,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuestaError);
     }
 
+    @ExceptionHandler({ExcepcionDuplicado.class})
+    public ResponseEntity<RespuestaError> manejarDuplicado(ExcepcionDuplicado ex) {
+        ex.printStackTrace();
+        LOG.error(ex.getMessage());
+        RespuestaError respuestaError = new RespuestaError(2002, "Recurso duplicado" , ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuestaError);
+    }
+
     @ExceptionHandler({ExcepcionParametroFaltante.class})
     public ResponseEntity<RespuestaError> manejarParametroFaltante(ExcepcionParametroFaltante ex) {
         ex.printStackTrace();
@@ -45,4 +53,5 @@ public class GlobalExceptionHandler {
         RespuestaError respuestaError = new RespuestaError(2002, "Parámetro inválido" , ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuestaError);
     }
+
 }
