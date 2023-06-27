@@ -55,9 +55,9 @@ public class PacienteServiceImpl implements IPacienteService {
 
         Date hoy = Date.valueOf(LocalDate.now());
 
-        if (pacienteDtoRequest.getApellido().isEmpty()) {
+        if (pacienteDtoRequest.getApellido().isBlank() || pacienteDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (pacienteDtoRequest.getNombre().isEmpty()) {
+        } else if (pacienteDtoRequest.getNombre().isBlank() || pacienteDtoRequest.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
         } else if (pacienteDtoRequest.getDni() == null) {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");

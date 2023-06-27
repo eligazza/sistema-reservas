@@ -51,9 +51,9 @@ public class OdontologoServiceImpl implements IOdontologoService {
     @Override
     public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExceptionDuplicado {
 
-        if (odontologoDtoRequest.getApellido().isEmpty()) {
+        if (odontologoDtoRequest.getApellido().isBlank() || odontologoDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (odontologoDtoRequest.getNombre().isEmpty()) {
+        } else if (odontologoDtoRequest.getNombre().isBlank() || odontologoDtoRequest.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
         } else if (odontologoDtoRequest.getMatricula() == null) {
             throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
