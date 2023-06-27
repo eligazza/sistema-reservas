@@ -38,7 +38,7 @@ public class PacienteController {
     */
 
     @PostMapping
-    public ResponseEntity<PacienteDtoResponse> guardar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExceptionDuplicado {
+    public ResponseEntity<PacienteDtoResponse> guardar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExcepcionDuplicado {
         PacienteDtoResponse pacienteNuevo = service.guardarPaciente(pacienteDtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteNuevo);
     }

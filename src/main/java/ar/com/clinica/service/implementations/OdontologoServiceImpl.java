@@ -49,7 +49,7 @@ public class OdontologoServiceImpl implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExceptionDuplicado {
+    public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExcepcionDuplicado {
 
         if (odontologoDtoRequest.getApellido().isBlank() || odontologoDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
@@ -60,7 +60,7 @@ public class OdontologoServiceImpl implements IOdontologoService {
         } else if (odontologoDtoRequest.getMatricula() < 1) {
             throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
         } else if (repository.findByMatricula(odontologoDtoRequest.getMatricula()).isPresent()) {
-            throw new ExceptionDuplicado("Ya existe un odontólogo con esta matrícula");
+            throw new ExcepcionDuplicado("Ya existe un odontólogo con esta matrícula");
         } else {
             Odontologo odontologoGuardado = repository.save(mapper.convertValue(odontologoDtoRequest, Odontologo.class));
             return mapper.convertValue(odontologoGuardado, OdontologoDtoResponse.class);
