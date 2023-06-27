@@ -1,26 +1,25 @@
 window.addEventListener('load', function () {
 
     // Capturo el formulario de update que obtengo con la función de más abajo y al div que lo contiene
-    const form_update = document.querySelector('#update_odontologo_form');
-    const div_formulario = this.document.querySelector('#div_odontologo_updating');
+    const form_update = document.querySelector('#update_turno_form');
+    const div_formulario = document.querySelector('#div_turno_updating');
  
     form_update.addEventListener('submit', function (event) {
 
         event.preventDefault();
 
-        let odontologoId = document.querySelector('#odontologo-id').value;
+        let turnoId = document.querySelector('#turno_id').value;
 
         // Creamos un JSON con los datos del odontologo, pero incluimos el ID para que haya update y no post
-        const carga = {
-            id: odontologoId,
-            nombre: document.querySelector('#nombre-odontologo').value,
-            apellido: document.querySelector('#apellido-odontologo').value,
-            matricula: document.querySelector('#matricula').value,
+        let carga = {
+            id: turnoId,
+            idOdontologo: document.querySelector('#dropdown_odontologos').value,
+            idPaciente: document.querySelector('#id_paciente')    
         }
         
         // Hacemos fetch
-        const url = '/odontologos'; 
-        const payload = { 
+        let url = '/turnos'; 
+        let payload = { 
             method: 'PUT', 
             headers: { 
                 'Content-Type': 'application/json',
@@ -36,7 +35,7 @@ window.addEventListener('load', function () {
             
             if (data.mensaje) {alert(data.mensaje)}
             else {
-                alert("Odontólogo modificado con éxito")
+                alert("Turno modificado con éxito")
                 location.reload();
             }
             
@@ -60,24 +59,28 @@ window.addEventListener('load', function () {
 // Función que se invoca cuando se hace clic en el ID del odontologo: 
 function findBy(id) {
 
-    let urlFind = '/odontologos/'+id;
+    let url = '/turnos/'+id;
     let payload = {
         method: 'GET'
     }
 
-    fetch(urlFind,payload)
+    fetch(url,payload)
     
     .then(response => response.json())
     
     .then(data => {
     
-        // Hago aparecer el formulario para el update. Este formulario tiene el id #update_odontologo_form
-        document.querySelector('#div_odontologo_updating').style.display = "block";
-        // Le "precargo" todos los boxes con la información que viene del getById()
-        document.querySelector('#odontologo-id').value = data.id;
-        document.querySelector('#nombre-odontologo').value = data.nombre;
-        document.querySelector('#apellido-odontologo').value = data.apellido;
-        document.querySelector('#matricula').value = data.matricula;
+        if(data.mensaje) {alert(data.mensaje)}
+        else {
+            
+            // Hago aparecer el formulario para el update.
+            document.querySelector('#div_turno_updating').style.display = "block";
+            // Le "precargo" todos los boxes con la información que viene del getById()
+            document.querySelector('#turno-id').value = data.id;
+            document.querySelector('#dropdown_odontologos').value = data.odontologo;
+            document.querySelector('#fecha').value = data.fecha;
+
+        }
         
     })
 

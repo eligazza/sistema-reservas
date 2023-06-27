@@ -12,6 +12,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/post_turnos.js"></script>
     <script type="text/javascript" src="../js/get_dropdown_odontologos.js"></script>
+    <script type="text/javascript" src="../js/get_turnos_by_paciente.js"></script>
+    <script type="text/javascript" src="../js/update_turno.js"></script>
+    <script type="text/javascript" src="../js/delete_turno.js"></script>
 </head>
 <body>
     <div class="container">
@@ -30,7 +33,7 @@
             <form id="add_new_turno" class="mx-2">    
                 
                 <h3>Agendar nuevo turno</h3>
-
+                
                 <div class="form-group">
                     <label class="control-label" for="dropdown_odontologos">Odontologo:</label>
                     <select type="select" class="custom-select" id="dropdown_odontologos">
@@ -41,7 +44,7 @@
                 <div class="form-group">
                     <label class="control-label" for="fecha">Fecha:</label>
                     <input type="datetime-local" class="form-control" id="fecha"
-                           placeholder="Ingrese la fecha"
+                           placeholder="Ingrese la fecha" step="1800"
                            name="fecha" required>
                 </div>
                 
@@ -51,8 +54,64 @@
             
         </div>
 
-        <a class="col-6 mx-auto my-2 btn btn-block btn-primary" href="./TurnosList.html">Ver mis turnos</a>
-    
+        <button type="button" id="btn_turnosList" class="col-6 mx-auto my-2 btn btn-block btn-primary">Ver mis turnos</button>
+        
+        <!-- LISTA DE TURNOS OCULTA -->
+        
+        <div id="div_turnos_table" class="row col-md-6 table-responsive" style="display: none;">
+            <table id="turnosTable" class="table table-striped">
+                <thead>
+                <tr>
+                     <th></th>
+                     <th>Paciente</th>
+                     <th>Odontologo</th>
+                     <th>Fecha</th>
+                     <th></th>
+                </tr>
+                </thead>
+                <tbody id="turnosTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- MENU DE MODIFICACION OCULTO -->
+
+        <div class="row">
+            <div class="col-sm-6" style="display: none;
+                 background-color:#efefef; padding:10px; border-radius:3px"
+                 id="div_turno_updating">
+                
+                 <form id="update_turno_form">
+                
+                     <div class="form-group">
+                         <label class="control-label" for="id">ID:</label>
+                         <input type="number" class="form-control" id="turno_id"
+                                placeholder="id"
+                                name="id" readonly>
+                     </div>
+     
+                     <div class="form-group">
+                         <label class="control-label" for="dropdown_odontologos">Odontologo:</label>
+                         <select type="select" name="odontologo" class="custom-select" id="dropdown_odontologos" required>
+                             <option value=""> Seleccione el odontólogo</option>
+                         </select>
+     
+                     <div class="form-group">
+                         <label class="control-label" for="fecha">Fecha:</label>
+                         <input type="datetime-local" class="form-control" id="fecha"
+                                placeholder="Ingrese una nueva fecha"
+                                name="fecha" required>
+                     </div>
+     
+                     <button type="submit" id="btn_modificar" class="btn btn-primary">Modificar</button>
+                     <button type="button" id="btn_cancelar" class="btn btn-light">Cancelar</button>
+                
+                 </form>
+                
+                 </div>
+            </div>
+        </div>
+
+
     </div>
 </body>
 </html>
