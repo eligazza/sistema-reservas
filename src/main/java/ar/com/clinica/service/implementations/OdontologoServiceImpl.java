@@ -3,10 +3,7 @@ package ar.com.clinica.service.implementations;
 import ar.com.clinica.dto.response.OdontologoDtoResponse;
 import ar.com.clinica.dto.request.OdontologoDtoRequest;
 import ar.com.clinica.entity.Odontologo;
-import ar.com.clinica.exceptions.ExcepcionNoHayContenido;
-import ar.com.clinica.exceptions.ExcepcionParametroFaltante;
-import ar.com.clinica.exceptions.ExcepcionParametroInvalido;
-import ar.com.clinica.exceptions.ExcepcionRecursoNoEncontrado;
+import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.IOdontologoRepository;
 import ar.com.clinica.service.interfaces.IOdontologoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,7 +49,7 @@ public class OdontologoServiceImpl implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido {
+    public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExceptionDuplicado {
 
         if (odontologoDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
@@ -62,6 +59,8 @@ public class OdontologoServiceImpl implements IOdontologoService {
             throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
         } else if (odontologoDtoRequest.getMatricula() < 1) {
             throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
+        } else if (repository.findByMatricula(odontologoDtoRequest.getMatricula()).isPresent()) {
+            throw new ExceptionDuplicado("Ya existe un odontólogo con esta matrícula");
         } else {
             Odontologo odontologoGuardado = repository.save(mapper.convertValue(odontologoDtoRequest, Odontologo.class));
             return mapper.convertValue(odontologoGuardado, OdontologoDtoResponse.class);
