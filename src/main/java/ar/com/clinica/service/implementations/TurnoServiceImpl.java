@@ -2,9 +2,7 @@ package ar.com.clinica.service.implementations;
 
 import ar.com.clinica.dto.request.TurnoDtoRequest;
 
-import ar.com.clinica.dto.response.OdontologoDtoResponse;
-import ar.com.clinica.dto.response.PacienteDtoResponse;
-import ar.com.clinica.dto.response.TurnoDtoResponse;
+import ar.com.clinica.dto.response.*;
 import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.entity.Turno;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
