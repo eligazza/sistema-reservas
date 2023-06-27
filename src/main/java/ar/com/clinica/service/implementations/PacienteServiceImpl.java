@@ -51,7 +51,7 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     @Override
-    public PacienteDtoResponse guardarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante {
+    public PacienteDtoResponse guardarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExceptionDuplicado {
 
         Date hoy = Date.valueOf(LocalDate.now());
 
@@ -61,7 +61,9 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
         } else if (pacienteDtoRequest.getDni() == null) {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
-        } else {
+        } else if (repository.findByDni(pacienteDtoRequest.getDni()).isPresent()) {
+            throw new ExceptionDuplicado("Ya se encuentra registrado un paciente con este DNI");
+        } else{
             Paciente paciente = mapper.convertValue(pacienteDtoRequest, Paciente.class);
             paciente.setFechaDeAlta(hoy);
             Paciente pacienteGuardado = repository.save(paciente);
