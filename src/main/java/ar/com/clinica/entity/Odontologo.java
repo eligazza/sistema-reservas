@@ -1,10 +1,12 @@
 package ar.com.clinica.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "odontologos")
 public class Odontologo {
 
