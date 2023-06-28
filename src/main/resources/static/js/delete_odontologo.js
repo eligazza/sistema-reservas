@@ -11,13 +11,20 @@ function deleteBy(id) {
     .then(response => response.json())
     
     .then(data => {
-        // muestro por consola el odontologo eliminado
-        console.log("Odontologo eliminado: " + data)
-        // muestro en un cartel que fue eliminado
-        alert("Odontologo eliminado");
-        // elimino la fila de la tabla
-        let filaSeleccionada = document.querySelector("#tr_"+ id);
-        filaSeleccionada.remove()
+
+        if (data.mensaje) {alert(data.mensaje)}
+        
+        else {
+            
+            // muestro por consola el odontologo eliminado
+            console.log("Odontologo eliminado: " + data)
+            // muestro en un cartel que fue eliminado
+            alert("Odontologo eliminado");
+            // elimino la fila de la tabla
+            let filaSeleccionada = document.querySelector("#tr_"+ id);
+            filaSeleccionada.remove()
+        
+        }
     })
     
     .catch(error => alert(error))

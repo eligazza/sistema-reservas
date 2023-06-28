@@ -5,6 +5,7 @@ import ar.com.clinica.dto.request.OdontologoDtoRequest;
 import ar.com.clinica.entity.Odontologo;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.IOdontologoRepository;
+import ar.com.clinica.repository.ITurnoRepository;
 import ar.com.clinica.service.interfaces.IOdontologoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class OdontologoServiceImpl implements IOdontologoService {
 
     @Autowired
     IOdontologoRepository repository;
+    @Autowired
+    ITurnoRepository turnoRepository;
     @Autowired
     ObjectMapper mapper;
 
@@ -76,7 +79,7 @@ public class OdontologoServiceImpl implements IOdontologoService {
         // todo: Checkear que la matricula sea solo números.
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debes elegir un odontólogo");
-        } else if (repository.findById(id).isEmpty()){
+        } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con ID: " + id);
         } else if (odontologoDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
@@ -93,12 +96,14 @@ public class OdontologoServiceImpl implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDtoResponse eliminarOdontologo(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public OdontologoDtoResponse eliminarOdontologo(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debes elegir un odontólogo");
         } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con el ID: " + id);
+        } else if (!turnoRepository.listarPorOdontologoId(id).isEmpty()) {
+            throw new ExcepcionParametroInvalido("No puede eliminar este odontólogo porque posee turnos agendados");
         } else {
             Odontologo odontologoEliminado = repository.findById(id).get();
             OdontologoDtoResponse odontologoEliminadoDto = mapper.convertValue(

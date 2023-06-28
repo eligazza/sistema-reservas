@@ -49,7 +49,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PacienteDtoResponse> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<PacienteDtoResponse> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminarPaciente(id));
     }
 

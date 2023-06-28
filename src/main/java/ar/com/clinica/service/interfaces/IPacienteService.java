@@ -16,6 +16,6 @@ public interface IPacienteService {
 
     public PacienteDtoResponse modificarPaciente(PacienteDtoRequest s) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
 
-    public PacienteDtoResponse eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
+    public PacienteDtoResponse eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
 }

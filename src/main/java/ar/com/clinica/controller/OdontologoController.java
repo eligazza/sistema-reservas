@@ -41,7 +41,7 @@ public class OdontologoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<OdontologoDtoResponse> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<OdontologoDtoResponse> eliminar(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
         return ResponseEntity.status(HttpStatus.OK).body(service.eliminarOdontologo(id));
     }
 

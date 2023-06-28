@@ -5,6 +5,7 @@ import ar.com.clinica.dto.request.PacienteDtoRequest;
 import ar.com.clinica.entity.Paciente;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.IPacienteRepository;
+import ar.com.clinica.repository.ITurnoRepository;
 import ar.com.clinica.service.interfaces.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class PacienteServiceImpl implements IPacienteService {
 
     @Autowired
     IPacienteRepository repository;
+    @Autowired
+    ITurnoRepository turnoRepository;
     @Autowired
     ObjectMapper mapper;
 
@@ -92,12 +95,14 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     @Override
-    public PacienteDtoResponse eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public PacienteDtoResponse eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un paciente");
         } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
+        } else if (!turnoRepository.listarPorPacienteId(id).isEmpty()) {
+            throw new ExcepcionParametroInvalido("No puede eliminar este paciente porque posee turnos agendados");
         } else {
             Paciente pacienteEliminado = repository.findById(id).get();
             PacienteDtoResponse pacienteEliminadoDto = mapper.convertValue(pacienteEliminado, PacienteDtoResponse.class);

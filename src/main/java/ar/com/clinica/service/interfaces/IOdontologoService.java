@@ -16,6 +16,6 @@ public interface IOdontologoService {
 
     public OdontologoDtoResponse modificarOdontologo(OdontologoDtoRequest s) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
-    public OdontologoDtoResponse eliminarOdontologo(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
+    public OdontologoDtoResponse eliminarOdontologo(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
 }
