@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Getter
@@ -14,8 +15,10 @@ import java.sql.Date;
 public class TurnoDtoResponse {
 
     private Long id;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Date fecha;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime hora;
     private OdontologoDtoResponse odontologo;
     private PacienteDtoResponse paciente;
 

@@ -39,6 +39,7 @@
                     <th>Paciente</th>
                     <th>Odontologo</th>
                     <th>Fecha</th>
+                    <th>Hora</th>
                     <th></th>
                </tr>
                </thead>
@@ -69,9 +70,16 @@
 
                 <div class="form-group">
                     <label class="control-label" for="fecha">Fecha:</label>
-                    <input type="datetime-local" class="form-control" id="fecha"
+                    <input type="date" class="form-control" id="fecha"
                            placeholder="Ingrese una nueva fecha"
                            name="fecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="hora">Hora:</label>
+                    <input type="time" class="form-control" id="hora"
+                           placeholder="Ingrese una nueva hora"
+                           name="hora" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Modificar</button>

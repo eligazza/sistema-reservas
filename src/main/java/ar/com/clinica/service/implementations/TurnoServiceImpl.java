@@ -3,9 +3,7 @@ package ar.com.clinica.service.implementations;
 import ar.com.clinica.dto.request.TurnoDtoRequest;
 
 import ar.com.clinica.dto.response.*;
-import ar.com.clinica.entity.Odontologo;
-import ar.com.clinica.entity.Paciente;
-import ar.com.clinica.entity.Turno;
+import ar.com.clinica.entity.*;
 import ar.com.clinica.exceptions.*;
 import ar.com.clinica.repository.ITurnoRepository;
 import ar.com.clinica.service.interfaces.ITurnoService;
@@ -14,8 +12,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,38 +64,40 @@ public class TurnoServiceImpl implements ITurnoService {
             PacienteDtoResponse paciente_dto = pacienteService.buscarPacientePorId(id_paciente);
             turnoEncontrado.setPaciente(mapper.convertValue(paciente_dto, Paciente.class));
 
-            TurnoDtoResponse turnoDto = mapper.convertValue(turnoEncontrado, TurnoDtoResponse.class);
-
-            return turnoDto;
+            return mapper.convertValue(turnoEncontrado, TurnoDtoResponse.class);
         }
     }
 
     @Override
-    public TurnoDtoResponse guardarTurno(TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante {
+    public TurnoDtoResponse guardarTurno(TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante, ExcepcionNoHayContenido, ExcepcionDuplicado {
 
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        Long idOdontologo = turnoDtoRequest.getIdOdontologo();
+        Long idPaciente = turnoDtoRequest.getIdPaciente();
+        LocalDate fecha = turnoDtoRequest.getFecha();
+        LocalTime hora = turnoDtoRequest.getHora();
 
-        // Puede devolver ExceptionRecursoNoEncontrado
-        OdontologoDtoResponse odontologoDto = odontologoService.buscarOdontologoPorId(turnoDtoRequest.getIdOdontologo());
-        Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
+        // Traigo el odontólogo
+        Odontologo odontologo = mapper.convertValue(odontologoService.buscarOdontologoPorId(idOdontologo), Odontologo.class);
 
-        // Puede devolver ExceptionRecursoNoEncontrado
-        PacienteDtoResponse pacienteDto = pacienteService.buscarPacientePorId(turnoDtoRequest.getIdPaciente());
-        Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
+        // Traigo el paciente
+        Paciente paciente = mapper.convertValue(pacienteService.buscarPacientePorId(idPaciente), Paciente.class);
 
-        if(turnoDtoRequest.getFecha().before(Date.valueOf(LocalDate.now()))) {
+        if (fecha.isBefore(LocalDate.now())) {
             throw new ExcepcionParametroInvalido("Lamentamos no poder viajar al pasado. Por favor, elige otra fecha");
-        } else if (turnoDtoRequest.getFecha().before(Date.valueOf(LocalDate.now().plusDays(1)))) {
+        } else if (fecha.isBefore(LocalDate.now().plusDays(1))) {
             throw new ExcepcionParametroInvalido("No podemos reservar un turno para hoy, lo sentimos. Intenta a partir de mañana");
-        /*} else if (repository.checkDisponibilidad()) {
-            throw new ExceptionDuplicado("El odontólogo elegido ya tiene un turno reservado para esta fecha");*/
+        } else if (listarFechasDeTurnosPorOdontologoId(idOdontologo).contains(fecha)) {
+            throw new ExcepcionDuplicado("El odontólogo elegido ya tiene un turno reservado para esta fecha");
         } else {
             Turno nuevoTurno = new Turno();
             nuevoTurno.setOdontologo(odontologo);
             nuevoTurno.setPaciente(paciente);
-            nuevoTurno.setFecha(turnoDtoRequest.getFecha());
+            nuevoTurno.setFecha(fecha);
+            nuevoTurno.setHora(hora);
             return mapper.convertValue(repository.save(nuevoTurno), TurnoDtoResponse.class);
         }
+
     }
 
     @Override
@@ -162,6 +162,20 @@ public class TurnoServiceImpl implements ITurnoService {
             return repository.listarPorOdontologoId(id)
                     .stream()
                     .map(turno -> mapper.convertValue(turno, TurnoDtoResponse.class))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public List<LocalDate> listarFechasDeTurnosPorOdontologoId(Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
+
+        if (id == null) {
+            throw new ExcepcionParametroInvalido("Debes elegir un odontologo");
+        } else if (repository.listarPorOdontologoId(id) == null) {
+            throw new ExcepcionNoHayContenido("No hay turnos agendados");
+        } else {
+            return repository.listarPorOdontologoId(id)
+                    .stream()
+                    .map(turno -> turno.getFecha())
                     .collect(Collectors.toList());
         }
     }

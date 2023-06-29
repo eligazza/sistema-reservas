@@ -6,7 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Entity
@@ -19,8 +20,10 @@ public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Date fecha;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime hora;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "odontologo_id", referencedColumnName = "id", nullable = false)

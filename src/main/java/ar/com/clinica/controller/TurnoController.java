@@ -40,7 +40,7 @@ public class TurnoController {
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDtoResponse> guardar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante, ExcepcionDuplicado {
+    public ResponseEntity<TurnoDtoResponse> guardar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante, ExcepcionDuplicado, ExcepcionNoHayContenido {
         TurnoDtoResponse turnoNuevo = service.guardarTurno(turnoDtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(turnoNuevo);
     }
