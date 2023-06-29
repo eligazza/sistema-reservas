@@ -51,6 +51,7 @@ window.addEventListener('load', function () {
                     '<td class=\"td_paciente\">' + turno.paciente.apellido + '</td>' + //  el paciente.dni en la columna dni
                     '<td class=\"td_odontologo\">' + turno.odontologo.apellido + '</td>' + // el paciente.nombre en la columna nombre
                     '<td class=\"td_fecha\">' + turno.fecha + '</td>' + // el paciente.apellido en la columna apellido
+                    '<td class=\"td_hora\">' + turno.hora + '</td>' + // el paciente.apellido en la columna apellido
                     '<td>' + deleteButton + '</td>'; //como última columna, el botón eliminar
 
                 });

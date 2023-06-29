@@ -74,9 +74,9 @@ public class TurnoServiceImpl implements ITurnoService {
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
         if (turnoDtoRequest.getIdOdontologo() == null) {
-            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
-        } else if (turnoDtoRequest.getIdPaciente() == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un odontólogo");
+        } else if (turnoDtoRequest.getIdPaciente() == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
         } else if (turnoDtoRequest.getFecha() == null || turnoDtoRequest.getHora() == null) {
             throw new ExcepcionParametroFaltante("Debe elegir fecha y horario");
         }

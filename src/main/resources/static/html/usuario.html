@@ -49,8 +49,26 @@
                 
                 <div class="form-group">
                     <label class="control-label" for="hora">Hora:</label>
-                    <input type="time" class="form-control" id="hora" step="1800"
-                           name="hora" required>
+                    <select type="select" class="form-control" id="hora" name="hora" required>
+                        <option value="09:00:00">9:00am</option>
+                        <option value="09:30:00">9:30am</option>
+                        <option value="10:00:00">10:00am</option>
+                        <option value="10:30:00">10:30am</option>
+                        <option value="11:00:00">11:00am</option>
+                        <option value="11:30:00">11:30am</option>
+                        <option value="12:00:00">12:00am</option>
+                        <option value="12:30:00">12:30am</option>
+                        <option value="13:00:00">13:00am</option>
+                        <option value="13:30:00">13:30am</option>
+                        <option value="14:00:00">14:00am</option>
+                        <option value="14:30:00">14:30am</option>
+                        <option value="15:00:00">15:00am</option>
+                        <option value="15:30:00">15:30am</option>
+                        <option value="16:00:00">16:00am</option>
+                        <option value="16:30:00">16:30am</option>
+                        <option value="17:00:00">17:00am</option>
+                        <option value="17:30:00">17:30am</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-dark" id="btn-add-new-turno"> Agendar </button>
@@ -112,9 +130,27 @@
      
                      <div class="form-group">
                         <label class="control-label" for="fecha">Nueva hora:</label>
-                        <input type="time" class="form-control" id="hora_nueva"
-                               placeholder="Ingrese una nueva hora"
-                               name="hora" required>
+                        <select type="time" class="form-control" id="hora_nueva"
+                               placeholder="Ingrese una nueva hora" name="hora" required>
+                            <option value="09:00:00">9:00am</option>
+                            <option value="09:30:00">9:30am</option>
+                            <option value="10:00:00">10:00am</option>
+                            <option value="10:30:00">10:30am</option>
+                            <option value="11:00:00">11:00am</option>
+                            <option value="11:30:00">11:30am</option>
+                            <option value="12:00:00">12:00am</option>
+                            <option value="12:30:00">12:30am</option>
+                            <option value="13:00:00">13:00am</option>
+                            <option value="13:30:00">13:30am</option>
+                            <option value="14:00:00">14:00am</option>
+                            <option value="14:30:00">14:30am</option>
+                            <option value="15:00:00">15:00am</option>
+                            <option value="15:30:00">15:30am</option>
+                            <option value="16:00:00">16:00am</option>
+                            <option value="16:30:00">16:30am</option>
+                            <option value="17:00:00">17:00am</option>
+                            <option value="17:30:00">17:30am</option>
+                        </select>
                     </div>
 
                      <button type="submit" id="btn_modificar" class="btn btn-primary">Modificar</button>

@@ -8,11 +8,16 @@ window.addEventListener('load', function () {
 
         event.preventDefault();
 
+        // Convierto la selección de horario en tipo Time  
+        let horaString = document.querySelector('#hora').value;
+        let horaTime = new Date();
+        horaTime.setTime(Date.parse(horaString));
+
         // Creamos un JSON con los datos del turno, pero incluimos el ID para que haya update y no post
         let carga = {
             id: document.querySelector('#turno_id').value,
             fecha: document.querySelector('#fecha_nueva').value,
-            hora: document.querySelector('#hora_nueva').value,
+            hora: horaTime,
             idOdontologo: document.querySelector('#dropdown_odontologos2').value,
             idPaciente: document.querySelector('#id_paciente')    
         }

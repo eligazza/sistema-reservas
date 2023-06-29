@@ -8,19 +8,18 @@ window.addEventListener('load', function() {
 
         event.preventDefault();
 
-        // Capturo los datos del formulario
-        let id_paciente = document.querySelector('#id_paciente').value;
-        let id_odontologo = document.querySelector('#dropdown_odontologos').value;
-        let fecha = document.querySelector('#fecha').value;
-        let hora = document.querySelector('#hora').value;
+        // Convierto la selección de horario en tipo Time
+        let horaString = document.querySelector('#hora').value;
+        let horaTime = new Date(horaString);
+    
 
         // Preparo el fetch
         let url = '/turnos'
         let carga = {
-            fecha : fecha,
-            hora: hora,
-            idOdontologo : id_odontologo,
-            idPaciente : id_paciente
+            fecha : fecha = document.querySelector('#fecha').value,
+            hora: horaTime,
+            idOdontologo : document.querySelector('#dropdown_odontologos').value,
+            idPaciente : document.querySelector('#id_paciente').value
         }
         let payload = {
             method: 'POST',
