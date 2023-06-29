@@ -17,7 +17,7 @@ window.addEventListener('load', function() {
         let url = '/turnos'
         let carga = {
             fecha : fecha = document.querySelector('#fecha').value,
-            hora: horaTime,
+            hora: horaString,
             idOdontologo : document.querySelector('#dropdown_odontologos').value,
             idPaciente : document.querySelector('#id_paciente').value
         }

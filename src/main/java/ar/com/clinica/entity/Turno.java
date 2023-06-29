@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,7 +23,7 @@ public class Turno {
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
-    @JsonFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime hora;
 
     @ManyToOne(fetch = FetchType.LAZY)
