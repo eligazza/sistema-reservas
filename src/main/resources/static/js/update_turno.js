@@ -8,17 +8,12 @@ window.addEventListener('load', function () {
 
         event.preventDefault();
 
-        // Convierto la selección de horario en tipo Time  
-        let horaString = document.querySelector('#hora').value;
-        let horaTime = new Date();
-        horaTime.setTime(Date.parse(horaString));
-
         // Creamos un JSON con los datos del turno, pero incluimos el ID para que haya update y no post
         let carga = {
             id: document.querySelector('#turno_id').value,
             fecha: document.querySelector('#fecha_nueva').value,
-            hora: horaTime,
-            idOdontologo: document.querySelector('#dropdown_odontologos2').value,
+            hora: document.querySelector('#hora').value,
+            idOdontologo: document.querySelector('#dropdown_odontologos').value,
             idPaciente: document.querySelector('#id_paciente')    
         }
         
@@ -82,8 +77,8 @@ function findBy(id) {
             document.querySelector('#div_turno_updating').style.display = "block";
             // Le "precargo" todos los boxes con la información que viene del getById()
             document.querySelector('#turno_id').value = data.id;
-            document.querySelector('#dropdown_odontologos2').value = data.odontologo.id;
-            document.querySelector('#dropdown_odontologos2').text = data.odontologo.apellido;
+            // document.querySelector('#dropdown_odontologos2').value = data.odontologo.id;
+            // document.querySelector('#dropdown_odontologos2').text = data.odontologo.apellido;
             document.querySelector('#fecha_nueva').value = data.fecha;
             document.querySelector('#hora_nueva').value = data.hora;
 

@@ -9,45 +9,113 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-   <script type="text/javascript" src="../js/get_turnos.js"></script>
+   <!-- <script type="text/javascript" src="../js/get_turnos.js"></script> -->
    <script type="text/javascript" src="../js/update_turno.js"></script>
    <script type="text/javascript" src="../js/delete_turno.js"></script>
+   <script type="text/javascript" src="../js/get_turnos_by_paciente.js"></script>
    <script type="text/javascript" src="../js/get_dropdown_odontologos.js"></script>
 </head>
 
 <body>
 <div class="container">
 
+    <!-- HEADER -->
+
     <header class="text-right">
         <label class="control-label" for="id_paciente">Paciente:</label>
-            <input class="col-1" type="number" id="id_paciente" 
-            placeholder="ID" name="paciente-id" required>
-            <a class="my-1 btn btn-outline-danger" href="../index.html">Salir</a>
+            <input class="col-2" type="number" id="id_paciente" 
+            placeholder="ID" name="paciente-id" required> 
+        <a class="my-1 btn btn-outline-danger" href="../index.html">Salir</a>
     </header>
+    
 
-    <a class="my-2  btn btn-outline-primary" href="./usuario.html">Volver</a>
-    <a class="my-2  btn btn-outline-dark" href="./turnosList.html">Listar todos</a>
+    <!-- TITULOS -->
 
-    <div id="div_turnos_table">
+    <a class="my-2  btn btn-outline-dark" href="./usuario.html">Volver</a>
+    <button id="btn_listar" class="my-2  btn btn-primary" href="./turnosList.html">Click para listar</button>
 
-       <h2>Turnos</h2>
-       <div class="row col-md-6 table-responsive">
-           <table id="turnosTable" class="table table-striped">
-               <thead>
-               <tr>
-                    <th></th>
-                    <th>Paciente</th>
-                    <th>Odontologo</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th></th>
-               </tr>
-               </thead>
-               <tbody id="turnosTableBody"></tbody>
-           </table>
-       </div>
+    <!-- TABLA CON TURNOS -->
 
+    <div id="div_turnos_table" class="col-mx-6" style="display: block;">
+        <table id="turnosTable" class="table table-striped">
+            <thead>
+            <tr>
+                 <th></th>
+                 <th>Paciente</th>
+                 <th>Odontologo</th>
+                 <th>Fecha</th>
+                 <th>Hora</th>
+                 <th></th>
+            </tr>
+            </thead>
+            <tbody id="turnosTableBody"></tbody>
+        </table>
+    
     </div>
+
+    <!-- MENU DE MODIFICACIONES OCULTO-->
+
+    <div class="row">
+        <div class="col-sm-6" style="display: none;
+             background-color:#efefef; padding:10px; border-radius:3px"
+             id="div_turno_updating">
+            
+             <form id="update_turno_form">
+            
+                 <div class="form-group">
+                     <label class="control-label" for="id">ID:</label>
+                     <input type="number" class="form-control" id="turno_id"
+                            placeholder="id"
+                            name="id" readonly>
+                 </div>
+ 
+                 <div class="form-group">
+                     <label class="control-label" for="dropdown_odontologos">Nuevo odontologo:</label>
+                     <select type="select" name="odontologo" class="custom-select" id="dropdown_odontologos" required>
+                         <option value=""> Seleccione el odontólogo</option>
+                     </select>
+ 
+                 <div class="form-group">
+                     <label class="control-label" for="fecha">Nueva fecha:</label>
+                     <input type="date" class="form-control" id="fecha_nueva"
+                            placeholder="Ingrese una nueva fecha"
+                            name="fecha" required>
+                 </div>
+ 
+                 <div class="form-group">
+                    <label class="control-label" for="fecha">Nueva hora:</label>
+                    <select type="time" class="form-control" id="hora_nueva"
+                           placeholder="Ingrese una nueva hora" name="hora" required>
+                        <option value="09:00:00">9:00am</option>
+                        <option value="09:30:00">9:30am</option>
+                        <option value="10:00:00">10:00am</option>
+                        <option value="10:30:00">10:30am</option>
+                        <option value="11:00:00">11:00am</option>
+                        <option value="11:30:00">11:30am</option>
+                        <option value="12:00:00">12:00am</option>
+                        <option value="12:30:00">12:30am</option>
+                        <option value="13:00:00">13:00am</option>
+                        <option value="13:30:00">13:30am</option>
+                        <option value="14:00:00">14:00am</option>
+                        <option value="14:30:00">14:30am</option>
+                        <option value="15:00:00">15:00am</option>
+                        <option value="15:30:00">15:30am</option>
+                        <option value="16:00:00">16:00am</option>
+                        <option value="16:30:00">16:30am</option>
+                        <option value="17:00:00">17:00am</option>
+                        <option value="17:30:00">17:30am</option>
+                    </select>
+                </div>
+
+                 <button type="submit" id="btn_modificar" class="btn btn-primary">Modificar</button>
+                 <button type="button" id="btn_cancelar" class="btn btn-light">Cancelar</button>
+            
+             </form>
+            
+             </div>
+        </div>
+    </div>
+
     <div class="row">
        <div class="col-sm-6" style="display: none;
             background-color:#efefef; padding:10px; border-radius:3px"

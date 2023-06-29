@@ -8,16 +8,11 @@ window.addEventListener('load', function() {
 
         event.preventDefault();
 
-        // Convierto la selección de horario en tipo Time
-        let horaString = document.querySelector('#hora').value;
-        let horaTime = new Date(horaString);
-    
-
         // Preparo el fetch
         let url = '/turnos'
         let carga = {
             fecha : fecha = document.querySelector('#fecha').value,
-            hora: horaString,
+            hora: document.querySelector('#hora').value,
             idOdontologo : document.querySelector('#dropdown_odontologos').value,
             idPaciente : document.querySelector('#id_paciente').value
         }

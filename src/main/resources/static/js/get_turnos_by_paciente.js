@@ -1,18 +1,28 @@
-//El evento load se ejecuta al cargar la página que muestra la lista de pacientes 
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
+    
+    document.querySelector('#btn_listar').addEventListener('click', function (e) {
 
-    let id_paciente = document.querySelector('#id_paciente').value;
-    let btn_turnosList = document.querySelector('#btn_turnosList');
-    let div_turnos_table = document.querySelector('#div_turnos_table');
+        document.querySelector('#turnosTable').innerHTML = `<thead>
+        <tr>
+             <th></th>
+             <th>Paciente</th>
+             <th>Odontologo</th>
+             <th>Fecha</th>
+             <th>Hora</th>
+             <th></th>
+        </tr>
+        </thead>
+        <tbody id="turnosTableBody"></tbody>`;
 
-    btn_turnosList.addEventListener('click', function() {
+        let id_paciente = document.querySelector('#id_paciente').value;
+        let div_turnos_table = document.querySelector('#div_turnos_table');
 
-        let urlTurnosByPaciente = `/turnos?paciente-id=${document.querySelector('#id_paciente').value}`;
+        let urlTurnosByPaciente = `/turnos?paciente-id=${id_paciente}`;
         let payload = {
             method: 'GET'
         }
 
-        fetch(urlTurnosByPaciente,payload)
+        fetch(urlTurnosByPaciente)
 
         .then(response => response.json())
 
@@ -60,6 +70,6 @@ window.addEventListener('load', function () {
         })
 
     })
-
 })
+
  
