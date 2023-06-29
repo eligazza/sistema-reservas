@@ -56,7 +56,7 @@ public class PacienteServiceImpl implements IPacienteService {
     @Override
     public PacienteDtoResponse guardarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExcepcionDuplicado {
 
-        Date hoy = Date.valueOf(LocalDate.now());
+        LocalDate hoy = LocalDate.now();
 
         if (pacienteDtoRequest.getApellido().isBlank() || pacienteDtoRequest.getApellido().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
