@@ -47,7 +47,7 @@ window.addEventListener('load', function() {
         if (data.mensaje) {alert(data.mensaje)}
         else { 
             //console.log(data);
-            let dropdown = document.querySelector('#dropdown_odontologos');
+            let dropdown = document.querySelector('#dropdown_odontologos2');
             
             // iteramos la lista de odontologos y populamos el menu desplegable
             data.forEach(odontologo => {

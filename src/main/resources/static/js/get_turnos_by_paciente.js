@@ -23,7 +23,6 @@ window.addEventListener('load', function () {
 
                 div_turnos_table.style.display = "block";
 
-                console.log(data);
                 data.forEach(turno => {
                 
                     // Añado una fila

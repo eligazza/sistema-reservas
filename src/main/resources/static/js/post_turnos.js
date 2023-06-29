@@ -12,11 +12,13 @@ window.addEventListener('load', function() {
         let id_paciente = document.querySelector('#id_paciente').value;
         let id_odontologo = document.querySelector('#dropdown_odontologos').value;
         let fecha = document.querySelector('#fecha').value;
+        let hora = document.querySelector('#hora').value;
 
         // Preparo el fetch
         let url = '/turnos'
         let carga = {
             fecha : fecha,
+            hora: hora,
             idOdontologo : id_odontologo,
             idPaciente : id_paciente
         }

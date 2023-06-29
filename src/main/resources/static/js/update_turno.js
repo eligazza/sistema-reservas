@@ -8,12 +8,12 @@ window.addEventListener('load', function () {
 
         event.preventDefault();
 
-        let turnoId = document.querySelector('#turno_id').value;
-
-        // Creamos un JSON con los datos del odontologo, pero incluimos el ID para que haya update y no post
+        // Creamos un JSON con los datos del turno, pero incluimos el ID para que haya update y no post
         let carga = {
-            id: turnoId,
-            idOdontologo: document.querySelector('#dropdown_odontologos').value,
+            id: document.querySelector('#turno_id').value,
+            fecha: document.querySelector('#fecha_nueva').value,
+            hora: document.querySelector('#hora_nueva').value,
+            idOdontologo: document.querySelector('#dropdown_odontologos2').value,
             idPaciente: document.querySelector('#id_paciente')    
         }
         
@@ -79,7 +79,8 @@ function findBy(id) {
             document.querySelector('#turno_id').value = data.id;
             document.querySelector('#dropdown_odontologos2').value = data.odontologo.id;
             document.querySelector('#dropdown_odontologos2').text = data.odontologo.apellido;
-            document.querySelector('#fecha').value = data.fecha;
+            document.querySelector('#fecha_nueva').value = data.fecha;
+            document.querySelector('#hora_nueva').value = data.hora;
 
         }
         

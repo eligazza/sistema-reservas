@@ -49,8 +49,7 @@ public class TurnoServiceImpl implements ITurnoService {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
-        }
-        else {
+        } else {
 
             mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
@@ -72,16 +71,19 @@ public class TurnoServiceImpl implements ITurnoService {
     public TurnoDtoResponse guardarTurno(TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroInvalido, ExcepcionParametroFaltante, ExcepcionNoHayContenido, ExcepcionDuplicado {
 
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+        if (turnoDtoRequest.getIdOdontologo() == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
+        } else if (turnoDtoRequest.getIdPaciente() == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un odontólogo");
+        } else if (turnoDtoRequest.getFecha() == null || turnoDtoRequest.getHora() == null) {
+            throw new ExcepcionParametroFaltante ("Debe elegir fecha y horario");
+        }
+
         Long idOdontologo = turnoDtoRequest.getIdOdontologo();
         Long idPaciente = turnoDtoRequest.getIdPaciente();
         LocalDate fecha = turnoDtoRequest.getFecha();
         LocalTime hora = turnoDtoRequest.getHora();
-
-        // Traigo el odontólogo
-        Odontologo odontologo = mapper.convertValue(odontologoService.buscarOdontologoPorId(idOdontologo), Odontologo.class);
-
-        // Traigo el paciente
-        Paciente paciente = mapper.convertValue(pacienteService.buscarPacientePorId(idPaciente), Paciente.class);
 
         if (fecha.isBefore(LocalDate.now())) {
             throw new ExcepcionParametroInvalido("Lamentamos no poder viajar al pasado. Por favor, elige otra fecha");
@@ -90,6 +92,9 @@ public class TurnoServiceImpl implements ITurnoService {
         } else if (listarFechasDeTurnosPorOdontologoId(idOdontologo).contains(fecha)) {
             throw new ExcepcionDuplicado("El odontólogo elegido ya tiene un turno reservado para esta fecha");
         } else {
+            Odontologo odontologo = mapper.convertValue(odontologoService.buscarOdontologoPorId(idOdontologo), Odontologo.class);
+            Paciente paciente = mapper.convertValue(pacienteService.buscarPacientePorId(idPaciente), Paciente.class);
+
             Turno nuevoTurno = new Turno();
             nuevoTurno.setOdontologo(odontologo);
             nuevoTurno.setPaciente(paciente);
@@ -105,20 +110,24 @@ public class TurnoServiceImpl implements ITurnoService {
 
         Long id_Turno = turnoDtoRequest.getId();
 
-        if (repository.findById(id_Turno).isEmpty()) {
+        if (turnoDtoRequest.getIdOdontologo() == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un paciente");
+        } else if (turnoDtoRequest.getIdPaciente() == null) {
+            throw new ExcepcionParametroFaltante("Debe elegir un odontólogo");
+        } else if (turnoDtoRequest.getFecha() == null || turnoDtoRequest.getHora() == null) {
+            throw new ExcepcionParametroFaltante ("Debe elegir fecha y horario");
+        } else if (repository.findById(id_Turno).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id_Turno);
-        }
-        else {
-
-            Turno turnoModificado = repository.findById(id_Turno).get();
+        } else {
 
             OdontologoDtoResponse nuevoOdontologo = odontologoService.buscarOdontologoPorId(turnoDtoRequest.getIdOdontologo());
-            turnoModificado.setOdontologo(mapper.convertValue(nuevoOdontologo, Odontologo.class));
-
             PacienteDtoResponse nuevoPaciente = pacienteService.buscarPacientePorId(turnoDtoRequest.getIdPaciente());
-            turnoModificado.setPaciente(mapper.convertValue(nuevoPaciente, Paciente.class));
 
+            Turno turnoModificado = repository.findById(id_Turno).get();
+            turnoModificado.setOdontologo(mapper.convertValue(nuevoOdontologo, Odontologo.class));
+            turnoModificado.setPaciente(mapper.convertValue(nuevoPaciente, Paciente.class));
             turnoModificado.setFecha(turnoDtoRequest.getFecha());
+            turnoModificado.setHora(turnoDtoRequest.getHora());
 
             Turno turnoActualizado = repository.save(turnoModificado);
             return mapper.convertValue(turnoActualizado, TurnoDtoResponse.class);
