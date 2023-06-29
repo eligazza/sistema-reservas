@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -22,7 +23,7 @@ public class Paciente {
     private String nombre;
     private String apellido;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaDeAlta;
+    private LocalDate fechaDeAlta;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
