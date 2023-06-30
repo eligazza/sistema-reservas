@@ -2,6 +2,16 @@ window.addEventListener('load', function() {
     
     document.querySelector('#btn_listar').addEventListener('click', function (e) {
 
+        // Variables
+        let id_paciente = document.querySelector('#id_paciente').value;
+        let div_turnos_table = document.querySelector('#div_turnos_table');
+        
+        // Tiro un error si no seleccionó al paciente o si es negativo
+        // if(id_paciente == "" || id_paciente < 1) {
+        //     alert("Ingrese el número de paciente para consultar")
+        // }
+
+        // Primero refresco la lista (sino se acumulan con cada click que haga en "listar")
         document.querySelector('#turnosTable').innerHTML = `<thead>
         <tr>
              <th></th>
@@ -14,8 +24,8 @@ window.addEventListener('load', function() {
         </thead>
         <tbody id="turnosTableBody"></tbody>`;
 
-        let id_paciente = document.querySelector('#id_paciente').value;
-        let div_turnos_table = document.querySelector('#div_turnos_table');
+        
+        
 
         let urlTurnosByPaciente = `/turnos?paciente-id=${id_paciente}`;
         let payload = {

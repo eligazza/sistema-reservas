@@ -12,9 +12,9 @@ window.addEventListener('load', function () {
         let carga = {
             id: document.querySelector('#turno_id').value,
             fecha: document.querySelector('#fecha_nueva').value,
-            hora: document.querySelector('#hora').value,
+            hora: document.querySelector('#hora_nueva').value,
             idOdontologo: document.querySelector('#dropdown_odontologos').value,
-            idPaciente: document.querySelector('#id_paciente')    
+            idPaciente: document.querySelector('#id_paciente').value    
         }
         
         // Hacemos fetch

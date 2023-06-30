@@ -41,12 +41,13 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     @Override
-    public PacienteDtoResponse buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public PacienteDtoResponse buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un paciente");
-        }
-        if (repository.findById(id).isEmpty()) {
+        } else if (id < 1) {
+            throw new ExcepcionParametroInvalido("El ID del paciente debe ser mayor a 1");
+        } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
             return mapper.convertValue(repository.findById(id).get(), PacienteDtoResponse.class);
@@ -66,7 +67,7 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
         } else if (repository.findByDni(pacienteDtoRequest.getDni()).isPresent()) {
             throw new ExcepcionDuplicado("Ya se encuentra registrado un paciente con este DNI");
-        } else{
+        } else {
             Paciente paciente = mapper.convertValue(pacienteDtoRequest, Paciente.class);
             paciente.setFechaDeAlta(hoy);
             Paciente pacienteGuardado = repository.save(paciente);

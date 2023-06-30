@@ -10,7 +10,7 @@ public interface IPacienteService {
 
     public List<PacienteDtoResponse> listarPacientes() throws ExcepcionNoHayContenido;
 
-    public PacienteDtoResponse buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
+    public PacienteDtoResponse buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
     public PacienteDtoResponse guardarPaciente(PacienteDtoRequest s) throws ExcepcionParametroFaltante, ExcepcionDuplicado;
 

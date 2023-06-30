@@ -46,7 +46,7 @@ public class TurnoServiceImpl implements ITurnoService {
     }
 
     @Override
-    public TurnoDtoResponse buscarTurnoPorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public TurnoDtoResponse buscarTurnoPorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al turno con el ID: " + id);
@@ -107,7 +107,7 @@ public class TurnoServiceImpl implements ITurnoService {
     }
 
     @Override
-    public TurnoDtoResponse modificarTurno(TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public TurnoDtoResponse modificarTurno(TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         Long id_Turno = turnoDtoRequest.getId();
 
@@ -150,7 +150,7 @@ public class TurnoServiceImpl implements ITurnoService {
 
     public List<TurnoDtoResponse> listarTurnosPorPacienteId(Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
 
-        if (id == null) {
+        if (id == null || id.toString().equals("")) {
             throw new ExcepcionParametroInvalido("Debes elegir un paciente");
         } else if (repository.listarPorPacienteId(id) == null) {
             throw new ExcepcionNoHayContenido("No hay turnos agendados");

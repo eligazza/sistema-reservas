@@ -25,12 +25,15 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDtoResponse> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<TurnoDtoResponse> listarPorId(@PathVariable Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
         return ResponseEntity.status(HttpStatus.OK).body(service.buscarTurnoPorId(id));
     }
 
     @GetMapping(params = "paciente-id")
-    public ResponseEntity<List<TurnoDtoResponse>> listarPorPacienteId(@RequestParam("paciente-id") Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
+    public ResponseEntity<List<TurnoDtoResponse>> listarPorPacienteId(@RequestParam("paciente-id") Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido, ExcepcionRecursoNoEncontrado {
+        if (id == null) {
+            throw new ExcepcionRecursoNoEncontrado("Elija un paciente para listar");
+        }
         return ResponseEntity.status(HttpStatus.OK).body(service.listarTurnosPorPacienteId(id));
     }
 
@@ -46,7 +49,7 @@ public class TurnoController {
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDtoResponse> modificar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<TurnoDtoResponse> modificar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
         return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoRequest));
     }
 
