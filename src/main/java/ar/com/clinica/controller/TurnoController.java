@@ -30,10 +30,7 @@ public class TurnoController {
     }
 
     @GetMapping(params = "paciente-id")
-    public ResponseEntity<List<TurnoDtoResponse>> listarPorPacienteId(@RequestParam("paciente-id") Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido, ExcepcionRecursoNoEncontrado {
-        if (id == null) {
-            throw new ExcepcionRecursoNoEncontrado("Elija un paciente para listar");
-        }
+    public ResponseEntity<List<TurnoDtoResponse>> listarPorPacienteId(@RequestParam("paciente-id") Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarTurnosPorPacienteId(id));
     }
 
