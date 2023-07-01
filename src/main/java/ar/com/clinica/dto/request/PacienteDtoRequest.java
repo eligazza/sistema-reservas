@@ -14,7 +14,7 @@ import java.sql.Date;
 public class PacienteDtoRequest {
 
     private Long id;
-    private Integer dni;
+    private String dni;
     private String nombre;
     private String apellido;
     @JsonFormat(pattern = "yyyy-MM-dd")

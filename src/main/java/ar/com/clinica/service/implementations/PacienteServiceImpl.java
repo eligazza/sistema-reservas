@@ -65,6 +65,10 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
         } else if (pacienteDtoRequest.getDni() == null) {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
+        } else if (pacienteDtoRequest.getDni().matches("[0-9]+")) {
+            throw new ExcepcionDuplicado("Ya se encuentra registrado un paciente con este DNI");
+        } else if (pacienteDtoRequest.getDni().length() < 8) {
+            throw new ExcepcionDuplicado("Ingrese un DNI válido");
         } else if (repository.findByDni(pacienteDtoRequest.getDni()).isPresent()) {
             throw new ExcepcionDuplicado("Ya se encuentra registrado un paciente con este DNI");
         } else {

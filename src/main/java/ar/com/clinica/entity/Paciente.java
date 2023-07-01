@@ -19,7 +19,7 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer dni;
+    private String dni;
     private String nombre;
     private String apellido;
     @JsonFormat(pattern = "yyyy-MM-dd")
