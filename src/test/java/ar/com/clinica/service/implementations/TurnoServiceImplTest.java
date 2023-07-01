@@ -75,37 +75,3 @@ class TurnoServiceImplTest {
 
 
 }
-//
-//
-
-/*
-* @SpringBootTest
-class OdontologoServiceTest {
-
-  @Test
-  void buscar_odontologo_existente_por_id() {
-    //ARRANGE
-    Odontologo odontologo = new Odontologo(1, 1, "Pablo", "Vidal", "2.5");
-    when(odontologoRepository.findById(any())).thenReturn(Optional.of(odontologo));
-
-    //ACT
-    OdontologoDto odontologoDto = odontologoService.buscarPorID(1);
-    //ASSERT
-    Assertions.assertEquals("Pablo", odontologoDto.getNombre());
-
-  }
-
-  @Test
-  void buscar_odontologo_no_existente_por_id() {
-    //ARRANGE
-    Odontologo odontologo = new Odontologo(1, 1, "Pablo", "Vidal", "2.5");
-    when(odontologoRepository.findById(any())).thenReturn(Optional.empty());
-
-    //ACT
-    OdontologoDto odontologoDto = odontologoService.buscarPorID(1);
-    //ASSERT
-    Assertions.assertEquals("Pablo", odontologoDto.getNombre());
-
-  }
-
-}*/

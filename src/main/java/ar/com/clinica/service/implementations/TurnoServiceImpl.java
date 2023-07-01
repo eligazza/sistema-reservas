@@ -204,3 +204,8 @@ public class TurnoServiceImpl implements ITurnoService {
 
 
 }
+
+
+// Generar la lista de turnos del odontologo (turnos de Marcos)
+// Recorrer ese listado y traer solo los día en cuestión (turnos de Marcos para el martes)
+// Fijate si el martes tiene un turno a las 14 (Recorrer el listado y preguntar si coinciden las horas)
