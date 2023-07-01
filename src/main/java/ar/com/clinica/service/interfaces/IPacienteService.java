@@ -12,9 +12,9 @@ public interface IPacienteService {
 
     public PacienteDtoResponse buscarPacientePorId(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
-    public PacienteDtoResponse guardarPaciente(PacienteDtoRequest s) throws ExcepcionParametroFaltante, ExcepcionDuplicado;
+    public PacienteDtoResponse guardarPaciente(PacienteDtoRequest s) throws ExcepcionParametroFaltante, ExcepcionDuplicado, ExcepcionParametroInvalido;
 
-    public PacienteDtoResponse modificarPaciente(PacienteDtoRequest s) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante;
+    public PacienteDtoResponse modificarPaciente(PacienteDtoRequest s) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 
     public PacienteDtoResponse eliminarPaciente(Long id) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido;
 

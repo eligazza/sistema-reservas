@@ -38,13 +38,13 @@ public class PacienteController {
     */
 
     @PostMapping
-    public ResponseEntity<PacienteDtoResponse> guardar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExcepcionDuplicado {
+    public ResponseEntity<PacienteDtoResponse> guardar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExcepcionDuplicado, ExcepcionParametroInvalido {
         PacienteDtoResponse pacienteNuevo = service.guardarPaciente(pacienteDtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteNuevo);
     }
 
     @PutMapping
-    public ResponseEntity<PacienteDtoResponse> modificar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante {
+    public ResponseEntity<PacienteDtoResponse> modificar(@RequestBody PacienteDtoRequest pacienteDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionDuplicado, ExcepcionParametroInvalido {
         return ResponseEntity.status(HttpStatus.OK).body(service.modificarPaciente(pacienteDtoRequest));
     }
 
