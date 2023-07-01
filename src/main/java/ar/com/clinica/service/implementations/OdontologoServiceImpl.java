@@ -54,15 +54,9 @@ public class OdontologoServiceImpl implements IOdontologoService {
     @Override
     public OdontologoDtoResponse guardarOdontologo(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExcepcionDuplicado {
 
-        if (odontologoDtoRequest.getApellido().isBlank() || odontologoDtoRequest.getApellido().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (odontologoDtoRequest.getNombre().isBlank() || odontologoDtoRequest.getNombre().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (odontologoDtoRequest.getMatricula() == null) {
-            throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
-        } else if (odontologoDtoRequest.getMatricula() < 1) {
-            throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
-        } else if (repository.findByMatricula(odontologoDtoRequest.getMatricula()).isPresent()) {
+        validarRequest(odontologoDtoRequest);
+
+        if (repository.findByMatricula(odontologoDtoRequest.getMatricula()).isPresent()) {
             throw new ExcepcionDuplicado("Ya existe un odontólogo con esta matrícula");
         } else {
             Odontologo odontologoGuardado = repository.save(mapper.convertValue(odontologoDtoRequest, Odontologo.class));
@@ -76,19 +70,12 @@ public class OdontologoServiceImpl implements IOdontologoService {
 
         Long id = odontologoDtoRequest.getId();
 
-        // todo: Checkear que la matricula sea solo números.
+        validarRequest(odontologoDtoRequest);
+
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debes elegir un odontólogo");
         } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con ID: " + id);
-        } else if (odontologoDtoRequest.getApellido().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (odontologoDtoRequest.getNombre().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (odontologoDtoRequest.getMatricula() == null) {
-            throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
-        } else if (odontologoDtoRequest.getMatricula() <= 0) {
-            throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
         } else {
             Odontologo odontologoModificado = repository.save(mapper.convertValue(odontologoDtoRequest, Odontologo.class));
             return mapper.convertValue(odontologoModificado, OdontologoDtoResponse.class);
@@ -113,4 +100,17 @@ public class OdontologoServiceImpl implements IOdontologoService {
         }
     }
 
+    private void validarRequest(OdontologoDtoRequest odontologoDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido {
+        if (odontologoDtoRequest.getApellido().isBlank() || odontologoDtoRequest.getApellido().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
+        } else if (odontologoDtoRequest.getNombre().isBlank() || odontologoDtoRequest.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
+        } else if (odontologoDtoRequest.getNombre().length() < 3 || odontologoDtoRequest.getApellido().length() < 3) {
+            throw new ExcepcionParametroInvalido("Tanto nombre como apellido deben tener 3 o más caracteres");
+        } else if (odontologoDtoRequest.getMatricula() == null) {
+            throw new ExcepcionParametroFaltante("Debe especificar la matrícula");
+        } else if (odontologoDtoRequest.getMatricula() < 1) {
+            throw new ExcepcionParametroInvalido("La matrícula debe ser numérica y mayor a 0");
+        }
+    }
 }
