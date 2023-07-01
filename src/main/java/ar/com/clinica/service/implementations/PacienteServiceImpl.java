@@ -57,23 +57,13 @@ public class PacienteServiceImpl implements IPacienteService {
     @Override
     public PacienteDtoResponse guardarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExcepcionDuplicado, ExcepcionParametroInvalido {
 
-        LocalDate hoy = LocalDate.now();
+        validarRequest(pacienteDtoRequest);
 
-        if (pacienteDtoRequest.getApellido().isBlank() || pacienteDtoRequest.getApellido().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (pacienteDtoRequest.getNombre().isBlank() || pacienteDtoRequest.getNombre().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (pacienteDtoRequest.getDni() == null) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
-        } else if (pacienteDtoRequest.getDni().matches("[0-9]+")) {
-            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 números");
-        } else if (pacienteDtoRequest.getDni().length() < 8) {
-            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 número");
-        } else if (repository.findByDni(pacienteDtoRequest.getDni()).isPresent()) {
+        if (repository.findByDni(pacienteDtoRequest.getDni()).isPresent()) {
             throw new ExcepcionDuplicado("Ya se encuentra registrado un paciente con este DNI");
         } else {
             Paciente paciente = mapper.convertValue(pacienteDtoRequest, Paciente.class);
-            paciente.setFechaDeAlta(hoy);
+            paciente.setFechaDeAlta(LocalDate.now());
             Paciente pacienteGuardado = repository.save(paciente);
             return mapper.convertValue(pacienteGuardado, PacienteDtoResponse.class);
         }
@@ -83,20 +73,13 @@ public class PacienteServiceImpl implements IPacienteService {
     public PacienteDtoResponse modificarPaciente(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         Long id = pacienteDtoRequest.getId();
+
+        validarRequest(pacienteDtoRequest);
+
         if (id == null) {
             throw new ExcepcionParametroFaltante("Debe elegir un paciente");
         } else if (repository.findById(id).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
-        } else if (pacienteDtoRequest.getApellido().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
-        } else if (pacienteDtoRequest.getNombre().isEmpty()) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (pacienteDtoRequest.getDni() == null) {
-            throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
-        } else if (pacienteDtoRequest.getDni().matches("[0-9]+")) {
-            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 números");
-        } else if (pacienteDtoRequest.getDni().length() < 8) {
-            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 número");
         } else {
             Paciente pacienteModificado = repository.save(mapper.convertValue(pacienteDtoRequest, Paciente.class));
             return mapper.convertValue(pacienteModificado, PacienteDtoResponse.class);
@@ -117,6 +100,20 @@ public class PacienteServiceImpl implements IPacienteService {
             PacienteDtoResponse pacienteEliminadoDto = mapper.convertValue(pacienteEliminado, PacienteDtoResponse.class);
             repository.deleteById(id);
             return pacienteEliminadoDto;
+        }
+    }
+
+    private void validarRequest(PacienteDtoRequest pacienteDtoRequest) throws ExcepcionParametroFaltante, ExcepcionParametroInvalido {
+        if (pacienteDtoRequest.getApellido().isBlank() || pacienteDtoRequest.getApellido().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
+        } else if (pacienteDtoRequest.getNombre().isBlank() || pacienteDtoRequest.getNombre().isEmpty()) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
+        } else if (pacienteDtoRequest.getDni() == null) {
+            throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
+        } else if (pacienteDtoRequest.getDni().matches("[0-9]+")) {
+            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 números");
+        } else if (pacienteDtoRequest.getDni().length() < 8) {
+            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 número");
         }
     }
 
