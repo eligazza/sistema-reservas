@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class PacienteDtoResponse {
     private String nombre;
     private String apellido;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaDeAlta;
+    private LocalDate fechaDeAlta;
     private DomicilioDtoResponse domicilio;
 
 }

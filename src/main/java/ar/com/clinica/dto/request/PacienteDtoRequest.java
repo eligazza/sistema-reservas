@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class PacienteDtoRequest {
     private String nombre;
     private String apellido;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date fechaDeAlta;
+    private LocalDate fechaDeAlta;
     private DomicilioDtoResponse domicilio;
 
 }
