@@ -23,8 +23,11 @@ public class OdontologoServiceImpl implements IOdontologoService {
     @Autowired
     ITurnoRepository turnoRepository;
     @Autowired
-    ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
+    public OdontologoServiceImpl() {
+        mapper = new ObjectMapper();
+    }
 
     @Override
     public List<OdontologoDtoResponse> listarOdontologos() throws ExcepcionNoHayContenido {
