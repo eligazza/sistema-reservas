@@ -8,6 +8,7 @@ import ar.com.clinica.repository.IPacienteRepository;
 import ar.com.clinica.repository.ITurnoRepository;
 import ar.com.clinica.service.interfaces.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,12 @@ public class PacienteServiceImpl implements IPacienteService {
     @Autowired
     ITurnoRepository turnoRepository;
     @Autowired
-    ObjectMapper mapper;
+    private final ObjectMapper mapper;
+
+    public PacienteServiceImpl() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+    }
 
 
     @Override
