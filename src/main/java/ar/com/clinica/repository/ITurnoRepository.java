@@ -17,4 +17,6 @@ public interface ITurnoRepository extends JpaRepository<Turno, Long> {
     @Query("SELECT t FROM Turno t WHERE t.odontologo.id = ?1 ORDER BY t.fecha")
     List<Turno> listarPorOdontologoId(Long id);
 
+
+
 }

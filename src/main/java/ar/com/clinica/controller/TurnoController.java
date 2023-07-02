@@ -46,7 +46,7 @@ public class TurnoController {
     }
 
     @PutMapping
-    public ResponseEntity<TurnoDtoResponse> modificar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
+    public ResponseEntity<TurnoDtoResponse> modificar(@RequestBody TurnoDtoRequest turnoDtoRequest) throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido, ExcepcionDuplicado {
         return ResponseEntity.status(HttpStatus.OK).body(service.modificarTurno(turnoDtoRequest));
     }
 
