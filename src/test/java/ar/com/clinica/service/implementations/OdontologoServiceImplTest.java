@@ -39,7 +39,7 @@ class OdontologoServiceImplTest {
 
 
     @Test
-    public void test_lista_vacia() throws ExcepcionNoHayContenido {
+    public void test_lista_vacia() {
 
         //Arrange
         when(repository.findAll()).thenReturn(Collections.emptyList());
@@ -50,7 +50,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_lista_ok() throws ExcepcionNoHayContenido {
+    public void test_lista_ok() throws ExcepcionNoHayContenido {
 
         //Arrange
         List<Odontologo> odontologos = new ArrayList<>();
@@ -67,7 +67,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    public void test_buscar_id_null() throws ExcepcionParametroFaltante {
+    public void test_buscar_id_null() {
         // Act & Assert
         Assertions.assertThrows(
                 ExcepcionParametroFaltante.class,
@@ -76,7 +76,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    public void test_buscar_not_found() throws ExcepcionRecursoNoEncontrado {
+    public void test_buscar_not_found() {
 
         //Arrange
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
@@ -103,7 +103,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_guardar_apellido_vacio() throws ExcepcionParametroFaltante {
+    public void test_guardar_apellido_vacio() throws ExcepcionParametroFaltante {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -119,7 +119,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_guardar_nombre_vacio() {
+    public void test_guardar_nombre_vacio() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -135,7 +135,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_guardar_nombre_corto() throws ExcepcionParametroInvalido {
+    public void test_guardar_nombre_corto() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -151,7 +151,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_guardar_matricula_vacia() throws ExcepcionParametroFaltante {
+    public void test_guardar_matricula_vacia() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -166,7 +166,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_guardar_matricula_negativa() throws ExcepcionParametroFaltante {
+    public void test_guardar_matricula_negativa() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -181,9 +181,8 @@ class OdontologoServiceImplTest {
 
     }
 
-
     @Test
-    void test_guardar_odontologo_ok() throws ExcepcionDuplicado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
+    public void test_guardar_odontologo_ok() throws ExcepcionDuplicado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -202,7 +201,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_guardar_duplicado() throws ExcepcionDuplicado {
+    public void test_guardar_duplicado() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -220,7 +219,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_modificar_id_null() {
+    public void test_modificar_id_null() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -236,7 +235,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_modificar_id_not_found() {
+    public void test_modificar_id_not_found() {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -255,7 +254,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_modificar_odontologo_ok() throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
+    public void test_modificar_odontologo_ok() throws ExcepcionRecursoNoEncontrado, ExcepcionParametroFaltante, ExcepcionParametroInvalido {
 
         //Arrange
         OdontologoDtoRequest odontologoDtoRequest = new OdontologoDtoRequest();
@@ -275,7 +274,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_eliminar_id_null() {
+    public void test_eliminar_id_null() {
 
         // Act & Assert
         Assertions.assertThrows(
@@ -286,7 +285,7 @@ class OdontologoServiceImplTest {
     }
 
     @Test
-    void test_eliminar_not_found() {
+    public void test_eliminar_not_found() {
 
         // Arrange
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
