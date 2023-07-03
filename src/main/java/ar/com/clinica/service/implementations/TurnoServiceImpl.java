@@ -94,10 +94,10 @@ public class TurnoServiceImpl implements ITurnoService {
 
         Turno guardado = repository.save(nuevoTurno);
         LOG.info("Turno AGENDADO. " +
-                "ID [" + guardado.getId() +
-                "Fecha [" + guardado.getFecha() + " " + guardado.getHora() + "]hs " +
-                "Paciente [" + guardado.getPaciente() + "] " +
-                "Odontólogo [" + guardado.getOdontologo() + "]");
+                "[ID] " + guardado.getId() +
+                "[Fecha] " + guardado.getFecha() + " " + guardado.getHora() +"hs, " +
+                "Paciente [DNI] " + guardado.getPaciente().getDni() + ", " +
+                "Odontólogo [Mat]" + guardado.getOdontologo().getMatricula());
         return mapper.convertValue(guardado, TurnoDtoResponse.class);
 
     }
@@ -126,10 +126,10 @@ public class TurnoServiceImpl implements ITurnoService {
 
             Turno turnoActualizado = repository.save(turnoModificado);
             LOG.info("Turno ACTUALIZADO. " +
-                    "ID [" + turnoActualizado.getId() +
-                    "Fecha [" + turnoActualizado.getFecha() + " " + turnoActualizado.getHora() + "]hs " +
-                    "Paciente [" + turnoActualizado.getPaciente() + "] " +
-                    "Odontólogo [" + turnoActualizado.getOdontologo() + "]");
+                    "[ID] " + turnoActualizado.getId() +
+                    "[Fecha] " + turnoActualizado.getFecha() + " " + turnoActualizado.getHora() +"hs, " +
+                    "Paciente [DNI] " + turnoActualizado.getPaciente().getDni() + ", " +
+                    "Odontólogo [Mat]" + turnoActualizado.getOdontologo().getMatricula());
             return mapper.convertValue(turnoActualizado, TurnoDtoResponse.class);
         }
     }
@@ -143,10 +143,10 @@ public class TurnoServiceImpl implements ITurnoService {
             TurnoDtoResponse turnoEliminado = mapper.convertValue(repository.findById(id).get(), TurnoDtoResponse.class);
             repository.deleteById(id);
             LOG.info("Turno ELIMINADO. " +
-                    "ID [" + turnoEliminado.getId() +
-                    "Fecha [" + turnoEliminado.getFecha() + " " + turnoEliminado.getHora() + "]hs " +
-                    "Paciente [" + turnoEliminado.getPaciente() + "] " +
-                    "Odontólogo [" + turnoEliminado.getOdontologo() + "]");
+                    "[ID] " + turnoEliminado.getId() +
+                    "[Fecha] " + turnoEliminado.getFecha() + " " + turnoEliminado.getHora() +"hs, " +
+                    "Paciente [DNI] " + turnoEliminado.getPaciente().getDni() + ", " +
+                    "Odontólogo [Mat]" + turnoEliminado.getOdontologo().getMatricula());
             return turnoEliminado;
         }
     }

@@ -67,9 +67,9 @@ public class OdontologoServiceImpl implements IOdontologoService {
             throw new ExcepcionDuplicado("Ya existe un odontólogo con esta matrícula");
         } else {
             Odontologo odontologoGuardado = repository.save(mapper.convertValue(odontologoDtoRequest, Odontologo.class));
-            LOG.info("Se ha guardado un nuevo odontólogo: ID [" + odontologoGuardado.getId() +
-                    "], Matrícula: [" + odontologoGuardado.getMatricula() +
-                    "], Apellido: [" + odontologoGuardado.getApellido() + "]");
+            LOG.info("Se ha guardado un nuevo odontólogo: [ID] " + odontologoGuardado.getId() +
+                    ", [Matrícula] " + odontologoGuardado.getMatricula() +
+                    ", Apellido] " + odontologoGuardado.getApellido());
             return mapper.convertValue(odontologoGuardado, OdontologoDtoResponse.class);
         }
 
@@ -88,9 +88,9 @@ public class OdontologoServiceImpl implements IOdontologoService {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al odontólogo con ID: " + id);
         } else {
             Odontologo odontologoModificado = repository.save(mapper.convertValue(odontologoDtoRequest, Odontologo.class));
-            LOG.info("Se ha modificado al odontólogo: ID [" + odontologoModificado.getId() +
-                    "], Matrícula: [" + odontologoModificado.getMatricula() +
-                    "], Apellido: [" + odontologoModificado.getApellido() + "]");
+            LOG.info("Se ha modificado al odontólogo: [ID] " + odontologoModificado.getId() +
+                    ", [Matrícula] " + odontologoModificado.getMatricula() +
+                    ", [Apellido] " + odontologoModificado.getApellido());
             return mapper.convertValue(odontologoModificado, OdontologoDtoResponse.class);
         }
     }
@@ -108,9 +108,9 @@ public class OdontologoServiceImpl implements IOdontologoService {
             Odontologo odontologoEliminado = repository.findById(id).get();
             OdontologoDtoResponse odontologoEliminadoDto = mapper.convertValue(
                     odontologoEliminado, OdontologoDtoResponse.class);
-            LOG.info("Se ha eliminado al odontólogo: ID [" + odontologoEliminado.getId() +
-                    "], Matrícula: [" + odontologoEliminado.getMatricula() +
-                    "], Apellido: [" + odontologoEliminado.getApellido() + "]");
+            LOG.info("Se ha eliminado al odontólogo: [ID] " + odontologoEliminado.getId() +
+                    ", [Matrícula] " + odontologoEliminado.getMatricula() +
+                    ", [Apellido] " + odontologoEliminado.getApellido());
             repository.deleteById(id);
             return odontologoEliminadoDto;
         }

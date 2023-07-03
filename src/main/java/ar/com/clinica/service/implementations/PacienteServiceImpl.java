@@ -75,9 +75,9 @@ public class PacienteServiceImpl implements IPacienteService {
             Paciente paciente = mapper.convertValue(pacienteDtoRequest, Paciente.class);
             paciente.setFechaDeAlta(LocalDate.now());
             Paciente pacienteGuardado = repository.save(paciente);
-            LOG.info("Se ha guardado un nuevo paciente: ID [" + pacienteGuardado.getId() +
-                    "], DNI: [" + pacienteGuardado.getDni() +
-                    "], Apellido: [" + pacienteGuardado.getApellido() + "]");
+            LOG.info("Se ha guardado un nuevo paciente: [ID] " + pacienteGuardado.getId() +
+                    ", [DNI] " + pacienteGuardado.getDni() +
+                    ", [Apellido] " + pacienteGuardado.getApellido());
             return mapper.convertValue(pacienteGuardado, PacienteDtoResponse.class);
         }
     }
@@ -95,9 +95,9 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
             Paciente pacienteModificado = repository.save(mapper.convertValue(pacienteDtoRequest, Paciente.class));
-            LOG.info("Se ha modificado al paciente: ID [" + pacienteModificado.getId() +
-                    "], DNI: [" + pacienteModificado.getDni() +
-                    "], Apellido: [" + pacienteModificado.getApellido() + "]");
+            LOG.info("Se ha modificado al paciente: [ID] " + pacienteModificado.getId() +
+                    ", [DNI] " + pacienteModificado.getDni() +
+                    ", [Apellido] " + pacienteModificado.getApellido());
             return mapper.convertValue(pacienteModificado, PacienteDtoResponse.class);
         }
     }
@@ -115,9 +115,9 @@ public class PacienteServiceImpl implements IPacienteService {
             Paciente pacienteEliminado = repository.findById(id).get();
             PacienteDtoResponse pacienteEliminadoDto = mapper.convertValue(pacienteEliminado, PacienteDtoResponse.class);
             repository.deleteById(id);
-            LOG.info("Se ha eliminado al paciente: ID [" + pacienteEliminado.getId() +
-                    "], DNI: [" + pacienteEliminado.getDni() +
-                    "], Apellido: [" + pacienteEliminado.getApellido() + "]");
+            LOG.info("Se ha eliminado al paciente: [ID] " + pacienteEliminado.getId() +
+                    ", [DNI] " + pacienteEliminado.getDni() +
+                    ", [Apellido] " + pacienteEliminado.getApellido());
             return pacienteEliminadoDto;
         }
     }
