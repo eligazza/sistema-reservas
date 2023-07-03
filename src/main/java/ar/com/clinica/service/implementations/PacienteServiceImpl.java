@@ -119,7 +119,7 @@ public class PacienteServiceImpl implements IPacienteService {
         } else if (!pacienteDtoRequest.getDni().matches("[0-9]+")) {
             throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 números");
         } else if (pacienteDtoRequest.getDni().length() != 8) {
-            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 número");
+            throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 números");
         }
     }
 
