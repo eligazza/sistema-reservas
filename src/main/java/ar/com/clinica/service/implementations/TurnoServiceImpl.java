@@ -9,6 +9,8 @@ import ar.com.clinica.repository.ITurnoRepository;
 import ar.com.clinica.service.interfaces.ITurnoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class TurnoServiceImpl implements ITurnoService {
+
+    private static final Logger LOG = LogManager.getLogger(TurnoServiceImpl.class);
 
     @Autowired
     ITurnoRepository repository;
@@ -89,7 +93,11 @@ public class TurnoServiceImpl implements ITurnoService {
         nuevoTurno.setHora(hora);
 
         Turno guardado = repository.save(nuevoTurno);
-
+        LOG.info("Turno AGENDADO. " +
+                "ID [" + guardado.getId() +
+                "Fecha [" + guardado.getFecha() + " " + guardado.getHora() + "]hs " +
+                "Paciente [" + guardado.getPaciente() + "] " +
+                "Odontólogo [" + guardado.getOdontologo() + "]");
         return mapper.convertValue(guardado, TurnoDtoResponse.class);
 
     }
@@ -105,7 +113,7 @@ public class TurnoServiceImpl implements ITurnoService {
         OdontologoDtoResponse odontologo = odontologoService.buscarOdontologoPorId(turnoDtoRequest.getIdOdontologo());
         PacienteDtoResponse paciente = pacienteService.buscarPacientePorId(turnoDtoRequest.getIdPaciente());
         LocalDate fecha = turnoDtoRequest.getFecha();
-        LocalTime hora= turnoDtoRequest.getHora();
+        LocalTime hora = turnoDtoRequest.getHora();
 
         if (repository.findById(id_Turno).isEmpty()) {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id_Turno);
@@ -117,6 +125,11 @@ public class TurnoServiceImpl implements ITurnoService {
             turnoModificado.setPaciente(mapper.convertValue(paciente, Paciente.class));
 
             Turno turnoActualizado = repository.save(turnoModificado);
+            LOG.info("Turno ACTUALIZADO. " +
+                    "ID [" + turnoActualizado.getId() +
+                    "Fecha [" + turnoActualizado.getFecha() + " " + turnoActualizado.getHora() + "]hs " +
+                    "Paciente [" + turnoActualizado.getPaciente() + "] " +
+                    "Odontólogo [" + turnoActualizado.getOdontologo() + "]");
             return mapper.convertValue(turnoActualizado, TurnoDtoResponse.class);
         }
     }
@@ -129,9 +142,13 @@ public class TurnoServiceImpl implements ITurnoService {
         } else {
             TurnoDtoResponse turnoEliminado = mapper.convertValue(repository.findById(id).get(), TurnoDtoResponse.class);
             repository.deleteById(id);
+            LOG.info("Turno ELIMINADO. " +
+                    "ID [" + turnoEliminado.getId() +
+                    "Fecha [" + turnoEliminado.getFecha() + " " + turnoEliminado.getHora() + "]hs " +
+                    "Paciente [" + turnoEliminado.getPaciente() + "] " +
+                    "Odontólogo [" + turnoEliminado.getOdontologo() + "]");
             return turnoEliminado;
         }
-
     }
 
     public List<TurnoDtoResponse> listarTurnosPorPacienteId(Long id) throws ExcepcionNoHayContenido, ExcepcionParametroInvalido {
