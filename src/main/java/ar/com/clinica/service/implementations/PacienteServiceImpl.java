@@ -114,11 +114,11 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionParametroFaltante("Debe completar el campo apellido");
         } else if (pacienteDtoRequest.getNombre().isBlank() || pacienteDtoRequest.getNombre().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo nombre");
-        } else if (pacienteDtoRequest.getDni() == null) {
+        } else if (pacienteDtoRequest.getDni().isBlank() || pacienteDtoRequest.getDni().isEmpty()) {
             throw new ExcepcionParametroFaltante("Debe completar el campo DNI");
         } else if (!pacienteDtoRequest.getDni().matches("[0-9]+")) {
             throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 números");
-        } else if (pacienteDtoRequest.getDni().length() < 7) {
+        } else if (pacienteDtoRequest.getDni().length() != 8) {
             throw new ExcepcionParametroInvalido("Ingrese un DNI válido de 8 número");
         }
     }
