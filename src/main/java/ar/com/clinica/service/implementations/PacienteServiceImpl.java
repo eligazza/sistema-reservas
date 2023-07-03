@@ -9,6 +9,8 @@ import ar.com.clinica.repository.ITurnoRepository;
 import ar.com.clinica.service.interfaces.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class PacienteServiceImpl implements IPacienteService {
+
+    private static final Logger LOG = LogManager.getLogger(PacienteServiceImpl.class);
 
     @Autowired
     IPacienteRepository repository;
@@ -71,6 +75,9 @@ public class PacienteServiceImpl implements IPacienteService {
             Paciente paciente = mapper.convertValue(pacienteDtoRequest, Paciente.class);
             paciente.setFechaDeAlta(LocalDate.now());
             Paciente pacienteGuardado = repository.save(paciente);
+            LOG.info("Se ha guardado un nuevo paciente: ID [" + pacienteGuardado.getId() +
+                    "], DNI: [" + pacienteGuardado.getDni() +
+                    "], Apellido: [" + pacienteGuardado.getApellido() + "]");
             return mapper.convertValue(pacienteGuardado, PacienteDtoResponse.class);
         }
     }
@@ -88,6 +95,9 @@ public class PacienteServiceImpl implements IPacienteService {
             throw new ExcepcionRecursoNoEncontrado("No se encontró al paciente con el ID: " + id);
         } else {
             Paciente pacienteModificado = repository.save(mapper.convertValue(pacienteDtoRequest, Paciente.class));
+            LOG.info("Se ha modificado al paciente: ID [" + pacienteModificado.getId() +
+                    "], DNI: [" + pacienteModificado.getDni() +
+                    "], Apellido: [" + pacienteModificado.getApellido() + "]");
             return mapper.convertValue(pacienteModificado, PacienteDtoResponse.class);
         }
     }
@@ -105,6 +115,9 @@ public class PacienteServiceImpl implements IPacienteService {
             Paciente pacienteEliminado = repository.findById(id).get();
             PacienteDtoResponse pacienteEliminadoDto = mapper.convertValue(pacienteEliminado, PacienteDtoResponse.class);
             repository.deleteById(id);
+            LOG.info("Se ha eliminado al paciente: ID [" + pacienteEliminado.getId() +
+                    "], DNI: [" + pacienteEliminado.getDni() +
+                    "], Apellido: [" + pacienteEliminado.getApellido() + "]");
             return pacienteEliminadoDto;
         }
     }
